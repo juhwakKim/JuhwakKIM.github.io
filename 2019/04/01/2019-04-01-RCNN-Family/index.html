@@ -68,8 +68,7 @@
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/R-CNN_F_(3).png">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/R-CNN_F_(4).png">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/R-CNN_F_(5).png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/R-CNN_F_(6).gif">
-<meta property="og:image" content="https://juhwakkim.github.io/2019/04/01/2019-04-01-RCNN-Family/!--%EF%BF%BC0--">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/R-CNN_F.gif">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/R-CNN_F_(6).png">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/R-CNN_F_(7).png">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/R-CNN_F_(8).png">
@@ -383,8 +382,8 @@
 <blockquote>
 <ol>
 <li>ImageNet classification 데이터로 ConvNet을 pre-train 시켜 모델 $M$을 얻습니다.</li>
-<li>$M$을 기반으로, object detection 데이터로 ConvNet을 fine-tune 시킨 모델 $M^’$을 얻습니다.</li>
-<li>object detection 데이터 각각의 이미지에 존재하는 모든 region proposal들에 대해 모델 $M^’$으로 feature vector $F$를 추출하여 저장합니다.</li>
+<li>$M$을 기반으로, object detection 데이터로 ConvNet을 fine-tune 시킨 모델 $M^&#39;$을 얻습니다.</li>
+<li>object detection 데이터 각각의 이미지에 존재하는 모든 region proposal들에 대해 모델 $M^&#39;$으로 feature vector $F$를 추출하여 저장합니다.</li>
 <li>a. 추출된 $F$를 기반으로 classifier (SVM)을 학습합니다.<br>b. 추출된 $F$를 기반으로 linear bounding-box regressor를 학습합니다.</li>
 </ol>
 </blockquote>
@@ -406,8 +405,7 @@
 <p>이러한 단점을 보완하기 위한 Spatial Pyramid Pooling 은 이미지를 여러개의 일정 개수의 지역으로 나눈 뒤, 각 지역에 BoW를 적용하여 지역적인 정보를 어느정도 유지할 수 있게 됩니다.</p>
 <h3 id="ROI-Pooling"><a href="#ROI-Pooling" class="headerlink" title="ROI Pooling"></a>ROI Pooling</h3><p><img src="/images/Deep-learning/etc/R-CNN_F_(5).png" alt="alt"></p>
 <p>SPP layer는 feature map 상의 특정 영역에 대해 일정한 고정된 개수의 bin으로 영역을 나눈 뒤, 각 bin에 대해 max pooling 또는 average pooling을 취함으로써 고정된 길이의 feature vector를 가져올 수 있습니다. Fast R-CNN에서는 이러한 SPP layer의 single level pyramid만을 사용하며, 이를 RoI Pooling layer라고 명칭하였습니다.</p>
-<p><img src="/images/Deep-learning/etc/R-CNN_F_(6).gif" alt="alt"></p>
-<p><img src="!--%EF%BF%BC0--" alt="alt"></p>
+<p><img src="/images/Deep-learning/etc/R-CNN_F.gif" alt="alt"></p>
 <p>RoIPool의 핵심은 한 이미지의 subregion에 대한 forward pass값을 서로 공유하는 것이다. 위의 그림을 통해 어떻게 각 region에 대한 CNN feature가 feature map의 동일한 영역으로 부터 선택되어 값을 얻어내는지 확인할 수 있습니다.</p>
 <h3 id="Fast-R-CNN의-구조"><a href="#Fast-R-CNN의-구조" class="headerlink" title="Fast R-CNN의 구조"></a>Fast R-CNN의 구조</h3><p><img src="/images/Deep-learning/etc/R-CNN_F_(6).png" alt="alt"></p>
 <p><img src="/images/Deep-learning/etc/R-CNN_F_(7).png" alt="alt"></p>
