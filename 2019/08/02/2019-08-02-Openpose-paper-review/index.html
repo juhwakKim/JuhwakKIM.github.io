@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    save_scroll: true,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '복사',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields을 읽고 정리한 글입니다. IntroductionHuman pose estimation 문제는 다음과 같은 어려움 점이 존재합니다. Challenges Unknown number of people that can occur in a fra">
+<meta name="keywords" content="deep_learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[CVPR 2017] Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields 리뷰">
+<meta property="og:url" content="https://juhwakkim.github.io/2019/08/02/2019-08-02-Openpose-paper-review/index.html">
+<meta property="og:site_name" content="AI&amp;Robotics">
+<meta property="og:description" content="Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields을 읽고 정리한 글입니다. IntroductionHuman pose estimation 문제는 다음과 같은 어려움 점이 존재합니다. Challenges Unknown number of people that can occur in a fra">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper.png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper(2).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper(3).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper(4).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper(5).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper(6).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper(7).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper(8).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper(9).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper(10).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper(11).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper(12).png">
+<meta property="og:updated_time" content="2019-08-06T15:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[CVPR 2017] Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields 리뷰">
+<meta name="twitter:description" content="Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields을 읽고 정리한 글입니다. IntroductionHuman pose estimation 문제는 다음과 같은 어려움 점이 존재합니다. Challenges Unknown number of people that can occur in a fra">
+<meta name="twitter:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_paper.png">
+  <link rel="canonical" href="https://juhwakkim.github.io/2019/08/02/2019-08-02-Openpose-paper-review/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>[CVPR 2017] Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields 리뷰 | AI&Robotics</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI&Robotics</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>홈</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>태그<span class="badge">4</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>카테고리<span class="badge">6</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>아카이브<span class="badge">7</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>검색</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/juhwakKim" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://juhwakkim.github.io/2019/08/02/2019-08-02-Openpose-paper-review/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Juhwak Kim">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI&Robotics">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">[CVPR 2017] Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields 리뷰
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              
+                
+              
+
+              <time title="Post created: 2019-08-02 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-02T00:00:00+09:00">2019-08-02</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2019-08-07 00:00:00" itemprop="dateModified" datetime="2019-08-07T00:00:00+09:00">2019-08-07</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/paper/" itemprop="url" rel="index"><span itemprop="name">paper</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    <span class="post-meta-item-text">댓글: </span>
+  
+    <a href="/2019/08/02/2019-08-02-Openpose-paper-review/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/02/2019-08-02-Openpose-paper-review/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="https://arxiv.org/abs/1611.08050" target="_blank" rel="noopener">Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields</a>을 읽고 정리한 글입니다.</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Human pose estimation 문제는 다음과 같은 어려움 점이 존재합니다.</p>
+<h3 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h3><ol>
+<li><strong>Unknown number of people that can occur in a frame. (한프레임에 사람에 몇명이 있는지 모른다.)</strong></li>
+<li><strong>Complex Spatial Interference - Contact, Occlusion between people. (사람들간의 접촉, 맞물림등 복잡한 공간적 간섭이 존재)</strong></li>
+<li><strong>Variance in person scales (사람들의 크기가 다양함)</strong></li>
+<li><strong>Run time Complexity. (실행시간이 길다)</strong></li>
+</ol>
+<p>Human pose estimation 문제를 접근하는 방법을 크게 Top-down Approach, Bottom-up Approach 두가지 방법이 있습니다.</p>
+<h3 id="Top-down-Approach"><a href="#Top-down-Approach" class="headerlink" title="Top-down Approach"></a>Top-down Approach</h3><p><img src="/images/Deep-learning/Openpose/Openpose_paper.png" alt="openpose" title="openpose paper"></p>
+<blockquote>
+<p><strong>Fig1. Top-down Appraoch방식은 이미지에서 사람을 먼저 찾고 관절을 추정하는 방식입니다.</strong></p>
+</blockquote>
+<h4 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h4><ul>
+<li>Human detector가 사람을 잘못찾으면 이를 해결할 방법이 없다.</li>
+<li>사람의 수가 많아지면 computational cost가 증가한다. (<span style="color:red"> Challenges 4 </span>)</li>
+</ul>
+<h3 id="Bottom-up-Approach"><a href="#Bottom-up-Approach" class="headerlink" title="Bottom-up Approach"></a>Bottom-up Approach</h3><p><img src="/images/Deep-learning/Openpose/Openpose_paper(2).png" alt="openpose" title="openpose paper"></p>
+<blockquote>
+<p><strong>Fig2. Bottom-up Appraoch방식은 관절을 먼저 다찾고 이를 알맞게 이어주는 방식입니다.</strong></p>
+</blockquote>
+<h4 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem"></a>Problem</h4><ul>
+<li><strong>찾은 관절을 매칭할 수 있는 조합이 매우 많고 이를 적절하게 매칭하는데 시간이 많이 걸리고 Accuracy도 높이는 것이 힘듭니다.</strong></li>
+</ul>
+<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p><img src="/images/Deep-learning/Openpose/Openpose_paper(3).png" alt="openpose" title="openpose paper"></p>
+<blockquote>
+<p><strong>Fig3</strong></p>
+</blockquote>
+<p><img src="/images/Deep-learning/Openpose/Openpose_paper(4).png" alt="openpose" title="openpose paper"></p>
+<blockquote>
+<p><strong>Fig4</strong></p>
+</blockquote>
+<h3 id="Input-amp-2-Branch"><a href="#Input-amp-2-Branch" class="headerlink" title="Input &amp; 2 Branch"></a>Input &amp; 2 Branch</h3><p><strong>Input: RGB color image</strong></p>
+<ul>
+<li><strong>병렬적으로 구성된 2개의 Branch</strong><ul>
+<li><strong>Branch 1에서는 Confidnce maps를 찾아낸다.<br>$$S^1 = \rho^1(F), S^t = \rho(F,S^(t-1),L^(t-1), \forall t \ge 2) - (1)$$</strong></li>
+<li><strong>Branch 2에서는 PAF를 찾아낸다.<br>$$S^1 = \rho^1(F), S^t = \rho(F,S^(t-1),L^(t-1), \forall t \ge 2) - (2)$$</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>$S^t$:$\ $ Stage $t$에서 만들어진 Confidence maps</strong></li>
+<li><strong>$F$:$\ $  VGG-19에서 추출된 Feature</strong></li>
+<li><strong>$L^t$:$\ $  Stage $t$에서 만들어진 PAF</strong></li>
+</ul>
+<p><img src="/images/Deep-learning/Openpose/Openpose_paper(5).png" alt="openpose" title="openpose paper"></p>
+<blockquote>
+<p><strong>Fig5.stage가 지날수록 성능이 향상된다.</strong><br><strong>(위에 주황색원: False negative, 빨간원: False positive이 해결되고 있음</strong></p>
+</blockquote>
+<h3 id="Loss-function"><a href="#Loss-function" class="headerlink" title="Loss function"></a>Loss function</h3><p>groundtruths와 추정된 값의 $L_2$ loss를 사용하였다.</p>
+<p><strong>$$f_{S}^t = \sum\limits_{j=1}^J\sum_{p}W(p) \dot \lVert S_{j}^t(p) - S_{j}^{\ast}(p)\rVert_{2}^2   - (3)$$</strong></p>
+<p><strong>$$f_{L}^t = \sum\limits_{c=1}^C\sum_{p}W(p) \dot \lVert L_{c}^t(p) - L_{c}^{\ast}(p)\rVert_{2}^2   - (4)$$</strong></p>
+<ul>
+<li><strong>$J$,$C$:  Confidence map의 개수와 PAF의 개수</strong></li>
+<li><strong>$f_{S}^t$:  Stage $t$ 에서의 Confidence map loss</strong></li>
+<li><strong>$f_{L}^t$:  Stage $t$ 에서의 PAF loss</strong></li>
+<li><strong>$p$:  이미지의 좌표</strong></li>
+<li><strong>$W(p)$:  binary mask, true-positive를 처벌하는것을 피하기위해서 사용됨, annotation이 없을때 $W(p) = 0$</strong></li>
+</ul>
+<p>Stage 마다 loss를 계산하여 Vanishing gradient를 해결(<span style="color:red"> <a href="https://arxiv.org/abs/1602.00134" target="_blank" rel="noopener">paper</a></span>)</p>
+<h3 id="overall-objective"><a href="#overall-objective" class="headerlink" title="overall objective"></a>overall objective</h3><p><strong>$$f = \sum\limits_{t=1}^T(f_{S}^t + f_{L}^t)- (5)$$</strong></p>
+<h2 id="Generation-of-confidence-map"><a href="#Generation-of-confidence-map" class="headerlink" title="Generation of confidence map"></a>Generation of confidence map</h2><p>dataset은 keypoint만 주어지기에 groundtruths에 될 confidence maps를 만들어 줘야한다.</p>
+<p><strong>$$S_{j,k}^{\ast}(p) =  \exp (-\dfrac{\lVert p-x_{j,k}\rVert _{2}^2}{\sigma^2}) - (6)$$</strong></p>
+<ul>
+<li><strong>$S_{j,k}^{\ast}(p)$:$ \ \ k$번째 사람의 $j$번째 관절의 confidence map</strong></li>
+<li><strong>$x_{j,k}$:$\ \ k$번째 사람의 $j$번째 관절의 keypoint</strong></li>
+<li><strong>$\sigma$:$ \ $ peak의 범위를 조절함</strong></li>
+</ul>
+<p><img src="/images/Deep-learning/Openpose/Openpose_paper(6).png" alt="openpose" title="openpose paper"></p>
+<blockquote>
+<p>Fig6. </p>
+</blockquote>
+<p><strong>$$S_{j}^{\ast}(p) = \max_{\rm k}S_{j,k}^{\ast}(p) - (7)$$</strong></p>
+<p>이렇게 만든 가우시안 분포에 max를 취해준다.(average보다 peaks가 distinct하게 남아서 근접에 대한 정밀도를 가진다.)</p>
+<h2 id="PAFs-Part-Affinity-Fields"><a href="#PAFs-Part-Affinity-Fields" class="headerlink" title="PAFs(Part Affinity Fields)"></a>PAFs(Part Affinity Fields)</h2><p><img src="/images/Deep-learning/Openpose/Openpose_paper(7).png" alt="openpose" title="openpose paper"></p>
+<blockquote>
+<p><strong>Fig7.</strong> </p>
+</blockquote>
+<ul>
+<li><strong>(a):$ \ $ keypoint의 모든 연결 후보,</strong></li>
+<li><strong>(b):$ \ $ 각 연결 쌍의 중간점을 추가하여 중간 점의 발생률을 가지고 그리기(초록색선:틀린선,검은선:맞는선),<br>사람들이 몰려있으면 오판될 수 있다.<br>(이러한 방법은 위치만 고려하고 방향은 고려 하지 않고 region of support of limb를 한점으로 줄여버린다.)</strong></li>
+<li><strong>(c):$ \ $PAF를 이용한 결과(위치와 방향문제 해결 및 region of support of limb의 문제를 해결)</strong></li>
+</ul>
+<p><img src="/images/Deep-learning/Openpose/Openpose_paper(8).png" alt="openpose" title="openpose paper"></p>
+<blockquote>
+<p><strong>Fig8.</strong></p>
+</blockquote>
+<p>식(4)를 풀기위해서 train때 PAF의 groundtruth를 다음과 같이 정의합니다.<br><strong>$$L_{c,k}^{\ast}(p) = \begin{cases}<br>v &amp; \ \ \text{ if } \ p \ \text{on limb} \ c,k \cr<br>0 &amp; \ \ \  \text{otherwise.}<br>\end{cases} - (8) $$</strong> </p>
+<ul>
+<li><strong>$c$:$\ $limb의 종류</strong></li>
+<li><strong>$v$:$\ \ v = \frac{(x_{j_2,k}-x_{j_1,k})}{\lVert x_{j_2,k}-x_{j_1,k}\rVert_2}$, limb의 방향의 unit vector(위 그림의 초록색선)</strong></li>
+</ul>
+<p>limb위에 있는 points는 distance threshold내로 정의합니다.</p>
+<p><strong>$$0 \le v \dot (p-x_{j_1,k}) \le l_{c,k}  , \text{and} , |v_{\perp} \dot (p-x_{j_1,k})| \le \sigma_l - (9)$$</strong></p>
+<ul>
+<li><strong>$l_{c,k}$: $\ \ l_{c,k} = \lVert x_{j_2,k} - x_{j_1,k}\rVert_2$, limb의 길이</strong></li>
+<li><strong>$\sigma_l$:$ \ $ limb의 폭</strong></li>
+</ul>
+<p>마지막으로 이미지에 모든 사람으로 평균화 합니다.</p>
+<p><strong>$$L_{c}^{\ast}(p) = \dfrac 1 n_{c}(p) \sum_{k}L_{c,k}^*(p)  - (10)$$</strong></p>
+<ul>
+<li><strong>$n_c(p)$:$\ $p에서의 non-zero vectors의 수(서로다른 사람의 limbs의 overlap되는 픽셀을 평균화시킴)</strong></li>
+</ul>
+<p>test때 에는 $d_{j_1}$으로부터 $d_{j_2}$로 일정간격으로 선적분을 수행하여 affinity field의 세기(E)를 구합니다.</p>
+<p><strong>$$E = \int_{u=0}^{u=1} L_c(p(u)) \cdot \dfrac {d_{j_2}-d_{j_1}} {\lVert d_{j_2}-d_{j_1} \rVert_2} du - (11)$$</strong></p>
+<ul>
+<li><strong>$L_c$: $ \ $예측된 PAF</strong></li>
+<li><strong>$d_{j_1}$: $ \ $  시작part 위치</strong></li>
+<li><strong>$d_{j_2}$: $ \ $  끝 part 위치</strong></li>
+<li><strong>$p(u)$: $ \ $  $p(u) = (1-u)d_{j_1} + ud_{j_2}$, 2 part의 위치 사이를 채웁니다.</strong></li>
+</ul>
+<h2 id="Multi-Person-parsing-using-PAFs"><a href="#Multi-Person-parsing-using-PAFs" class="headerlink" title="Multi-Person parsing using PAFs"></a>Multi-Person parsing using PAFs</h2><p><img src="/images/Deep-learning/Openpose/Openpose_paper(9).png" alt="openpose" title="openpose paper"></p>
+<blockquote>
+<p><strong>Fig9 (a): Original image (b): 가능한 모든 연결 (c): 사람의 관절구조(spanning tree형태) (d): 이웃한 관절끼리 두개씩의 매칭</strong></p>
+</blockquote>
+<p>non-maximum suppression(NMS)을 사용해서 모든 part의 confidence maps를 구하였습니다.</p>
+<p>이로인해 다양한 후보가 발생하고 여러 사람이 있기에 false positive 문제가 발생할 수 있습니다.</p>
+<p>optimal한 parse를 찾는 문제는 K-dimensional matching problem을 가지고있다.(NP-Hard 이라고도 함) </p>
+<p>이 논문에서는 계속해서 high-quality한 match를 찾는 greedy relaxation을 말하고 있습니다.(optimal association 문제를 maximum weight bipartite graph<br>matching problem으로 줄입니다.)</p>
+<p>어떠한 2개의 edge도 1개의 node를 공유하지 않기에 목표는 주어진 edges에서 maximum weight를 찾는 것입니다.(weight는 식(10)을 이용하여 구합니다)</p>
+<p><strong>$$\max_{Z_c}E_c = \max_{Z_c} \sum_{m \in D_{j_1}}\sum_{n \in D_{j_2}}E_{mn}\dot z_{j_1j_2}^{mn} - (12)$$</strong></p>
+<ul>
+<li><p><strong>$z_{j_1j_2}^{mn}$:$\ \ z_{j_1j_2}^{mn} \in \lbrace 0,1\rbrace$, detection candidates $d_{j_1]}^m$와 $d_{j_2}^n$이 연결되 있는지 아닌지를 나타내는 변수</strong></p>
+</li>
+<li><p><strong>$Z$:$\ \ Z = \lbrace z_{j_1j_2}^{mn} \text{for} j_1,j_2 \in \lbrace 1…J\rbrace,m\in \lbrace 1…N_{j_1}\rbrace,n \in \lbrace 1…N_{j_2}\rbrace\rbrace$, $z_{j_1j_2}^{mn}$ 가능한 모든 연결의 집합</strong></p>
+</li>
+<li><p><strong>$D_J$:$\ \ D_J = \lbrace d_j^m : \text{for}  j \in \lbrace 1…J\rbrace,m\in \lbrace 1…N_j\rbrace\rbrace$,body part detection candidates의 집합</strong></p>
+</li>
+</ul>
+<p>결론적으로 optimization은 다음과 같이 표현된다</p>
+<p><strong>$$\max_{Z} E = \sum_{c=1}^C\max_{Z_c}E_c - (13)$$</strong></p>
+<p>(<span style="color:blue"> ? adjacent tree nodes는 PAFs에의해서 explicitly 하게 모델되었고 nonadjacent tree nodes는 CNN에의해 implicitly 모델되었습니다. </span>)</p>
+<p>(<span style="color:blue"> ? 이러한 특성은 CNN이 large receptive field를 가지고 train 되고 non-adjacent tree nodes의 PAFs 또한 predicted PAF에 영향 끼쳤기에 발생하였습니다. </span>)</p>
+<h2 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h2><h3 id="MPII-Multi-person-Dataset"><a href="#MPII-Multi-person-Dataset" class="headerlink" title="MPII Multi-person Dataset"></a>MPII Multi-person Dataset</h3><p><img src="/images/Deep-learning/Openpose/Openpose_paper(10).png" alt="openpose" title="openpose paper"></p>
+<h3 id="COCO-Dataset"><a href="#COCO-Dataset" class="headerlink" title="COCO Dataset"></a>COCO Dataset</h3><p><img src="/images/Deep-learning/Openpose/Openpose_paper(11).png" alt="openpose" title="openpose paper"></p>
+<p><img src="/images/Deep-learning/Openpose/Openpose_paper(12).png" alt="openpose" title="openpose paper"></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://ml.starall.kr/1" target="_blank" rel="noopener">https://ml.starall.kr/1</a></p>
+<p><a href="https://cloudup.com/i_gPL3kASQg" target="_blank" rel="noopener">https://cloudup.com/i_gPL3kASQg</a></p>
+
+    </div>
+      
+
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/deep-learning/" rel="tag"><i class="fa fa-tag"></i> deep_learning</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/04/08/2019-04-08-Openpose-tutorial/" rel="next" title="Openpose 설치 tutorial">
+                <i class="fa fa-chevron-left"></i> Openpose 설치 tutorial
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            목차
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            흝어보기
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Juhwak Kim</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">카테고리</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">태그</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/juhwakKim" title="GitHub &rarr; https://github.com/juhwakKim" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:juhk1017@naver.com" title="E-Mail &rarr; mailto:juhk1017@naver.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenges"><span class="nav-number">1.1.</span> <span class="nav-text">Challenges</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Top-down-Approach"><span class="nav-number">1.2.</span> <span class="nav-text">Top-down Approach</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Problem"><span class="nav-number">1.2.1.</span> <span class="nav-text">Problem</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bottom-up-Approach"><span class="nav-number">1.3.</span> <span class="nav-text">Bottom-up Approach</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Problem-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">Problem</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Architecture"><span class="nav-number">2.</span> <span class="nav-text">Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-amp-2-Branch"><span class="nav-number">2.1.</span> <span class="nav-text">Input &amp; 2 Branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loss-function"><span class="nav-number">2.2.</span> <span class="nav-text">Loss function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#overall-objective"><span class="nav-number">2.3.</span> <span class="nav-text">overall objective</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generation-of-confidence-map"><span class="nav-number">3.</span> <span class="nav-text">Generation of confidence map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PAFs-Part-Affinity-Fields"><span class="nav-number">4.</span> <span class="nav-text">PAFs(Part Affinity Fields)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-Person-parsing-using-PAFs"><span class="nav-number">5.</span> <span class="nav-text">Multi-Person parsing using PAFs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Results"><span class="nav-number">6.</span> <span class="nav-text">Results</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MPII-Multi-person-Dataset"><span class="nav-number">6.1.</span> <span class="nav-text">MPII Multi-person Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#COCO-Dataset"><span class="nav-number">6.2.</span> <span class="nav-text">COCO Dataset</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">7.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Juhwak Kim</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', function() {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://juhk1017.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://juhwakkim.github.io/2019/08/02/2019-08-02-Openpose-paper-review/";
+    this.page.identifier = "2019/08/02/2019-08-02-Openpose-paper-review/";
+    this.page.title = '[CVPR 2017] Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields 리뷰';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://juhk1017.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
+</html>

@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    save_scroll: true,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '복사',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="이 내용은 유튜버 Augmented Startups와 Mark Jay을 공부한 내용을 정리한 글입니다. Augmented Startups: https://www.youtube.com/watch?v=GSDbfGsxruA&amp;amp;t=561s Mark Jay: https://www.youtube.com/watch?v=lLM8oAsi32g 1. Mask RCNN-">
+<meta name="keywords" content="deep learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mask RCNN-tensorflow tutorial">
+<meta property="og:url" content="https://juhwakkim.github.io/2019/03/27/2019-03-27-Mask-RCNN-tensorflow-tutorial/index.html">
+<meta property="og:site_name" content="AI&amp;Robotics">
+<meta property="og:description" content="이 내용은 유튜버 Augmented Startups와 Mark Jay을 공부한 내용을 정리한 글입니다. Augmented Startups: https://www.youtube.com/watch?v=GSDbfGsxruA&amp;amp;t=561s Mark Jay: https://www.youtube.com/watch?v=lLM8oAsi32g 1. Mask RCNN-">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial.png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(2).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(3).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(4).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(5).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(6).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(7).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(8).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(9).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(10).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(11).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(12).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(13).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(14).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(15).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(16).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(17).png">
+<meta property="og:updated_time" content="2019-08-06T15:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mask RCNN-tensorflow tutorial">
+<meta name="twitter:description" content="이 내용은 유튜버 Augmented Startups와 Mark Jay을 공부한 내용을 정리한 글입니다. Augmented Startups: https://www.youtube.com/watch?v=GSDbfGsxruA&amp;amp;t=561s Mark Jay: https://www.youtube.com/watch?v=lLM8oAsi32g 1. Mask RCNN-">
+<meta name="twitter:image" content="https://juhwakkim.github.io/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial.png">
+  <link rel="canonical" href="https://juhwakkim.github.io/2019/03/27/2019-03-27-Mask-RCNN-tensorflow-tutorial/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Mask RCNN-tensorflow tutorial | AI&Robotics</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI&Robotics</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>홈</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>태그<span class="badge">4</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>카테고리<span class="badge">6</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>아카이브<span class="badge">7</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>검색</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/juhwakKim" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://juhwakkim.github.io/2019/03/27/2019-03-27-Mask-RCNN-tensorflow-tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Juhwak Kim">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI&Robotics">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Mask RCNN-tensorflow tutorial
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              
+                
+              
+
+              <time title="Post created: 2019-03-27 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-27T00:00:00+09:00">2019-03-27</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2019-08-07 00:00:00" itemprop="dateModified" datetime="2019-08-07T00:00:00+09:00">2019-08-07</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/code/" itemprop="url" rel="index"><span itemprop="name">code</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    <span class="post-meta-item-text">댓글: </span>
+  
+    <a href="/2019/03/27/2019-03-27-Mask-RCNN-tensorflow-tutorial/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/27/2019-03-27-Mask-RCNN-tensorflow-tutorial/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>이 내용은 유튜버 Augmented Startups와 Mark Jay을 공부한 내용을 정리한 글입니다.</p>
+<p>Augmented Startups: <a href="https://www.youtube.com/watch?v=GSDbfGsxruA&amp;t=561s" target="_blank" rel="noopener">https://www.youtube.com/watch?v=GSDbfGsxruA&amp;t=561s</a></p>
+<p>Mark Jay: <a href="https://www.youtube.com/watch?v=lLM8oAsi32g" target="_blank" rel="noopener">https://www.youtube.com/watch?v=lLM8oAsi32g</a></p>
+<h2 id="1-Mask-RCNN-tensorflow버전-설치"><a href="#1-Mask-RCNN-tensorflow버전-설치" class="headerlink" title="1. Mask RCNN-tensorflow버전 설치"></a>1. Mask RCNN-tensorflow버전 설치</h2><h3 id="Mask-RCNN-Tensorflow을-git-clone-해준다"><a href="#Mask-RCNN-Tensorflow을-git-clone-해준다" class="headerlink" title="Mask-RCNN-Tensorflow을 git clone 해준다"></a>Mask-RCNN-Tensorflow을 git clone 해준다</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/matterport/Mask_RCNN.git</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dependencies을-설치해주자"><a href="#Dependencies을-설치해주자" class="headerlink" title="Dependencies을 설치해주자"></a>Dependencies을 설치해주자</h3><h4 id="먼저-필요한-python-package들은-설치한다"><a href="#먼저-필요한-python-package들은-설치한다" class="headerlink" title="먼저 필요한 python package들은 설치한다."></a>먼저 필요한 python package들은 설치한다.</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd Mask_RCNN</span><br><span class="line">$ pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="그리고-pretrained-model을-다운받고-Mask-RCNN-폴더에-옮겨주자"><a href="#그리고-pretrained-model을-다운받고-Mask-RCNN-폴더에-옮겨주자" class="headerlink" title="그리고 pretrained model을 다운받고 Mask-RCNN 폴더에 옮겨주자"></a>그리고 pretrained model을 다운받고 Mask-RCNN 폴더에 옮겨주자</h4><p><a href="https://github.com/matterport/Mask_RCNN/releases/download/v2.0/mask_rcnn_coco.h5" target="_blank" rel="noopener">https://github.com/matterport/Mask_RCNN/releases/download/v2.0/mask_rcnn_coco.h5</a></p>
+<h4 id="이제-cocoapi를-설치하자"><a href="#이제-cocoapi를-설치하자" class="headerlink" title="이제 cocoapi를 설치하자"></a>이제 cocoapi를 설치하자</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/philferriere/cocoapi.git</span><br><span class="line">$ cd cocoapi</span><br><span class="line">$ cd PythonAPI</span><br><span class="line">$ python setup.py build_ext install</span><br></pre></td></tr></table></figure>
+
+<h3 id="설치가-잘되었는지를-확인하기"><a href="#설치가-잘되었는지를-확인하기" class="headerlink" title="설치가 잘되었는지를 확인하기"></a>설치가 잘되었는지를 확인하기</h3><p>터미널 창에 jupyter-notebook 입력해 쥬피터 노트북을 실행하고</p>
+<p>samples 폴더안에 demo.jpynb를 실행시켜본다.</p>
+<p>잘 설치된 경우 아래 그림과 같이 랜덤한 사진의 결과가 나온다.</p>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial.png" alt="alt"></p>
+<p>Failed to get convolution algorithm 문제 발생시:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">sess_config = tf.ConfigProto()</span><br><span class="line">sess_config.gpu_options.allow_growth = <span class="literal">True</span></span><br><span class="line">sess = tf.Session(config=sess_config)</span><br></pre></td></tr></table></figure>
+
+<p>와 같이 텐서플로우를 import하고 sess를 적절한위치에 추가해주자</p>
+<h2 id="2-webcam과-video으로-테스트-해보기"><a href="#2-webcam과-video으로-테스트-해보기" class="headerlink" title="2. webcam과 video으로 테스트 해보기"></a>2. webcam과 video으로 테스트 해보기</h2><p>webcam과 video 코드는 Mark Jay가 만든 코드를 사용할 것이다.<br><a href="https://github.com/markjay4k/Mask-RCNN-series" target="_blank" rel="noopener">https://github.com/markjay4k/Mask-RCNN-series</a> 에서</p>
+<p><code>visualize_cv2.py</code></p>
+<p><code>process_video.py</code></p>
+<p>이 두개의 파일을 다운받는다.</p>
+<p>그리고 <code>visualize_cv2.py</code>을 열어 다음과 같이 수정해준다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import utils -&gt; from mrcnn import utils</span><br><span class="line"></span><br><span class="line">import model as modellib -&gt; from mrcnn import model as modellib</span><br><span class="line"></span><br><span class="line">ROOT_DIR = os.getcwd() -&gt; ROOT_DIR = os.path.abspath("./")</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> coco </span><br><span class="line">-&gt; </span><br><span class="line">sys.path.append(os.path.join(ROOT_DIR,<span class="string">"samples/coco/"</span>))</span><br><span class="line"><span class="keyword">import</span> coco    </span><br><span class="line"></span><br><span class="line">(위에 있던 <span class="keyword">import</span> coco를 sys.path.append(os.path.join(ROOT_DIR,<span class="string">"samples/coco/"</span>)) </span><br><span class="line"> 추가하고 아래에 옮겨준다. )</span><br></pre></td></tr></table></figure>
+
+<p>Failed to get convolution algorithm 문제 발생하면 위에 해결법을 이용하면 된다.</p>
+<p>비디오 테스트에 경우 <code>process_video.py</code>에서 </p>
+<p><code>capture = cv2.VideoCapture(&#39;비디오 주소&#39;)</code> 만 자신의 비디오 주소로 변경하면 된다.</p>
+<h2 id="3-간단한-코드-분석"><a href="#3-간단한-코드-분석" class="headerlink" title="3. 간단한 코드 분석"></a>3. 간단한 코드 분석</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> mrcnn <span class="keyword">import</span> utils</span><br><span class="line"><span class="keyword">from</span> mrcnn <span class="keyword">import</span> model <span class="keyword">as</span> modellib</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">ROOT_DIR = os.path.abspath(<span class="string">"./"</span>)</span><br><span class="line">MODEL_DIR = os.path.join(ROOT_DIR, <span class="string">"logs"</span>)</span><br><span class="line">sys.path.append(os.path.join(ROOT_DIR,<span class="string">"samples/coco/"</span>))</span><br><span class="line"><span class="keyword">import</span> coco</span><br><span class="line">COCO_MODEL_PATH = os.path.join(ROOT_DIR, <span class="string">"mask_rcnn_coco.h5"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(COCO_MODEL_PATH):</span><br><span class="line">    utils.download_trained_weights(COCO_MODEL_PATH)</span><br><span class="line"></span><br><span class="line"><span class="comment">############# 여기까지 필요한 module import</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InferenceConfig</span><span class="params">(coco.CocoConfig)</span>:</span></span><br><span class="line">    GPU_COUNT = <span class="number">1</span></span><br><span class="line">    IMAGES_PER_GPU = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">config = InferenceConfig()</span><br><span class="line">config.display()</span><br><span class="line"></span><br><span class="line"><span class="comment">############## cudnn 문제 해결 부분</span></span><br><span class="line">sess_config = tf.ConfigProto()</span><br><span class="line">sess_config.gpu_options.allow_growth = <span class="literal">True</span></span><br><span class="line">sess = tf.Session(config=sess_config)</span><br><span class="line"><span class="comment">##############</span></span><br><span class="line"></span><br><span class="line">model = modellib.MaskRCNN(</span><br><span class="line">    mode=<span class="string">"inference"</span>, model_dir=MODEL_DIR, config=config <span class="comment">############# 모델 불러오기</span></span><br><span class="line">)</span><br><span class="line">model.load_weights(COCO_MODEL_PATH, by_name=<span class="literal">True</span>)        <span class="comment">############# 모델 weight 불러오기</span></span><br><span class="line">class_names = [</span><br><span class="line">    <span class="string">'BG'</span>, <span class="string">'person'</span>, <span class="string">'bicycle'</span>, <span class="string">'car'</span>, <span class="string">'motorcycle'</span>, <span class="string">'airplane'</span>,</span><br><span class="line">    <span class="string">'bus'</span>, <span class="string">'train'</span>, <span class="string">'truck'</span>, <span class="string">'boat'</span>, <span class="string">'traffic light'</span>,</span><br><span class="line">    <span class="string">'fire hydrant'</span>, <span class="string">'stop sign'</span>, <span class="string">'parking meter'</span>, <span class="string">'bench'</span>, <span class="string">'bird'</span>,</span><br><span class="line">    <span class="string">'cat'</span>, <span class="string">'dog'</span>, <span class="string">'horse'</span>, <span class="string">'sheep'</span>, <span class="string">'cow'</span>, <span class="string">'elephant'</span>, <span class="string">'bear'</span>,</span><br><span class="line">    <span class="string">'zebra'</span>, <span class="string">'giraffe'</span>, <span class="string">'backpack'</span>, <span class="string">'umbrella'</span>, <span class="string">'handbag'</span>, <span class="string">'tie'</span>,</span><br><span class="line">    <span class="string">'suitcase'</span>, <span class="string">'frisbee'</span>, <span class="string">'skis'</span>, <span class="string">'snowboard'</span>, <span class="string">'sports ball'</span>,</span><br><span class="line">    <span class="string">'kite'</span>, <span class="string">'baseball bat'</span>, <span class="string">'baseball glove'</span>, <span class="string">'skateboard'</span>,</span><br><span class="line">    <span class="string">'surfboard'</span>, <span class="string">'tennis racket'</span>, <span class="string">'bottle'</span>, <span class="string">'wine glass'</span>, <span class="string">'cup'</span>,</span><br><span class="line">    <span class="string">'fork'</span>, <span class="string">'knife'</span>, <span class="string">'spoon'</span>, <span class="string">'bowl'</span>, <span class="string">'banana'</span>, <span class="string">'apple'</span>,</span><br><span class="line">    <span class="string">'sandwich'</span>, <span class="string">'orange'</span>, <span class="string">'broccoli'</span>, <span class="string">'carrot'</span>, <span class="string">'hot dog'</span>, <span class="string">'pizza'</span>,</span><br><span class="line">    <span class="string">'donut'</span>, <span class="string">'cake'</span>, <span class="string">'chair'</span>, <span class="string">'couch'</span>, <span class="string">'potted plant'</span>, <span class="string">'bed'</span>,</span><br><span class="line">    <span class="string">'dining table'</span>, <span class="string">'toilet'</span>, <span class="string">'tv'</span>, <span class="string">'laptop'</span>, <span class="string">'mouse'</span>, <span class="string">'remote'</span>,</span><br><span class="line">    <span class="string">'keyboard'</span>, <span class="string">'cell phone'</span>, <span class="string">'microwave'</span>, <span class="string">'oven'</span>, <span class="string">'toaster'</span>,</span><br><span class="line">    <span class="string">'sink'</span>, <span class="string">'refrigerator'</span>, <span class="string">'book'</span>, <span class="string">'clock'</span>, <span class="string">'vase'</span>, <span class="string">'scissors'</span>,</span><br><span class="line">    <span class="string">'teddy bear'</span>, <span class="string">'hair drier'</span>, <span class="string">'toothbrush'</span></span><br><span class="line">]</span><br><span class="line"><span class="comment">############## class이미지 이름 지정 (자리순서마다 이미어떤 클래스가 정해져 있고 이를 text로 표현하는 부분이다)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">random_colors</span><span class="params">(N)</span>:</span>  </span><br><span class="line">    np.random.seed(<span class="number">1</span>)</span><br><span class="line">    colors = [tuple(<span class="number">255</span> * np.random.rand(<span class="number">3</span>)) <span class="keyword">for</span> _ <span class="keyword">in</span> range(N)]</span><br><span class="line">    <span class="keyword">return</span> colors</span><br><span class="line"><span class="comment">############## class마다 다른 색깔로 segmentation 하기위한 부분</span></span><br><span class="line"></span><br><span class="line">colors = random_colors(len(class_names))</span><br><span class="line">class_dict = &#123;</span><br><span class="line">    name: color <span class="keyword">for</span> name, color <span class="keyword">in</span> zip(class_names, colors)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">apply_mask</span><span class="params">(image, mask, color, alpha=<span class="number">0.5</span>)</span>:</span>  </span><br><span class="line">    <span class="string">"""apply mask to image"""</span></span><br><span class="line">    <span class="keyword">for</span> n, c <span class="keyword">in</span> enumerate(color):</span><br><span class="line">        image[:, :, n] = np.where(</span><br><span class="line">            mask == <span class="number">1</span>,</span><br><span class="line">            image[:, :, n] * (<span class="number">1</span> - alpha) + alpha * c,</span><br><span class="line">            image[:, :, n]</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">return</span> image</span><br><span class="line"></span><br><span class="line"><span class="comment">############## segemetation mask를 이미지에 표시</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">display_instances</span><span class="params">(image, boxes, masks, ids, names, scores)</span>:</span> </span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">        take the image and results and apply the mask, box, and Label</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    n_instances = boxes.shape[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> n_instances:</span><br><span class="line">        print(<span class="string">'NO INSTANCES TO DISPLAY'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">assert</span> boxes.shape[<span class="number">0</span>] == masks.shape[<span class="number">-1</span>] == ids.shape[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n_instances):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> np.any(boxes[i]):</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        y1, x1, y2, x2 = boxes[i]</span><br><span class="line">        label = names[ids[i]]</span><br><span class="line">        color = class_dict[label]</span><br><span class="line">        score = scores[i] <span class="keyword">if</span> scores <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line">        caption = <span class="string">'&#123;&#125; &#123;:.2f&#125;'</span>.format(label, score) <span class="keyword">if</span> score <span class="keyword">else</span> label</span><br><span class="line">        mask = masks[:, :, i]</span><br><span class="line"></span><br><span class="line">        image = apply_mask(image, mask, color)</span><br><span class="line">        image = cv2.rectangle(image, (x1, y1), (x2, y2), color, <span class="number">2</span>)</span><br><span class="line">        image = cv2.putText(</span><br><span class="line">            image, caption, (x1, y1), cv2.FONT_HERSHEY_COMPLEX, <span class="number">0.7</span>, color, <span class="number">2</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image</span><br><span class="line"></span><br><span class="line"><span class="comment">############## mask, box, class_name을 모두 이미지에 표시</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>: </span><br><span class="line"></span><br><span class="line">        test everything</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    capture = cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># these 2 lines can be removed if you dont have a 1080p camera.</span></span><br><span class="line">    capture.set(cv2.CAP_PROP_FRAME_WIDTH, <span class="number">640</span>)</span><br><span class="line">    capture.set(cv2.CAP_PROP_FRAME_HEIGHT, <span class="number">640</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        ret, frame = capture.read()</span><br><span class="line">        results = model.detect([frame], verbose=<span class="number">0</span>)</span><br><span class="line">        r = results[<span class="number">0</span>]  <span class="comment">############## 여기서 roi,masks, class_id가 나온다.</span></span><br><span class="line">        frame = display_instances(</span><br><span class="line">            frame, r[<span class="string">'rois'</span>], r[<span class="string">'masks'</span>], r[<span class="string">'class_ids'</span>], class_names, r[<span class="string">'scores'</span>]</span><br><span class="line">        )</span><br><span class="line">        cv2.imshow(<span class="string">'frame'</span>, frame)</span><br><span class="line">        <span class="keyword">if</span> cv2.waitKey(<span class="number">1</span>) &amp; <span class="number">0xFF</span> == ord(<span class="string">'q'</span>):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    capture.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
+<p>여기서 이용할 수 있는 부분은 results에서 나온 roi, masks, class_id로 어떤물체의 위치와 크기 이다.</p>
+<h2 id="Mask-RCNN-Train"><a href="#Mask-RCNN-Train" class="headerlink" title="Mask-RCNN Train"></a>Mask-RCNN Train</h2><p>먼저 <a href="https://supervise.ly/" target="_blank" rel="noopener">https://supervise.ly/</a>이 사이트에 가입하고 사이트에 로그인한다.</p>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(2).png" alt="alt"></p>
+<p>그 후 </p>
+<ol>
+<li>Import 탭에 들어간 후 </li>
+<li>Import Plugin을 Images로 바꾸고 자신의 데이터셋 폴더를 위 그림의 상자안에 드래그 드랍 합니다.</li>
+</ol>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(3).png" alt="alt"></p>
+<p>그러면 위 사진처럼 창이 바뀌면 </p>
+<ol>
+<li>칸에 Project이름을 작성한후 </li>
+<li>Start Import 버튼을 누르면 Import가 됩니다.</li>
+</ol>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(4).png" alt="alt"></p>
+<ol>
+<li>Project 탭에 들어가면 그림과 같이 자신이 Import한 이미지의 Project가 생성된 것을 확인할 수 있습니다.</li>
+</ol>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(5).png" alt="alt"></p>
+<p>이제 프로젝트를 클릭하고 이미지 폴더에 들어가면 다음과 같은 창이 열린다. 여기서 빨간색 박스가 쳐진 버튼을 클릭합니다.</p>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(6).png" alt="alt"></p>
+<p>그러면 이런 창이 뜨는데 여기서 Title에 물체의 label을 지정합니다.</p>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(7).png" alt="alt"></p>
+<p>그 후 그림처럼 labeling을 진행 합니다.</p>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(8).png" alt="alt"></p>
+<p>그리고 class를 하나더 추가하고 싶으면 위 그림처럼 Create Class를 눌러 추가 해주면됩니다.</p>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(9).png" alt="alt"></p>
+<p>labeling을 다 했으면 다시 프로젝트 탭으로 돌아온후 위 그림처럼 Instance segmentation 버튼을 클릭해준다.</p>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(10).png" alt="alt"></p>
+<ol>
+<li>Cluster 탭에 들어간 후 </li>
+<li>Instructions을 클릭합니다.</li>
+</ol>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(11).png" alt="alt"></p>
+<p>그러면 위 같은 창이 뜨는데 먼저 </p>
+<ol>
+<li>nvidia docker를 설치합니다.</li>
+</ol>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(12).png" alt="alt"></p>
+<ol>
+<li>Neural Networks 탭에 들어간 후 </li>
+<li>ADD 버튼을 클릭합니다.</li>
+</ol>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(13).png" alt="alt"></p>
+<p>그 후 아래로 내려보면 Mask-RCNN이 있고 ADD버튼을 눌러준다.</p>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(14).png" alt="alt"></p>
+<p>Neural Networks 탭에 다시 들어간 후 Train 버튼을 누른다.</p>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(15).png" alt="alt"></p>
+<ol>
+<li>자신의 데이터셋을 input project에 입력해주고 </li>
+<li>결과의 project이름을 정해준다.</li>
+</ol>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(16).png" alt="alt"></p>
+<p>Train이 끝나면 다음과 같이 새로운 Neural Network가 생기고 여기서 Download를 해주거나 test버튼을 눌러 test 데이터를 test할 수 있다.</p>
+<p>만약 Download한다면 .tar파일 안에 model.h5라는 파일 있는데 이 파일을 Mask-RCNN 폴더에 옮겨준다.</p>
+<p><img src="/images/Deep-learning/Mask_RCNN/Mask_RCNN_tutorial_(17).png" alt="alt"></p>
+<p>그리고 위 코드처럼 바꿔준다. 여기서 NUM_CLASSES 에서 뒤에 있는 2는 자신이 train 시킨 클래스의 수를 적어준다.</p>
+<p><a href="https://deepmi.me/linux/18791/" target="_blank" rel="noopener">https://deepmi.me/linux/18791/</a></p>
+<ol start="2">
+<li>nvidia docker를 설치 했으면 그림에 있는 명령어를 터미널에 입력합니다.</li>
+</ol>
+<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><blockquote>
+<p>Mask-RCNN을 자신만의 데이터로 training 하기</p>
+</blockquote>
+
+    </div>
+      
+
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/deep-learning/" rel="tag"><i class="fa fa-tag"></i> deep learning</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/03/22/2019-03-22-vnect-tensorflow-tutorial/" rel="next" title="VNect-tensorflow">
+                <i class="fa fa-chevron-left"></i> VNect-tensorflow
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/04/01/2019-04-01-RCNN-Family/" rel="prev" title="RCNN Family 간단 정리">
+                RCNN Family 간단 정리 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            목차
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            흝어보기
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Juhwak Kim</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">카테고리</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">태그</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/juhwakKim" title="GitHub &rarr; https://github.com/juhwakKim" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:juhk1017@naver.com" title="E-Mail &rarr; mailto:juhk1017@naver.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Mask-RCNN-tensorflow버전-설치"><span class="nav-number">1.</span> <span class="nav-text">1. Mask RCNN-tensorflow버전 설치</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mask-RCNN-Tensorflow을-git-clone-해준다"><span class="nav-number">1.1.</span> <span class="nav-text">Mask-RCNN-Tensorflow을 git clone 해준다</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dependencies을-설치해주자"><span class="nav-number">1.2.</span> <span class="nav-text">Dependencies을 설치해주자</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#먼저-필요한-python-package들은-설치한다"><span class="nav-number">1.2.1.</span> <span class="nav-text">먼저 필요한 python package들은 설치한다.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#그리고-pretrained-model을-다운받고-Mask-RCNN-폴더에-옮겨주자"><span class="nav-number">1.2.2.</span> <span class="nav-text">그리고 pretrained model을 다운받고 Mask-RCNN 폴더에 옮겨주자</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#이제-cocoapi를-설치하자"><span class="nav-number">1.2.3.</span> <span class="nav-text">이제 cocoapi를 설치하자</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#설치가-잘되었는지를-확인하기"><span class="nav-number">1.3.</span> <span class="nav-text">설치가 잘되었는지를 확인하기</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-webcam과-video으로-테스트-해보기"><span class="nav-number">2.</span> <span class="nav-text">2. webcam과 video으로 테스트 해보기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-간단한-코드-분석"><span class="nav-number">3.</span> <span class="nav-text">3. 간단한 코드 분석</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mask-RCNN-Train"><span class="nav-number">4.</span> <span class="nav-text">Mask-RCNN Train</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TODO"><span class="nav-number">5.</span> <span class="nav-text">TODO</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Juhwak Kim</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', function() {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://juhk1017.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://juhwakkim.github.io/2019/03/27/2019-03-27-Mask-RCNN-tensorflow-tutorial/";
+    this.page.identifier = "2019/03/27/2019-03-27-Mask-RCNN-tensorflow-tutorial/";
+    this.page.title = 'Mask RCNN-tensorflow tutorial';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://juhk1017.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
+</html>
