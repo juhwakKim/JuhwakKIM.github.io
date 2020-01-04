@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    save_scroll: true,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '복사',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="7.1 행렬, 벡터: 합과 스칼라곱행렬(matrix) 수(혹은 함수)를 직사각형 모양으로 괄호 안에 배열한 것(사각행렬) 원소(Entry) 또는 요소(Element): 행렬에 배열되는 수(혹은 함수) 행(Row) : 수평선 열(Column) : 수직선    일반적인 표기법과 개념$$ {\bf A} = [a_{jk}] =\begin{bmatrix}a_{11}">
+<meta name="keywords" content="linear algebra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="공업 수학 7강">
+<meta property="og:url" content="https://juhwakkim.github.io/2019/08/15/2019-08-15-engineering-mathematics/index.html">
+<meta property="og:site_name" content="AI&amp;Robotics">
+<meta property="og:description" content="7.1 행렬, 벡터: 합과 스칼라곱행렬(matrix) 수(혹은 함수)를 직사각형 모양으로 괄호 안에 배열한 것(사각행렬) 원소(Entry) 또는 요소(Element): 행렬에 배열되는 수(혹은 함수) 행(Row) : 수평선 열(Column) : 수직선    일반적인 표기법과 개념$$ {\bf A} = [a_{jk}] =\begin{bmatrix}a_{11}">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_1.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7.png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_2.png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_3.png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_4.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_5.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_6.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_7.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_8.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_9.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_10.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_11.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_12.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_13.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_14.jpg">
+<meta property="og:image" content="https://wikimedia.org/api/rest_v1/media/math/render/svg/2ae0f49460a5958265eb20c49c2939acc69ebdf8">
+<meta property="og:image" content="https://wikimedia.org/api/rest_v1/media/math/render/svg/a637371ae55abcc8f75cb096424397b58b3aa481">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_15.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_16.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_17.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_18.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_19.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_20.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_21.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_.png">
+<meta property="og:updated_time" content="2019-08-14T15:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="공업 수학 7강">
+<meta name="twitter:description" content="7.1 행렬, 벡터: 합과 스칼라곱행렬(matrix) 수(혹은 함수)를 직사각형 모양으로 괄호 안에 배열한 것(사각행렬) 원소(Entry) 또는 요소(Element): 행렬에 배열되는 수(혹은 함수) 행(Row) : 수평선 열(Column) : 수직선    일반적인 표기법과 개념$$ {\bf A} = [a_{jk}] =\begin{bmatrix}a_{11}">
+<meta name="twitter:image" content="https://juhwakkim.github.io/images/Mathematics/engineering_mathematics7_1.jpg">
+  <link rel="canonical" href="https://juhwakkim.github.io/2019/08/15/2019-08-15-engineering-mathematics/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>공업 수학 7강 | AI&Robotics</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI&Robotics</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>홈</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>태그<span class="badge">6</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>카테고리<span class="badge">8</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>아카이브<span class="badge">9</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>검색</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/juhwakKim" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://juhwakkim.github.io/2019/08/15/2019-08-15-engineering-mathematics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Juhwak Kim">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI&Robotics">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">공업 수학 7강
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              
+                
+              
+
+              <time title="Post created: 2019-08-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-15T00:00:00+09:00">2019-08-15</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/mathematics/" itemprop="url" rel="index"><span itemprop="name">mathematics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    <span class="post-meta-item-text">댓글: </span>
+  
+    <a href="/2019/08/15/2019-08-15-engineering-mathematics/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/15/2019-08-15-engineering-mathematics/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="7-1-행렬-벡터-합과-스칼라곱"><a href="#7-1-행렬-벡터-합과-스칼라곱" class="headerlink" title="7.1 행렬, 벡터: 합과 스칼라곱"></a>7.1 행렬, 벡터: 합과 스칼라곱</h2><h3 id="행렬-matrix"><a href="#행렬-matrix" class="headerlink" title="행렬(matrix)"></a>행렬(matrix)</h3><ul>
+<li>수(혹은 함수)를 직사각형 모양으로 괄호 안에 배열한 것(사각행렬)<ul>
+<li>원소(Entry) 또는 요소(Element): 행렬에 배열되는 수(혹은 함수)</li>
+<li>행(Row) : 수평선</li>
+<li>열(Column) : 수직선</li>
+</ul>
+</li>
+</ul>
+<h4 id="일반적인-표기법과-개념"><a href="#일반적인-표기법과-개념" class="headerlink" title="일반적인 표기법과 개념"></a>일반적인 표기법과 개념</h4><p>$$ {\bf A} = [a_{jk}] =<br>\begin{bmatrix}<br>a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \cr<br>a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \cr<br>\vdots &amp; \vdots &amp; \ddots &amp; \vdots \cr<br>a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}<br>\end{bmatrix} : m \times n 행렬    $$</p>
+<ul>
+<li>행렬은 볼드체의 대문자를 사용한다.</li>
+<li>첫 번째 아래 첨자 $j$는 행(Row)</li>
+<li>두 번째 아래 첨자 $k$는 열(Column)</li>
+<li>$a_{jk}$: $j$ 행, $k$ 열의 원소(Element)</li>
+<li>$m \times n$은 행렬의 크기(size)를 나태는 것이다.</li>
+</ul>
+<h4 id="정방행렬-square-matrix"><a href="#정방행렬-square-matrix" class="headerlink" title="정방행렬(square matrix)"></a>정방행렬(square matrix)</h4><ul>
+<li>$m=n$ 이라면 A는 정사각형 모양이다</li>
+<li>정방행렬에서 원소 $a_{11}, a_{22}, \cdots , a_{nn}$을 포함하는 대각선을 행렬 $A$ 의 주대각선(Principal Diagonal)이라고 한다</li>
+</ul>
+<p>$ {\bf A} = [a_{jk}] =<br>\begin{bmatrix}<br>a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \cr<br>a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \cr<br>\cdot &amp; \cdot &amp; \cdots &amp; \cdot \cr<br>a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{nn}<br>\end{bmatrix}$</p>
+<h4 id="계수행렬-coefficient-matrix"><a href="#계수행렬-coefficient-matrix" class="headerlink" title="계수행렬(coefficient matrix)"></a>계수행렬(coefficient matrix)</h4><ul>
+<li>선형연립방정식의 계수 만으로 이루어진 행렬<br> *통상, 선형 연립방정식을 $\bf Ax = b$ 로 나타낼 때, 행렬 A를 말한다.<br>ex) $ \bf \widetilde A =<br>\begin{bmatrix}<br>4 &amp; 6 &amp; 9  \cr<br>6 &amp; 0 &amp; -2 \cr<br>5 &amp; -8 &amp; 1<br>\end{bmatrix}$</li>
+</ul>
+<h4 id="첨가행렬-augmented-matrix"><a href="#첨가행렬-augmented-matrix" class="headerlink" title="첨가행렬(augmented matrix)"></a>첨가행렬(augmented matrix)</h4><ul>
+<li>계수행렬 및 우변 상수항을 모두 포함한 행렬<ul>
+<li>계수행렬 및 우변 상수항을 모두 포함한 행렬</li>
+<li>각 행이 선형연립방정식의 하나의 식과 대응되는 행렬</li>
+</ul>
+</li>
+</ul>
+<p>ex) $ \bf \widetilde A =<br>\begin{bmatrix}<br>4 &amp; 6 &amp; 9 &amp; 6 \cr<br>6 &amp; 0 &amp; -2 &amp; 20 \cr<br>5 &amp; -8 &amp; 1 &amp; 10<br>\end{bmatrix}$</p>
+<h3 id="벡터-Vector"><a href="#벡터-Vector" class="headerlink" title="벡터(Vector)"></a>벡터(Vector)</h3><ul>
+<li>단 하나의 행, 또는 하나의 열만으로 이루어진 행렬<ul>
+<li>벡터의 성분을 성분(component)라 한다.</li>
+<li>벡터는 소문자 볼드체 문자 $\bf a, b, c,\cdots,$ 또는 $\bf a = [a_j]$로 표현한다.</li>
+</ul>
+</li>
+</ul>
+<h4 id="행벡터-Row-Vector"><a href="#행벡터-Row-Vector" class="headerlink" title="행벡터(Row Vector)"></a>행벡터(Row Vector)</h4><blockquote>
+<p>하나의 행으로 구성된 행렬</p>
+</blockquote>
+<p>$$ {\bf a} = \begin{bmatrix} a_1, a_2, \cdots, a_n \end{bmatrix}$$</p>
+<h4 id="열벡터-Column-Vector"><a href="#열벡터-Column-Vector" class="headerlink" title="열벡터(Column Vector)"></a>열벡터(Column Vector)</h4><blockquote>
+<p>하나의 열로 구성된 행렬</p>
+</blockquote>
+<p>$$ {\bf b} = \begin{bmatrix} b_1\cr b_2\cr \vdots \cr b_n \end{bmatrix} $$</p>
+<h3 id="행렬의-상등-Equality-of-Matrices"><a href="#행렬의-상등-Equality-of-Matrices" class="headerlink" title="행렬의 상등(Equality of Matrices)"></a>행렬의 상등(Equality of Matrices)</h3><blockquote>
+<p>두 행렬 A와 B의 크기가 같고 대응하는 성분들이 모두 같을 경우 ($A = B$)</p>
+</blockquote>
+<h3 id="행렬의-합-Matrix-Addition"><a href="#행렬의-합-Matrix-Addition" class="headerlink" title="행렬의 합(Matrix Addition)"></a>행렬의 합(Matrix Addition)</h3><blockquote>
+<p>같은 크기의 행렬에 대해서만 정의되고 그 합은 대응하는 원소를 각각 합함으로 얻어진다.</p>
+</blockquote>
+<h3 id="스칼라곱-Scalar-Multiplication"><a href="#스칼라곱-Scalar-Multiplication" class="headerlink" title="스칼라곱(Scalar Multiplication)"></a>스칼라곱(Scalar Multiplication)</h3><blockquote>
+<p>행렬의 각 원소에 상수(Scalar)를 곱(Product)하여 얻어진다.</p>
+</blockquote>
+<h3 id="행렬의-가법과-스칼라곱에-대한-연산법칙"><a href="#행렬의-가법과-스칼라곱에-대한-연산법칙" class="headerlink" title="행렬의 가법과 스칼라곱에 대한 연산법칙"></a>행렬의 가법과 스칼라곱에 대한 연산법칙</h3><p><img src="/images/Mathematics/engineering_mathematics7_1.jpg" alt>             </p>
+<h2 id="7-2-행렬의-곱"><a href="#7-2-행렬의-곱" class="headerlink" title="7.2 행렬의 곱"></a>7.2 행렬의 곱</h2><h3 id="행렬과-행렬의-곲-Matrix-Multiplication"><a href="#행렬과-행렬의-곲-Matrix-Multiplication" class="headerlink" title="행렬과 행렬의 곲(Matrix Multiplication)"></a>행렬과 행렬의 곲(Matrix Multiplication)</h3><blockquote>
+<p>$r \times p$행렬 $B = [b_{jk}]$의 행수 $r$와 $m \times n$행렬 $A = [a_{jk}]$의 열수 <span style="color:red"> $n$가 서로 같아야 정의되며 </span> $$c_{jk} = \sum_{j=1}^n a_{jl}b_{lk} = a_{j1}b_{1k} +a_{j2}b_{2k} + \cdots + a_{jn}b_{nk}$$<br>를 원소로하는 $m\times p$ 행렬로 정의된다.($AB$는 정의되지만 BA는 정의되지 않을 수 있다.)</p>
+</blockquote>
+<ul>
+<li>행렬의 곱은 비가환적(Not Commutative)이다. 즉 $AB \neq BA$</li>
+</ul>
+<h3 id="행렬의-곱에-대한-연산-법칙"><a href="#행렬의-곱에-대한-연산-법칙" class="headerlink" title="행렬의 곱에 대한 연산 법칙"></a>행렬의 곱에 대한 연산 법칙</h3><p>$$ (kA)B = k(AB) = A(kB)$$<br>$$ A(BC) = (AB)C\ \ \ \ \ \text{(결합법칙(Associative Law))}$$<br>$$ (A+B)C = AC + BC\ \ \text{(분배법칙(Distrivutive Law))}$$<br>$$ C(A+B) = CA + CB\ \ \text{(분배법칙(Distrivutive Law)} $$</p>
+<h3 id="행렬과-벡터의-전치-Transposition-of-Matrices"><a href="#행렬과-벡터의-전치-Transposition-of-Matrices" class="headerlink" title="행렬과 벡터의 전치(Transposition of Matrices)"></a>행렬과 벡터의 전치(Transposition of Matrices)</h3><blockquote>
+<p>열과 행이 서로 바뀌어 얻어진 행렬</p>
+</blockquote>
+<p>$$ {\bf A^T} = [a_{kj}] =<br>\begin{bmatrix}<br>a_{11} &amp; a_{12} &amp; \cdots &amp; a_{m1} \cr<br>a_{21} &amp; a_{22} &amp; \cdots &amp; a_{m2} \cr<br>\vdots &amp; \vdots &amp; \ddots &amp; \vdots \cr<br>a_{1n} &amp; a_{2n} &amp; \cdots &amp; a_{mn}<br>\end{bmatrix}$$</p>
+<ul>
+<li>정방행렬에 대한 전치는 주대각선에 관하여 대칭으로 위치된 원소들을 서로 바꾼 것이다.</li>
+</ul>
+<h3 id="전치-연산에-대한-법칙"><a href="#전치-연산에-대한-법칙" class="headerlink" title="전치 연산에 대한 법칙"></a>전치 연산에 대한 법칙</h3><p>$$ (A^T)^T =A $$<br>$$ (A + B)^T = A^T +B^T $$<br>$$ (cA)^T = cA^T $$<br>$$ (AB)^T = B^TA^T $$</p>
+<h3 id="특수한-행렬-Special-Matrices"><a href="#특수한-행렬-Special-Matrices" class="headerlink" title="특수한 행렬(Special Matrices)"></a>특수한 행렬(Special Matrices)</h3><h4 id="대칭행렬-Symmetric-Matrix"><a href="#대칭행렬-Symmetric-Matrix" class="headerlink" title="대칭행렬(Symmetric Matrix)"></a>대칭행렬(Symmetric Matrix)</h4><blockquote>
+<p>전치가 본래의 행렬과 같은 정방행렬 ($A^T = A$)</p>
+</blockquote>
+<h4 id="반대칭행렬-Skew-symmetric-Matrix"><a href="#반대칭행렬-Skew-symmetric-Matrix" class="headerlink" title="반대칭행렬(Skew- symmetric Matrix)"></a>반대칭행렬(Skew- symmetric Matrix)</h4><blockquote>
+<p>전치가 본래의 행렬의 음이 되는 정방행렬 ($A^T = -A$)</p>
+</blockquote>
+<h4 id="삼각행렬-Triangular-Matrix"><a href="#삼각행렬-Triangular-Matrix" class="headerlink" title="삼각행렬(Triangular Matrix)"></a>삼각행렬(Triangular Matrix)</h4><ul>
+<li>위삼각행렬(Upper Triangular Matrix)<ul>
+<li>주대각선을 포함하여 그 위쪽으로만 0이 아닌 원소를 갖는 정방행렬</li>
+</ul>
+</li>
+<li>아래삼각행렬(Lower Triangular Matrix)<ul>
+<li>주대각선을 포함하여 그 아래쪽으로만 0이 아닌 원소를 갖는 정방행렬</li>
+</ul>
+</li>
+</ul>
+<h4 id="대각행렬-Diagonal-Matrix"><a href="#대각행렬-Diagonal-Matrix" class="headerlink" title="대각행렬(Diagonal Matrix)"></a>대각행렬(Diagonal Matrix)</h4><blockquote>
+<p>주대각선 상에서만 0이 아닌 원소를 가질 수 있는 정방행렬</p>
+</blockquote>
+<h4 id="스칼라-행렬-Scalar-Matrix"><a href="#스칼라-행렬-Scalar-Matrix" class="headerlink" title="스칼라 행렬(Scalar Matrix)"></a>스칼라 행렬(Scalar Matrix)</h4><blockquote>
+<p>주대각선 원소들이 모두 같은 대각행렬</p>
+</blockquote>
+<h4 id="단위행렬-Unit-또는-Identity-Matrix"><a href="#단위행렬-Unit-또는-Identity-Matrix" class="headerlink" title="단위행렬(Unit 또는 Identity Matrix)"></a>단위행렬(Unit 또는 Identity Matrix)</h4><blockquote>
+<p>주대각선 원소들이 모두 1은 대각행렬 </p>
+</blockquote>
+<h2 id="7-3-선형연립방정식-Gauss-소거법"><a href="#7-3-선형연립방정식-Gauss-소거법" class="headerlink" title="7.3 선형연립방정식, Gauss 소거법"></a>7.3 선형연립방정식, Gauss 소거법</h2><h3 id="선형연립방정식-선형계-linear-systems"><a href="#선형연립방정식-선형계-linear-systems" class="headerlink" title="선형연립방정식(=선형계(linear systems))"></a>선형연립방정식(=선형계(linear systems))</h3><p><img src="/images/Mathematics/engineering_mathematics7.png" alt></p>
+<ul>
+<li>제차연립방정식(Homogeneous Simultaneous System) <ul>
+<li>$b_j$가 모두 0인 경우</li>
+</ul>
+</li>
+<li>비제차연립방정식(Nonhomogeneous Simultaneous System)<ul>
+<li>$b_j$중 적어도 하나는 0이 아닌 경우</li>
+</ul>
+</li>
+</ul>
+<h3 id="선형연립방정식의-행렬표현-bf-Ax-b"><a href="#선형연립방정식의-행렬표현-bf-Ax-b" class="headerlink" title="선형연립방정식의 행렬표현 : $\bf Ax = b$"></a>선형연립방정식의 행렬표현 : $\bf Ax = b$</h3><p><img src="/images/Mathematics/engineering_mathematics7_2.png" alt></p>
+<ul>
+<li>계수행렬(Coefficient Matrix) : $\bf A$</li>
+<li>해벡터(Solution Vector) :$\bf x$</li>
+<li>첨가행렬(Augmented matrix) : 계수행렬 $\bf A$에 열벡터 $\bf b$를 첨가한 행렬</li>
+</ul>
+<h3 id="가우스-소거법과-후치환-Gauss-Elimination-and-Back-Substitution"><a href="#가우스-소거법과-후치환-Gauss-Elimination-and-Back-Substitution" class="headerlink" title="가우스 소거법과 후치환(Gauss Elimination and Back Substitution)"></a>가우스 소거법과 후치환(Gauss Elimination and Back Substitution)</h3><p><img src="/images/Mathematics/engineering_mathematics7_3.png" alt></p>
+<ol>
+<li>$x_1$을 소거 : 첫 번째 식에 두 배 한 후, 이를 두 번째 식에 더한다.</li>
+</ol>
+<p><img src="/images/Mathematics/engineering_mathematics7_4.jpg" alt></p>
+<ol start="2">
+<li><p>후치환(Back Substitution) :$x_2, x_1$ 순으로 해를 구한다.</p>
+<p> 마지막 방정식에서 해를 구한 후, 그 결과를 역순으로 첫째 방정식에 대입하여 정리한다. </p>
+</li>
+</ol>
+<p><img src="/images/Mathematics/engineering_mathematics7_5.jpg" alt></p>
+<h3 id="기본행연산-행동치-연립방정식-Elementary-Row-Operations-Row-Equivalent-Systems"><a href="#기본행연산-행동치-연립방정식-Elementary-Row-Operations-Row-Equivalent-Systems" class="headerlink" title="기본행연산. 행동치 연립방정식(Elementary Row Operations. Row-Equivalent Systems)"></a>기본행연산. 행동치 연립방정식(Elementary Row Operations. Row-Equivalent Systems)</h3><p><img src="/images/Mathematics/engineering_mathematics7_6.jpg" alt></p>
+<blockquote>
+<p>기본 행연산을 이용하여 미지수를 하나씩 소거하여 대각선 아래의 계수를 0으로 만든다</p>
+</blockquote>
+<h4 id="행동치-Row-Equivalent"><a href="#행동치-Row-Equivalent" class="headerlink" title="행동치(Row-Equivalent)"></a>행동치(Row-Equivalent)</h4><blockquote>
+<p>선형시스템 $S_1$이 선형시스템 $S_2$에 유한번의 기본행연산을 가하여 얻어질 수 있다면 $S_1$을 $S_2$의 행돋치라 한다.</p>
+</blockquote>
+<h4 id="행동치-연립방정식-Row-Equivalent-Systems"><a href="#행동치-연립방정식-Row-Equivalent-Systems" class="headerlink" title="행동치 연립방정식(Row-Equivalent Systems)"></a>행동치 연립방정식(Row-Equivalent Systems)</h4><ul>
+<li>행동치 연립방정식들은 같은 해집합을 갖는다.</li>
+<li>지금까지 행연산에 국하여 다루었고 열연산의 경우 해집합에 영향을 미칠 수 있다.</li>
+<li>미지수보다 더 많은 방정식을 가진다면 과잉한정(overdetermined)</li>
+<li>미지수보다 적은 방정식을 가지면 과소한정(underdetermined)</li>
+</ul>
+<h3 id="행사다리꼴-Row-Echelon-Form-과-행-사다리꼴로부터의-정보"><a href="#행사다리꼴-Row-Echelon-Form-과-행-사다리꼴로부터의-정보" class="headerlink" title="행사다리꼴(Row Echelon Form)과 행 사다리꼴로부터의 정보"></a>행사다리꼴(Row Echelon Form)과 행 사다리꼴로부터의 정보</h3><h4 id="행사다리꼴"><a href="#행사다리꼴" class="headerlink" title="행사다리꼴"></a>행사다리꼴</h4><blockquote>
+<p>Gauss 소거법의 마지막 단계에서 보는 계수행렬과 첨가행렬의 형태와 이에 대응하는 연립방정식<br>각 행에서 가장 왼편에 있는 0아닌 성분을 모두 1로 만든 것을 축소된 사다리꼴(reduced echelon form)이라 한다.</p>
+</blockquote>
+<p><img src="/images/Mathematics/engineering_mathematics7_7.jpg" alt></p>
+<ul>
+<li>3가지 가능한 경우<ul>
+<li>정확하게 하나의 해가 존재한다. : $r=n$이고 $\widetilde{b_{r+1}}, \cdots, \widetilde{b_m}$이 모두 0이다.</li>
+<li>무한히 많은 해가 존재한다. : $r &lt; n$이고 $\widetilde{b_{r+1}}, \cdots, \widetilde{b_m}$이 모두 0이다.</li>
+<li>해가 없다. : $r &lt; m$이고 $\widetilde{b_{r+1}}, \cdots, \widetilde{b_m}$중 하나라도 0이 아니다.(모순이 없는 경우, $r = m$이거나$, $r &lt; m$이더라도 $\widetilde{b_{r+1}}, \cdots, \widetilde{b_m}$가 모두 0이라면 해가 존재한다.)</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-4-일차-독립-행렬의-계수-벡터공간"><a href="#7-4-일차-독립-행렬의-계수-벡터공간" class="headerlink" title="7.4 일차 독립. 행렬의 계수. 벡터공간"></a>7.4 일차 독립. 행렬의 계수. 벡터공간</h2><h3 id="벡터의-일차-독립과-종속성"><a href="#벡터의-일차-독립과-종속성" class="headerlink" title="벡터의 일차 독립과 종속성"></a>벡터의 일차 독립과 종속성</h3><p><img src="/images/Mathematics/engineering_mathematics7_8.jpg" alt></p>
+<ul>
+<li>일차 독립(Linearly Independent) : 모든 $c_j = 0$ 일 때만 위 식이 만족</li>
+<li>일차 종속(Linearly Dependent) : 어떤 $c_j \neq 0$ 이어도 위 식이 만족</li>
+</ul>
+<h3 id="행렬의-계수-Rank"><a href="#행렬의-계수-Rank" class="headerlink" title="행렬의 계수(Rank)"></a>행렬의 계수(Rank)</h3><blockquote>
+<p>행렬에서 1차독립인 행벡터의 최대수이며 rank($\bf A$)라 표시</p>
+</blockquote>
+<h4 id="행동치인-행렬"><a href="#행동치인-행렬" class="headerlink" title="행동치인 행렬"></a>행동치인 행렬</h4><blockquote>
+<p>행동치인 행렬들은 같은 계수를 갖는다.</p>
+</blockquote>
+<h4 id="일차종속성과-일차독립성"><a href="#일차종속성과-일차독립성" class="headerlink" title="일차종속성과 일차독립성"></a>일차종속성과 일차독립성</h4><blockquote>
+<p>각각 $\bf n$개의 성분을 갖는 $\bf p$개의 벡터들은 이 벡터들을 행벡터로 취하여 구성된 행렬의 계수가 $\bf p$이면 일차독립이고, 그 계수가 $\bf p$보다 작으면 일차종속이다. </p>
+</blockquote>
+<h4 id="열벡터에-의한-계수"><a href="#열벡터에-의한-계수" class="headerlink" title="열벡터에 의한 계수"></a>열벡터에 의한 계수</h4><blockquote>
+<p>행렬의 계수는 행렬의 일차독립인 열벡터의 최대수와 같다.<br>=&gt; 행렬과 행렬의 전치는 같은 계수를 갖는다</p>
+</blockquote>
+<h4 id="벡터의-일차종속"><a href="#벡터의-일차종속" class="headerlink" title="벡터의 일차종속"></a>벡터의 일차종속</h4><blockquote>
+<p>$\bf n$개의 성분을 갖는 벡터가 $\bf p$개 있고 $\bf n &lt; p$ 라면 이들 벡터들은 항상 일차종속이다.</p>
+</blockquote>
+<h3 id="벡터공간-Vector-Space"><a href="#벡터공간-Vector-Space" class="headerlink" title="벡터공간 (Vector Space)"></a>벡터공간 (Vector Space)</h3><blockquote>
+<p>공집합이 아닌 벡터의 집합에 속해 있는 임의의 두 원소에 대하여, 이들의 일차결합이 다시 집합의 원소가 되며 다음 법칙을 만족하는 벡터들의 집합</p>
+</blockquote>
+<p><img src="/images/Mathematics/engineering_mathematics7_9.jpg" alt></p>
+<h4 id="차원-Dimension"><a href="#차원-Dimension" class="headerlink" title="차원(Dimension)"></a>차원(Dimension)</h4><blockquote>
+<p>벡터공간내의 일차독립인 벡터들의 최대수이며 $\bf \dim(V)$로 표기</p>
+</blockquote>
+<h4 id="기저-Basis"><a href="#기저-Basis" class="headerlink" title="기저(Basis)"></a>기저(Basis)</h4><blockquote>
+<p>벡터공간내의 최대로 가능한 수의 일차독립인 벡터로 구성되는 부분집합이며 기저가 되는 벡터의 수는 차원과 같다.</p>
+</blockquote>
+<h4 id="생성공간-Span"><a href="#생성공간-Span" class="headerlink" title="생성공간(Span)"></a>생성공간(Span)</h4><blockquote>
+<p>성분의 수가 같은 벡터들에 관한 일차결합으로 표환되는 모든 벡터들의 집합</p>
+</blockquote>
+<h4 id="부분공간-Subspace"><a href="#부분공간-Subspace" class="headerlink" title="부분공간(Subspace"></a>부분공간(Subspace</h4><blockquote>
+<p>벡터공간에서 정의된 벡터합과 스칼라곱에 관하여 닫혀있는 부분집합</p>
+</blockquote>
+<h3 id="bf-R-n-벡터공간"><a href="#bf-R-n-벡터공간" class="headerlink" title="$\bf R^n$ 벡터공간"></a>$\bf R^n$ 벡터공간</h3><blockquote>
+<p>$\bf n$개의 성분을 갖는 모든 벡터들로 이루어진 벡터공간 $\bf R^n$의 차원 $n$이다.</p>
+</blockquote>
+<h4 id="행공간-Row-Space"><a href="#행공간-Row-Space" class="headerlink" title="행공간(Row Space)"></a>행공간(Row Space)</h4><blockquote>
+<p>행벡터들의 생성공간</p>
+</blockquote>
+<h4 id="열공간-Column-Space"><a href="#열공간-Column-Space" class="headerlink" title="열공간(Column Space)"></a>열공간(Column Space)</h4><blockquote>
+<p>열벡터들의 생성공간</p>
+</blockquote>
+<h3 id="행공간과-열공간"><a href="#행공간과-열공간" class="headerlink" title="행공간과 열공간"></a>행공간과 열공간</h3><blockquote>
+<p>행렬의 행공간과 열공간은 차원이 같고, 행렬의 계수와도 동일하다. </p>
+</blockquote>
+<h4 id="영공간-Null-Space"><a href="#영공간-Null-Space" class="headerlink" title="영공간(Null Space)"></a>영공간(Null Space)</h4><blockquote>
+<p>$\bf Ax = 0$의 해집합</p>
+</blockquote>
+<h4 id="퇴화차수-Nullity"><a href="#퇴화차수-Nullity" class="headerlink" title="퇴화차수(Nullity)"></a>퇴화차수(Nullity)</h4><blockquote>
+<p>영공간의 차원</p>
+</blockquote>
+<p>$\bf A$의 계수 + $\bf A$의 퇴화차수 = 행렬 $\bf A$의 행 갯수</p>
+<h2 id="7-5-선형연립방정식의-해-존재성-유일성"><a href="#7-5-선형연립방정식의-해-존재성-유일성" class="headerlink" title="7.5 선형연립방정식의 해 : 존재성, 유일성"></a>7.5 선형연립방정식의 해 : 존재성, 유일성</h2><h3 id="선형연립방정식에-대한-기본정리"><a href="#선형연립방정식에-대한-기본정리" class="headerlink" title="선형연립방정식에 대한 기본정리"></a>선형연립방정식에 대한 기본정리</h3><h4 id="존재성-Existence"><a href="#존재성-Existence" class="headerlink" title="존재성(Existence)"></a>존재성(Existence)</h4><blockquote>
+<p>선형연립방정식이 모순이 없기 위한(Consistent), 다시 말해서 해를 갖기 위한, 필요충분조건은 계수행렬과 첨가행렬이 같은 계수를 갖는 것이다.</p>
+</blockquote>
+<h4 id="유일성-Uniqueness"><a href="#유일성-Uniqueness" class="headerlink" title="유일성(Uniqueness)"></a>유일성(Uniqueness)</h4><blockquote>
+<p>선형연립방정식이 유일한 해를 갖기 위한 필요충분조건은 계수행렬과 첨가행렬이 같은 계수를 갖는 것이다</p>
+</blockquote>
+<h4 id="무수히-많은-해-Infinitely-Many-Solutions"><a href="#무수히-많은-해-Infinitely-Many-Solutions" class="headerlink" title="무수히 많은 해(Infinitely Many Solutions)"></a>무수히 많은 해(Infinitely Many Solutions)</h4><blockquote>
+<p>계수행렬과 첨가행렬이 같은 계수$\bf r$을 갖고 $\bf r &lt; n$이면, 무수히 많은 해가 존재한다.</p>
+</blockquote>
+<h4 id="Gauss-소거법-Gauss-Elimination"><a href="#Gauss-소거법-Gauss-Elimination" class="headerlink" title="Gauss 소거법(Gauss Elimination)"></a>Gauss 소거법(Gauss Elimination)</h4><blockquote>
+<p>해가 존재하면 Gauss 소거법에 의해 모두 구해질 수 있다.</p>
+</blockquote>
+<h3 id="제차연립방정식"><a href="#제차연립방정식" class="headerlink" title="제차연립방정식"></a>제차연립방정식</h3><ul>
+<li>제차연립방정식은 항상 자명한 해(Trivial Solution)을 갖는다.</li>
+<li>자명하지 않은 해가 존재할 필요충분조건 : $\bf r &lt; n$ (계수행렬의 계수= $\bf r = \text{rank} A$, 미지수의 갯수 = $ \bf n$)</li>
+<li>$\bf r &lt; n$이면 해공간은 $\bf n-r$차원 벡터공간이다.</li>
+<li>제차연립방정식의 두 해벡터의 일차결합도 제차연립방정식의 해이다.</li>
+</ul>
+<h3 id="미지수보다-방정식의-수가-적은-제차-선형연립방정식"><a href="#미지수보다-방정식의-수가-적은-제차-선형연립방정식" class="headerlink" title="미지수보다 방정식의 수가 적은 제차 선형연립방정식"></a>미지수보다 방정식의 수가 적은 제차 선형연립방정식</h3><blockquote>
+<p>방정식의 수가 미지수의 수보다 적은 제차연립방정식은 항상 자명하지 않은 해(Nontrivial Solution)를 갖는다.</p>
+</blockquote>
+<h3 id="비제차연립방정식"><a href="#비제차연립방정식" class="headerlink" title="비제차연립방정식"></a>비제차연립방정식</h3><blockquote>
+<p>만약 비제차 연립방정식이 해를 갖는다면 모든 해는<br>$$\bf x = x_0 + x_h$$<br>와 같은 형태가 된다.<br>$\bf x_0$은 고정된 임의의 해이고 $\bf x_h$는 대응하는 제차연립방정식의 모든 해를 대표한다.</p>
+</blockquote>
+<h2 id="7-6-참고사항-2차-및-3차-행렬식"><a href="#7-6-참고사항-2차-및-3차-행렬식" class="headerlink" title="7.6 참고사항 : 2차 및 3차 행렬식"></a>7.6 참고사항 : 2차 및 3차 행렬식</h2><h3 id="2차-행렬식-Determinant-of-Second-Order"><a href="#2차-행렬식-Determinant-of-Second-Order" class="headerlink" title="2차 행렬식(Determinant of Second Order)"></a>2차 행렬식(Determinant of Second Order)</h3><p><img src="/images/Mathematics/engineering_mathematics7_10.jpg" alt></p>
+<h4 id="선형연립방정식"><a href="#선형연립방정식" class="headerlink" title="선형연립방정식"></a>선형연립방정식</h4><p><img src="/images/Mathematics/engineering_mathematics7_11.jpg" alt></p>
+<h3 id="3차-행렬식-Determinant-of-Third-Order"><a href="#3차-행렬식-Determinant-of-Third-Order" class="headerlink" title="3차 행렬식(Determinant of Third Order)"></a>3차 행렬식(Determinant of Third Order)</h3><p><img src="/images/Mathematics/engineering_mathematics7_12.jpg" alt></p>
+<h4 id="선형연립방정식-1"><a href="#선형연립방정식-1" class="headerlink" title="선형연립방정식"></a>선형연립방정식</h4><p><img src="/images/Mathematics/engineering_mathematics7_13.jpg" alt></p>
+<h2 id="7-7-행렬식-Cramer의-법칙"><a href="#7-7-행렬식-Cramer의-법칙" class="headerlink" title="7.7 행렬식. Cramer의 법칙"></a>7.7 행렬식. Cramer의 법칙</h2><h3 id="bf-n-차-행렬식-Determinant-of-Third-Order"><a href="#bf-n-차-행렬식-Determinant-of-Third-Order" class="headerlink" title="$\bf n$차 행렬식(Determinant of Third Order)"></a>$\bf n$차 행렬식(Determinant of Third Order)</h3><p><img src="/images/Mathematics/engineering_mathematics7_14.jpg" alt></p>
+<ul>
+<li>소행렬식(Minor): $M_{jk}$<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/2ae0f49460a5958265eb20c49c2939acc69ebdf8" alt></li>
+<li>여인수(Cofactor): $C_{jk}$<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/a637371ae55abcc8f75cb096424397b58b3aa481" alt></li>
+</ul>
+<h3 id="기본행연산항-Elementary-Row-Operation-에서의-bf-n-차-행렬식의-변화"><a href="#기본행연산항-Elementary-Row-Operation-에서의-bf-n-차-행렬식의-변화" class="headerlink" title="기본행연산항(Elementary Row Operation)에서의 $\bf n$차 행렬식의 변화"></a>기본행연산항(Elementary Row Operation)에서의 $\bf n$차 행렬식의 변화</h3><ul>
+<li>(a) 두 행을 바꾸는 것은 행렬식의 값에 -1을 곱하는 것이다</li>
+<li>(b) 한 행의 상수배를 다른 행에 더하는 것은 행렬식의 값에 변화를 주지 않는다.</li>
+<li>(c) 한 행에 0이 아닌 $c$를 곱하면 행렬식의 값이 $c$배가 된다.</li>
+</ul>
+<h3 id="bf-n-차-행렬식의-추가적인-성질"><a href="#bf-n-차-행렬식의-추가적인-성질" class="headerlink" title="$\bf n$차 행렬식의 추가적인 성질"></a>$\bf n$차 행렬식의 추가적인 성질</h3><ul>
+<li>(a)-(c)는 열에 대해서도 성립한다.</li>
+<li>(d) 전치(Transposition)는 행렬식의 값에 변화를 주지 않는다.</li>
+<li>(e) 0행 또는 0열은 행렬식의 값을 0으로 만든다.</li>
+<li>(f) 두 행이나 두 열이 비례관계에 있으면 행렬식의 값은 0이다. 특히 같은 두 행이나 두 열을 가진 행렬식의 값은 0이다.</li>
+</ul>
+<h3 id="행렬식과-계수"><a href="#행렬식과-계수" class="headerlink" title="행렬식과 계수"></a>행렬식과 계수</h3><blockquote>
+<p>$m \times n$ 행렬 $A=[a_{jk}]$가 계수 $r(\geq 1)$을 갖기 위한 필요충분조건은<br>(1) $\bf A$가, 0이 아닌 행렬식을 갖는 $r \times r$ 부분행렬을 가지고,<br>(2) $\bf A$의 $(r+1) \times (r+1)$ 또는 그보다 큰 크기의 모든 정방 부분행렬(그런 부분행렬이 존재할 경우)의 행렬식이 0이 되는 것이다.<br>특히, $\bf A$가 정방행렬 $ n \times n$ 정방행렬일 때, 계수가 $n$일 필요충분조건은<br>(3) $\text{det}A \neq 0$이다.</p>
+</blockquote>
+<h3 id="Cramer의-정리-행렬식에-의한-선형연립방정식의-해"><a href="#Cramer의-정리-행렬식에-의한-선형연립방정식의-해" class="headerlink" title="Cramer의 정리(행렬식에 의한 선형연립방정식의 해)"></a>Cramer의 정리(행렬식에 의한 선형연립방정식의 해)</h3><p><img src="/images/Mathematics/engineering_mathematics7_15.jpg" alt></p>
+<blockquote>
+<p>$D \neq 0이면 그 연립방정식은 오직 하나의 해를 갖는다.</p>
+</blockquote>
+<ul>
+<li>$D_k$는 $D$의 $k$번째열을 $b_1, \cdots, b_n$을 성분으로 하는 열벡터로 대치하여 얻은 행렬식이다.</li>
+<li>따라서 위 식이 제차이고 $D \neq 0$이면, 그것은 오직 자명한 해 $x_1 = 0, x_2 = 0, \cdots, x_n = 0$만을 갖는다.</li>
+<li>만약 $D = 0$이면, 제차연립방정식은 자명한 해가 아닌 해도 갖는다.</li>
+</ul>
+<h2 id="7-8-역행렬-Gauss-Jordan-소거법"><a href="#7-8-역행렬-Gauss-Jordan-소거법" class="headerlink" title="7.8 역행렬. Gauss-Jordan 소거법"></a>7.8 역행렬. Gauss-Jordan 소거법</h2><h3 id="역행렬-Inverse-Matrix"><a href="#역행렬-Inverse-Matrix" class="headerlink" title="역행렬(Inverse Matrix)"></a>역행렬(Inverse Matrix)</h3><p><img src="/images/Mathematics/engineering_mathematics7_16.jpg" alt></p>
+<ul>
+<li>정칙행렬(Nonsingular Matrix) : 역행렬을 갖는 경우</li>
+<li>특이행렬(Singular Matrix) : 역행렬을 갖지 않는 경우</li>
+<li>역행렬을 가지면 그 역행렬은 유일하다</li>
+</ul>
+<h3 id="역행렬의-존재성"><a href="#역행렬의-존재성" class="headerlink" title="역행렬의 존재성"></a>역행렬의 존재성</h3><blockquote>
+<p>$\bf A$가 $\bf n \times n$행렬일 때, 역행렬$A^{-1}$이 존재할 필요 충분조건은 $\text{rank}A = n$이다.($\bf \text{det}A \neq 0$도 같은 조건이다)</p>
+</blockquote>
+<p><img src="/images/Mathematics/engineering_mathematics7_17.jpg" alt></p>
+<h3 id="Gauss-Jordan-소거법에-의한-역행렬의-결정"><a href="#Gauss-Jordan-소거법에-의한-역행렬의-결정" class="headerlink" title="Gauss-Jordan 소거법에 의한 역행렬의 결정"></a>Gauss-Jordan 소거법에 의한 역행렬의 결정</h3><p><img src="/images/Mathematics/engineering_mathematics7_18.jpg" alt></p>
+<h3 id="행렬식에-의한-역행렬-공식"><a href="#행렬식에-의한-역행렬-공식" class="headerlink" title="행렬식에 의한 역행렬 공식"></a>행렬식에 의한 역행렬 공식</h3><p><img src="/images/Mathematics/engineering_mathematics7_19.jpg" alt></p>
+<blockquote>
+<p>여인수 $C_{jk}$가 놓인 위치는, 행렬 $\bf A$의 성분 $a_{jk}$가 놓인 자리가 아니라, 성분 $a_{kj}$가 있는 자리이다.<br><img src="/images/Mathematics/engineering_mathematics7_20.jpg" alt></p>
+</blockquote>
+<h3 id="대각행렬의-역행렬"><a href="#대각행렬의-역행렬" class="headerlink" title="대각행렬의 역행렬"></a>대각행렬의 역행렬</h3><blockquote>
+<p>대각행렬 ${\bf A} =[a_{jk}](즉, $j \neq k$일 때 $a_{jk} = 0$)가 역행렬을 가질 필요충분조건은 주대각선 상의 모든 성분 $a_{jj}$가 0이 아니어야 한다.</p>
+</blockquote>
+<p>$$ 이 경우 \bf A^{-1}은 \frac 1 a_{11}, \cdots, \frac 1 a_{nn}들이 대각원소인 대각행렬이 된다.$$</p>
+<p><img src="/images/Mathematics/engineering_mathematics7_21.jpg" alt></p>
+<h3 id="두-행렬의-곱-bf-AC-의-역행렬"><a href="#두-행렬의-곱-bf-AC-의-역행렬" class="headerlink" title="두 행렬의 곱 $\bf AC$의 역행렬"></a>두 행렬의 곱 $\bf AC$의 역행렬</h3><p>$$\bf(AC)^{-1} = C^{-1}A^{-1}$$<br>$$\bf (AC\cdotsPQ)^{-1} = Q^{-1}P^{-1}\cdots C^{-1}A^{-1}$$</p>
+<h3 id="역행렬의-역행렬"><a href="#역행렬의-역행렬" class="headerlink" title="역행렬의 역행렬"></a>역행렬의 역행렬</h3><p>$$\bf (A^{-1})^{-1} = A$$</p>
+<h3 id="행렬의-곱에-대한-특이-성질-소거법"><a href="#행렬의-곱에-대한-특이-성질-소거법" class="headerlink" title="행렬의 곱에 대한 특이 성질, 소거법"></a>행렬의 곱에 대한 특이 성질, 소거법</h3><ul>
+<li>행렬의 곱은 교환법칙이 성립하지 않는다.(일반적으로 성립하지 않는다.)</li>
+</ul>
+<p>$$ \bf AB \neq BA$$</p>
+<ul>
+<li>$\bf AB = 0$일 때 $\bf A = 0$ 또는 $\bf B = 0$이 아닐 수도 있다.</li>
+</ul>
+<p>$$\begin{bmatrix}<br>1 &amp; 1  \cr<br>2 &amp; 2<br>\end{bmatrix}<br>\begin{bmatrix}<br>-1 &amp; 1  \cr<br>1 &amp; -1<br>\end{bmatrix} =<br>\begin{bmatrix}<br>0 &amp; 0  \cr<br>0 &amp; 0<br>\end{bmatrix}<br>$$</p>
+<ul>
+<li>$\bf AC = AD$일 떄 $C \neq D$일 수도 있다.(심지어 $A \neq 0$ 일 때에도))</li>
+</ul>
+<h3 id="소거법칙"><a href="#소거법칙" class="headerlink" title="소거법칙"></a>소거법칙</h3><ul>
+<li>$\bf A,B,C$를 $n \times n$ 행렬이라 하자.<ul>
+<li>(a) $\text{rank} A = n$이고 $\bf AB = AC$이면, $B = C$이다.</li>
+<li>(b) $\text{rank} A = n$이면 $\bf AB = 0$은 $\bf B = 0$을 의미한다.<ul>
+<li>그러므로 $\bf AB = 0$이면서 $\bf A \neq 0$이고 동시에 $\bf B \neq 0$이면, $\text{rank} {\bf A} &lt; n$이고 $\text{rank} {\bf B} &lt; n$이다.</li>
+</ul>
+</li>
+<li>$\bf A$가 특이행렬이면, $\bf BA$와 $\bf AB$도 특이행렬이다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="행렬곱의-행렬식"><a href="#행렬곱의-행렬식" class="headerlink" title="행렬곱의 행렬식"></a>행렬곱의 행렬식</h3><blockquote>
+<p>$\bf \det (AB) = \det (BA) = \det A \det B</p>
+</blockquote>
+<h2 id="7-9-벡터공간-내적공간-일차변환"><a href="#7-9-벡터공간-내적공간-일차변환" class="headerlink" title="7.9 벡터공간, 내적공간, 일차변환"></a>7.9 벡터공간, 내적공간, 일차변환</h2><h3 id="실벡터공간-Real-Vector-Space"><a href="#실벡터공간-Real-Vector-Space" class="headerlink" title="실벡터공간(Real Vector Space)"></a>실벡터공간(Real Vector Space)</h3><blockquote>
+<p>성분 $\bf a,b,\cdots$을 갖는 공집합이 아닌 집합 $V$에 대하여 “벡터의 덧셈”과 “스칼라 곱”이라고 하는 두 가지 대수학적 연산법칙이 다음과 같이 정의되어 있으면, 이 집합 $V$를 <code>실벡터공간(real vector space, 또는 실선형 공간(real linear space))</code>이라 부르고 $V$의 성분을 <code>벡터</code>라 부른다.</p>
+</blockquote>
+<ul>
+<li><p>벡터의 덧셈: $\bf a + b$</p>
+<ul>
+<li>가환성(Commutativity)  $\bf a+b = b+a$</li>
+<li>결합성(Associativity)  $\bf (u+v) + w = u + (v+w)$</li>
+<li>영벡터(Zero Vector)    $\bf a+0=a, a+(-a)=0$</li>
+</ul>
+</li>
+<li><p>스칼라곱: $k{\bf a}$</p>
+<ul>
+<li>분배성(Distributivity) $c({\bf a+b}) = c{\bf a} + c{\bf b}$</li>
+<li>분배성(Distributivity) $(c+k){\bf a} = c{\bf a} + k{\bf a}$</li>
+<li>결합성(Associativity)  $c(k{\bf a}) = (ck){\bf a}, 1{\bf a} = {\bf a}$</li>
+</ul>
+</li>
+</ul>
+<h3 id="실내적공간-Real-Inner-Product-Space"><a href="#실내적공간-Real-Inner-Product-Space" class="headerlink" title="실내적공간(Real Inner Product Space)"></a>실내적공간(Real Inner Product Space)</h3><blockquote>
+<p>실벡터공간 $V$에 속한 임의의 한 쌍의 벡터 $\bf a,b$에 대하여 하나의 실수를 대응시키는 규칙이 존재하여 다음 공리를 만족한다면, $V$를 <code>실내적공간(real inner product space)이라 부른다.</code></p>
+</blockquote>
+<h4 id="내적-Inner-Product"><a href="#내적-Inner-Product" class="headerlink" title="내적(Inner Product)"></a>내적(Inner Product)</h4><p>$$ (a,b) = a \cdot b $$</p>
+<ul>
+<li>선형선 $q_1{\bf a} + q_2{\bf b,c} = q_1({\bf a,c}) + q_2({\bf b,c})$</li>
+<li>대칭성 $\bf (a,b) = (b,a)$</li>
+<li>양의정치성(Positive-definiteness) </li>
+</ul>
+<p>$\begin{cases}<br>(a,a) \geq 0, \cr<br>(a,a) = 0 \text{일 필요충분조건은} \ \ a = 0<br>\end{cases}$</p>
+<h4 id="직교-Orthogonal"><a href="#직교-Orthogonal" class="headerlink" title="직교(Orthogonal)"></a>직교(Orthogonal)</h4><blockquote>
+<p>내적이 영인 두 벡터</p>
+</blockquote>
+<h4 id="벡터의-길이-또는-노름-norm"><a href="#벡터의-길이-또는-노름-norm" class="headerlink" title="벡터의 길이 또는 노름(norm)"></a>벡터의 길이 또는 노름(norm)</h4><p>$$\bf \lVert a \rVert = \sqrt{(a,a)} (\geq 0)$$</p>
+<h4 id="n-차원-Euclid-공간"><a href="#n-차원-Euclid-공간" class="headerlink" title="$n$차원 Euclid 공간"></a>$n$차원 Euclid 공간</h4><p>$$\bf (a,b) = a^Tb = a_1b_1 + \cdots + a_nb_n$$</p>
+<blockquote>
+<p>위 식과 같이 약속된 내적이 정의되었다고 하면, 이 때 이 공간을 <code>$n$차원 Euclid 공간</code>이라 부르고 $E^n$(또는 $R^n$)이라 표기한다.</p>
+</blockquote>
+<ul>
+<li>Euclid 노름(Euclidean norm)</li>
+</ul>
+<p><img src="/images/Mathematics/engineering_mathematics7_.png" alt></p>
+<h4 id="단위벡터-Unit-Vector"><a href="#단위벡터-Unit-Vector" class="headerlink" title="단위벡터(Unit Vector)"></a>단위벡터(Unit Vector)</h4><blockquote>
+<p>길이가 1인 벡터</p>
+</blockquote>
+<h4 id="Cauchy-Schwarz-부등식"><a href="#Cauchy-Schwarz-부등식" class="headerlink" title="Cauchy-Schwarz 부등식"></a>Cauchy-Schwarz 부등식</h4><p>$$\bf \lvert (a,b) \rVert \geq \lVert a \rVert \lVert b \rVert $$</p>
+<h4 id="삼각부등식"><a href="#삼각부등식" class="headerlink" title="삼각부등식"></a>삼각부등식</h4><p>$$\bf \lVert a+b \rVert \geq \lVert a \rVert + \lVert b \rVert $$</p>
+<h4 id="평행사변형-등식"><a href="#평행사변형-등식" class="headerlink" title="평행사변형 등식"></a>평행사변형 등식</h4><p>$$\bf {\lVert a+b \rVert}^2 + {\lVert a-b \rVert}^2 = 2({\lVert a \rVert}^2 + {\lVert b \rVert}^2) $$</p>
+<h3 id="일차변환-Linear-Transformations"><a href="#일차변환-Linear-Transformations" class="headerlink" title="일차변환(Linear Transformations)"></a>일차변환(Linear Transformations)</h3><ul>
+<li>$\bf X$에서 $\bf Y$로의 <code>사상(mapping)</code> 또는 <code>변환(transformation)</code>, <code>연산자(operator)</code><ul>
+<li>공간 $\bf X$의 벡터 $\bf x$에 대하여 공간 $\bf Y$의 유일한 벡터 $\bf y$를 대응(이와 같은 사상을 $\bf F$와 같은 대문자로 표기하자)</li>
+<li>공간 $\bf X$의 벡터 $\bf x$에  대응하는 $\bf Y$의 벡터 $\bf y$를 $\bf F$에 의한 $\bf x$의 <code>상(image)</code>이라 하고 $\bf F(x)(또는 괄호 없는 Fx)$로 표시한다.</li>
+</ul>
+</li>
+<li>$\bf F$를 <code>선형사상(linear mapping)</code> 또는 <code>일차변환(linear transformation)</code><ul>
+<li>$\bf X$의 임의의 벡터 $\bf v, x$와 임의의 스칼라 $c$에 대하여 다음의 식을 만족<br>$$\bf F(v + x) = F(v) + F(x)$$<br>$${\bf F}(c {\bf x}) = c{\bf F}({\bf x}) $$</li>
+</ul>
+</li>
+</ul>
+<h3 id="R-b-공간에서-R-m-공간으로서의-선형변환"><a href="#R-b-공간에서-R-m-공간으로서의-선형변환" class="headerlink" title="$R^b$ 공간에서 $R^m$ 공간으로서의 선형변환"></a>$R^b$ 공간에서 $R^m$ 공간으로서의 선형변환</h3><blockquote>
+<p>$\bf X = R^n$, $\bf Y = R^m$이라 하자 $m \times n$ 행렬 $\bf A$가 주어지면 $R^n$에서 $R^m$으로 의 변환<br>$$\bf y = Ax $$<br>$\bf A(u + x) = Au + Ax$와 ${bf A}(c{bf x}) = c\bf{ A x}$이므로 이 변환은 선형이다.<br>$\bf F$는, $\bf R^n$과 $\bf R^m$ 공간에 각각 주어진 기저를 이용하여, 적절한 $m \times n$행렬 $\bf A$로 나타낼 수 있다.</p>
+</blockquote>
+<p><a href="http://contents2.kocw.or.kr/KOCW/document/2016/hanbat/kimdongsoo/7.pdf" target="_blank" rel="noopener">http://contents2.kocw.or.kr/KOCW/document/2016/hanbat/kimdongsoo/7.pdf</a></p>
+<p><a href="https://latexbase.com/d/e2c4eeb2-68f6-4efa-a305-112097ad9e8b" target="_blank" rel="noopener">https://latexbase.com/d/e2c4eeb2-68f6-4efa-a305-112097ad9e8b</a></p>
+<p><a href="https://forknwork.wordpress.com/2018/02/14/openpose3d-pose-baseline/" target="_blank" rel="noopener">https://forknwork.wordpress.com/2018/02/14/openpose3d-pose-baseline/</a></p>
+<p><a href="https://github.com/wangzheallen/awesome-human-pose-estimation#3d-pose-estimation" target="_blank" rel="noopener">https://github.com/wangzheallen/awesome-human-pose-estimation#3d-pose-estimation</a></p>
+
+    </div>
+      
+
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/linear-algebra/" rel="tag"><i class="fa fa-tag"></i> linear algebra</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/08/02/2019-08-02-Openpose-paper-review/" rel="next" title="[CVPR 2017] Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields 리뷰">
+                <i class="fa fa-chevron-left"></i> [CVPR 2017] Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields 리뷰
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/08/31/2019-08-31-PRML-1/" rel="prev" title="PRML 1 Introduction">
+                PRML 1 Introduction <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            목차
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            흝어보기
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Juhwak Kim</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">카테고리</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">태그</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/juhwakKim" title="GitHub &rarr; https://github.com/juhwakKim" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:juhk1017@naver.com" title="E-Mail &rarr; mailto:juhk1017@naver.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-행렬-벡터-합과-스칼라곱"><span class="nav-number">1.</span> <span class="nav-text">7.1 행렬, 벡터: 합과 스칼라곱</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬-matrix"><span class="nav-number">1.1.</span> <span class="nav-text">행렬(matrix)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#일반적인-표기법과-개념"><span class="nav-number">1.1.1.</span> <span class="nav-text">일반적인 표기법과 개념</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#정방행렬-square-matrix"><span class="nav-number">1.1.2.</span> <span class="nav-text">정방행렬(square matrix)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#계수행렬-coefficient-matrix"><span class="nav-number">1.1.3.</span> <span class="nav-text">계수행렬(coefficient matrix)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#첨가행렬-augmented-matrix"><span class="nav-number">1.1.4.</span> <span class="nav-text">첨가행렬(augmented matrix)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#벡터-Vector"><span class="nav-number">1.2.</span> <span class="nav-text">벡터(Vector)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#행벡터-Row-Vector"><span class="nav-number">1.2.1.</span> <span class="nav-text">행벡터(Row Vector)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#열벡터-Column-Vector"><span class="nav-number">1.2.2.</span> <span class="nav-text">열벡터(Column Vector)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬의-상등-Equality-of-Matrices"><span class="nav-number">1.3.</span> <span class="nav-text">행렬의 상등(Equality of Matrices)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬의-합-Matrix-Addition"><span class="nav-number">1.4.</span> <span class="nav-text">행렬의 합(Matrix Addition)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#스칼라곱-Scalar-Multiplication"><span class="nav-number">1.5.</span> <span class="nav-text">스칼라곱(Scalar Multiplication)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬의-가법과-스칼라곱에-대한-연산법칙"><span class="nav-number">1.6.</span> <span class="nav-text">행렬의 가법과 스칼라곱에 대한 연산법칙</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-행렬의-곱"><span class="nav-number">2.</span> <span class="nav-text">7.2 행렬의 곱</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬과-행렬의-곲-Matrix-Multiplication"><span class="nav-number">2.1.</span> <span class="nav-text">행렬과 행렬의 곲(Matrix Multiplication)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬의-곱에-대한-연산-법칙"><span class="nav-number">2.2.</span> <span class="nav-text">행렬의 곱에 대한 연산 법칙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬과-벡터의-전치-Transposition-of-Matrices"><span class="nav-number">2.3.</span> <span class="nav-text">행렬과 벡터의 전치(Transposition of Matrices)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#전치-연산에-대한-법칙"><span class="nav-number">2.4.</span> <span class="nav-text">전치 연산에 대한 법칙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#특수한-행렬-Special-Matrices"><span class="nav-number">2.5.</span> <span class="nav-text">특수한 행렬(Special Matrices)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#대칭행렬-Symmetric-Matrix"><span class="nav-number">2.5.1.</span> <span class="nav-text">대칭행렬(Symmetric Matrix)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#반대칭행렬-Skew-symmetric-Matrix"><span class="nav-number">2.5.2.</span> <span class="nav-text">반대칭행렬(Skew- symmetric Matrix)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#삼각행렬-Triangular-Matrix"><span class="nav-number">2.5.3.</span> <span class="nav-text">삼각행렬(Triangular Matrix)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#대각행렬-Diagonal-Matrix"><span class="nav-number">2.5.4.</span> <span class="nav-text">대각행렬(Diagonal Matrix)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#스칼라-행렬-Scalar-Matrix"><span class="nav-number">2.5.5.</span> <span class="nav-text">스칼라 행렬(Scalar Matrix)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#단위행렬-Unit-또는-Identity-Matrix"><span class="nav-number">2.5.6.</span> <span class="nav-text">단위행렬(Unit 또는 Identity Matrix)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-선형연립방정식-Gauss-소거법"><span class="nav-number">3.</span> <span class="nav-text">7.3 선형연립방정식, Gauss 소거법</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#선형연립방정식-선형계-linear-systems"><span class="nav-number">3.1.</span> <span class="nav-text">선형연립방정식(=선형계(linear systems))</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#선형연립방정식의-행렬표현-bf-Ax-b"><span class="nav-number">3.2.</span> <span class="nav-text">선형연립방정식의 행렬표현 : $\bf Ax = b$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#가우스-소거법과-후치환-Gauss-Elimination-and-Back-Substitution"><span class="nav-number">3.3.</span> <span class="nav-text">가우스 소거법과 후치환(Gauss Elimination and Back Substitution)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#기본행연산-행동치-연립방정식-Elementary-Row-Operations-Row-Equivalent-Systems"><span class="nav-number">3.4.</span> <span class="nav-text">기본행연산. 행동치 연립방정식(Elementary Row Operations. Row-Equivalent Systems)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#행동치-Row-Equivalent"><span class="nav-number">3.4.1.</span> <span class="nav-text">행동치(Row-Equivalent)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#행동치-연립방정식-Row-Equivalent-Systems"><span class="nav-number">3.4.2.</span> <span class="nav-text">행동치 연립방정식(Row-Equivalent Systems)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행사다리꼴-Row-Echelon-Form-과-행-사다리꼴로부터의-정보"><span class="nav-number">3.5.</span> <span class="nav-text">행사다리꼴(Row Echelon Form)과 행 사다리꼴로부터의 정보</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#행사다리꼴"><span class="nav-number">3.5.1.</span> <span class="nav-text">행사다리꼴</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4-일차-독립-행렬의-계수-벡터공간"><span class="nav-number">4.</span> <span class="nav-text">7.4 일차 독립. 행렬의 계수. 벡터공간</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#벡터의-일차-독립과-종속성"><span class="nav-number">4.1.</span> <span class="nav-text">벡터의 일차 독립과 종속성</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬의-계수-Rank"><span class="nav-number">4.2.</span> <span class="nav-text">행렬의 계수(Rank)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#행동치인-행렬"><span class="nav-number">4.2.1.</span> <span class="nav-text">행동치인 행렬</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#일차종속성과-일차독립성"><span class="nav-number">4.2.2.</span> <span class="nav-text">일차종속성과 일차독립성</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#열벡터에-의한-계수"><span class="nav-number">4.2.3.</span> <span class="nav-text">열벡터에 의한 계수</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#벡터의-일차종속"><span class="nav-number">4.2.4.</span> <span class="nav-text">벡터의 일차종속</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#벡터공간-Vector-Space"><span class="nav-number">4.3.</span> <span class="nav-text">벡터공간 (Vector Space)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#차원-Dimension"><span class="nav-number">4.3.1.</span> <span class="nav-text">차원(Dimension)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#기저-Basis"><span class="nav-number">4.3.2.</span> <span class="nav-text">기저(Basis)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#생성공간-Span"><span class="nav-number">4.3.3.</span> <span class="nav-text">생성공간(Span)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#부분공간-Subspace"><span class="nav-number">4.3.4.</span> <span class="nav-text">부분공간(Subspace</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bf-R-n-벡터공간"><span class="nav-number">4.4.</span> <span class="nav-text">$\bf R^n$ 벡터공간</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#행공간-Row-Space"><span class="nav-number">4.4.1.</span> <span class="nav-text">행공간(Row Space)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#열공간-Column-Space"><span class="nav-number">4.4.2.</span> <span class="nav-text">열공간(Column Space)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행공간과-열공간"><span class="nav-number">4.5.</span> <span class="nav-text">행공간과 열공간</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#영공간-Null-Space"><span class="nav-number">4.5.1.</span> <span class="nav-text">영공간(Null Space)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#퇴화차수-Nullity"><span class="nav-number">4.5.2.</span> <span class="nav-text">퇴화차수(Nullity)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-5-선형연립방정식의-해-존재성-유일성"><span class="nav-number">5.</span> <span class="nav-text">7.5 선형연립방정식의 해 : 존재성, 유일성</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#선형연립방정식에-대한-기본정리"><span class="nav-number">5.1.</span> <span class="nav-text">선형연립방정식에 대한 기본정리</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#존재성-Existence"><span class="nav-number">5.1.1.</span> <span class="nav-text">존재성(Existence)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#유일성-Uniqueness"><span class="nav-number">5.1.2.</span> <span class="nav-text">유일성(Uniqueness)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#무수히-많은-해-Infinitely-Many-Solutions"><span class="nav-number">5.1.3.</span> <span class="nav-text">무수히 많은 해(Infinitely Many Solutions)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gauss-소거법-Gauss-Elimination"><span class="nav-number">5.1.4.</span> <span class="nav-text">Gauss 소거법(Gauss Elimination)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#제차연립방정식"><span class="nav-number">5.2.</span> <span class="nav-text">제차연립방정식</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#미지수보다-방정식의-수가-적은-제차-선형연립방정식"><span class="nav-number">5.3.</span> <span class="nav-text">미지수보다 방정식의 수가 적은 제차 선형연립방정식</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#비제차연립방정식"><span class="nav-number">5.4.</span> <span class="nav-text">비제차연립방정식</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-6-참고사항-2차-및-3차-행렬식"><span class="nav-number">6.</span> <span class="nav-text">7.6 참고사항 : 2차 및 3차 행렬식</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2차-행렬식-Determinant-of-Second-Order"><span class="nav-number">6.1.</span> <span class="nav-text">2차 행렬식(Determinant of Second Order)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#선형연립방정식"><span class="nav-number">6.1.1.</span> <span class="nav-text">선형연립방정식</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3차-행렬식-Determinant-of-Third-Order"><span class="nav-number">6.2.</span> <span class="nav-text">3차 행렬식(Determinant of Third Order)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#선형연립방정식-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">선형연립방정식</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-7-행렬식-Cramer의-법칙"><span class="nav-number">7.</span> <span class="nav-text">7.7 행렬식. Cramer의 법칙</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bf-n-차-행렬식-Determinant-of-Third-Order"><span class="nav-number">7.1.</span> <span class="nav-text">$\bf n$차 행렬식(Determinant of Third Order)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#기본행연산항-Elementary-Row-Operation-에서의-bf-n-차-행렬식의-변화"><span class="nav-number">7.2.</span> <span class="nav-text">기본행연산항(Elementary Row Operation)에서의 $\bf n$차 행렬식의 변화</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bf-n-차-행렬식의-추가적인-성질"><span class="nav-number">7.3.</span> <span class="nav-text">$\bf n$차 행렬식의 추가적인 성질</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬식과-계수"><span class="nav-number">7.4.</span> <span class="nav-text">행렬식과 계수</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cramer의-정리-행렬식에-의한-선형연립방정식의-해"><span class="nav-number">7.5.</span> <span class="nav-text">Cramer의 정리(행렬식에 의한 선형연립방정식의 해)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-8-역행렬-Gauss-Jordan-소거법"><span class="nav-number">8.</span> <span class="nav-text">7.8 역행렬. Gauss-Jordan 소거법</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#역행렬-Inverse-Matrix"><span class="nav-number">8.1.</span> <span class="nav-text">역행렬(Inverse Matrix)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#역행렬의-존재성"><span class="nav-number">8.2.</span> <span class="nav-text">역행렬의 존재성</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gauss-Jordan-소거법에-의한-역행렬의-결정"><span class="nav-number">8.3.</span> <span class="nav-text">Gauss-Jordan 소거법에 의한 역행렬의 결정</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬식에-의한-역행렬-공식"><span class="nav-number">8.4.</span> <span class="nav-text">행렬식에 의한 역행렬 공식</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#대각행렬의-역행렬"><span class="nav-number">8.5.</span> <span class="nav-text">대각행렬의 역행렬</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#두-행렬의-곱-bf-AC-의-역행렬"><span class="nav-number">8.6.</span> <span class="nav-text">두 행렬의 곱 $\bf AC$의 역행렬</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#역행렬의-역행렬"><span class="nav-number">8.7.</span> <span class="nav-text">역행렬의 역행렬</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬의-곱에-대한-특이-성질-소거법"><span class="nav-number">8.8.</span> <span class="nav-text">행렬의 곱에 대한 특이 성질, 소거법</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#소거법칙"><span class="nav-number">8.9.</span> <span class="nav-text">소거법칙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬곱의-행렬식"><span class="nav-number">8.10.</span> <span class="nav-text">행렬곱의 행렬식</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-9-벡터공간-내적공간-일차변환"><span class="nav-number">9.</span> <span class="nav-text">7.9 벡터공간, 내적공간, 일차변환</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#실벡터공간-Real-Vector-Space"><span class="nav-number">9.1.</span> <span class="nav-text">실벡터공간(Real Vector Space)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#실내적공간-Real-Inner-Product-Space"><span class="nav-number">9.2.</span> <span class="nav-text">실내적공간(Real Inner Product Space)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#내적-Inner-Product"><span class="nav-number">9.2.1.</span> <span class="nav-text">내적(Inner Product)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#직교-Orthogonal"><span class="nav-number">9.2.2.</span> <span class="nav-text">직교(Orthogonal)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#벡터의-길이-또는-노름-norm"><span class="nav-number">9.2.3.</span> <span class="nav-text">벡터의 길이 또는 노름(norm)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#n-차원-Euclid-공간"><span class="nav-number">9.2.4.</span> <span class="nav-text">$n$차원 Euclid 공간</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#단위벡터-Unit-Vector"><span class="nav-number">9.2.5.</span> <span class="nav-text">단위벡터(Unit Vector)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cauchy-Schwarz-부등식"><span class="nav-number">9.2.6.</span> <span class="nav-text">Cauchy-Schwarz 부등식</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#삼각부등식"><span class="nav-number">9.2.7.</span> <span class="nav-text">삼각부등식</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#평행사변형-등식"><span class="nav-number">9.2.8.</span> <span class="nav-text">평행사변형 등식</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#일차변환-Linear-Transformations"><span class="nav-number">9.3.</span> <span class="nav-text">일차변환(Linear Transformations)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#R-b-공간에서-R-m-공간으로서의-선형변환"><span class="nav-number">9.4.</span> <span class="nav-text">$R^b$ 공간에서 $R^m$ 공간으로서의 선형변환</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Juhwak Kim</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', function() {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://juhk1017.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://juhwakkim.github.io/2019/08/15/2019-08-15-engineering-mathematics/";
+    this.page.identifier = "2019/08/15/2019-08-15-engineering-mathematics/";
+    this.page.title = '공업 수학 7강';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://juhk1017.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
+</html>
