@@ -154,7 +154,7 @@ body {
   background: #fff;
   color: #555;
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 1.2em;
+  font-size: 1em;
   line-height: 2;
   position: relative;
 }
@@ -982,11 +982,6 @@ pre .javascript .function {
 .back-to-top:hover {
   opacity: 0.8;
 }
-@media (max-width: 991px) {
-  .back-to-top {
-    display: none;
-  }
-}
 .back-to-top.back-to-top-on {
   visibility: visible;
   transition-delay: 0s;
@@ -1606,11 +1601,6 @@ pre .javascript .function {
   border-bottom-color: #eee;
   color: #eee;
 }
-@media (max-width: 991px) {
-  .sidebar {
-    display: none;
-  }
-}
 .sidebar-inner {
   color: #999;
   padding: 20px 10px;
@@ -1672,7 +1662,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffedff;
+  background: #7eaa06;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1799,7 +1789,6 @@ pre .javascript .function {
   .sidebar-toggle {
     opacity: 0.8;
     right: 20px;
-    display: none;
   }
 }
 .sidebar-toggle-line {
