@@ -87,7 +87,7 @@
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-1(25).jpg">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-1(26).jpg">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-1(27).jpg">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-1(27).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-1(28).jpg">
 <meta property="og:updated_time" content="2020-02-24T15:00:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS285 Fa19 Deep Reinforcement Learning, Decision Making, and Control">
@@ -465,7 +465,7 @@
 <p>$$\bf \mathbb{E} \left[\  \mathsf{\underset{t}{\sum}}\  c(s_{t},a_{t})\right] \leq \epsilon T + (1-\epsilon)(\epsilon(T-1) + (1-\epsilon)(…))$$</p>
 <p>첫번째 step에서 mistake했을때 cost의 기댓값은 $\bf \epsilon \bf T$(mistake를 하면 그 이후 step에서는 계속 mistake하므로)이고 첫번째는 잘하고 두번째 step에서 mistake했을때 cost의 기댓값은 $\bf (1-\epsilon)\epsilon(T-1)$이고 $\bf T$ step만큼의 항이 나온다. 그리고 각가의 항이 $\bf O(\epsilon T)$(Order of T)이기 때문에 $\bf \mathbb{E} [\  \mathsf{\underset{t}{\Sigma}}\  c(s_{t},a_{t})]$의 bound는 $O(\epsilon T^2)$가 된다.</p>
 <p>하지만 $O(\epsilon T^2)$는 좋지 않다. 왜냐하면 $\epsilon$이 아무리 작아도 $T$가 길어질수록 cost가 커지기 때문이다. </p>
-<p><img src="/images/Deep-learning/cs285/cs285-1(27).jpg" alt="cs285" title="cs285 paper"></p>
+<p><img src="/images/Deep-learning/cs285/cs285-1(28).jpg" alt="cs285" title="cs285 paper"></p>
 <p>위에서 했던 가정 “모든 $\bf s \in \mathit{D_{train}}$”은 trained state만 고려하기에 적절한 가정은아니다(image classification에서 train과 test를 똑같은 사진을 쓰는 것과 같음, generalization 문제). 그래서 가정을 $\bf s ~ p_{train}(s)$으로 바꾸자. </p>
 <p>먼저 DAgger를 적용했을 때 $p_{train}(s) \rightarrow p_\theta(s)$($p_{train}(s) = p_\theta(s)$)이 된다. 이때 total cost 기댓값의 upper bound는</p>
 <p>$$\bf \mathbb{E} \left[\  \mathsf{\underset{t}{\sum}}\  c(s_{t},a_{t})\right] \leq \epsilon T$$<br>이된다.(매 step마다 mistake할 확률이 $\epsilon$으로 동일하기 때문)</p>
