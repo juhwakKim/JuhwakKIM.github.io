@@ -476,9 +476,9 @@
 <blockquote>
 <p>total variation divergence between $p_\theta(s_t)$ and $p_{train}(s_t)$</p>
 </blockquote>
-<p>$$ \bf | p_{\theta}(s_{t}) - p_{train}(s_{t}) = |<br>여기서 </p>
-<p>$\bf p_{\theta}(s_{t}) = (1-\epsilon)^t p_{train}(s_{t}) + (1-(1-\epsilon)^t)p_{mistake}(s_t)$이고 $\bf p_{train}(s_t) = (1-\epsilon)^t p_{train} + (1-(1-\epsilon)^t)p_{train}$</p>
-<p>이므로<br>$\bf \left| p_{\theta}(s_{t}) - p_{train}(s_{t}) \right| = (1-(1-\epsilon)^t) \left| p_{mistake}(s_{t})-p_{train}(s_{t}) \right|$이된다.</p>
+<p>$$\bf p_{\theta}(s_{t}) = (1-\epsilon)^t p_{train}(s_{t}) + (1-(1-\epsilon)^t)p_{mistake}(s_t)$$ </p>
+<p>$$\bf p_{train}(s_t) = (1-\epsilon)^t p_{train} + (1-(1-\epsilon)^t)p_{train}$$</p>
+<p>이므로 $\bf \left| p_{\theta}(s_{t}) - p_{train}(s_{t}) \right| = (1-(1-\epsilon)^t) \left| p_{mistake}(s_{t})-p_{train}(s_{t}) \right|$이된다.</p>
 <p>$$\bf \left| p_{\theta}(s_{t}) - p_{train}(s_{t}) \right| = (1-(1-\epsilon)^t) \left| p_{mistake}(s_{t})-p_{train}(s_{t}) \right| \leq 2(1-(1-\epsilon)^t) \leq 2\epsilon t$$</p>
 <p>두 확률분포의 차이의 절댓값($\bf \left| p_{mistake}(s_{t})-p_{train}(s_{t}) \right|$)의 최댓값은 2이고 $\bf -(1-\epsilon)^t \leq -(1-\epsilon t)$ for $\epsilon \in \left[0,1\right]$이므로 $\bf \left| p_{mistake}(s_{t})-p_{train}(s_{t}) \right|$의 upper bound는 $2\epsilon t$이 된다.</p>
 <p>cost의 기댓값은 아래와 같이 전개된다.</p>
