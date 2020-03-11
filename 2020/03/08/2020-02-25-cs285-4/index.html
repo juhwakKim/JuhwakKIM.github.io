@@ -55,13 +55,13 @@
   };
 </script>
 
-  <meta name="description" content="CS 285 at UC Berkeley을 보고 정리한 글입니다. Definitions  강화학습의 목적은 $\theta$를 찾는 것이 목적이다. state는 markov property를 만족하고 observation은 만족하지 않는다. $\pi_{\theta} \bf (a_t|o_t)$는 partially observed라고 하고 $\pi_{\theta}">
+  <meta name="description" content="CS 285 at UC Berkeley을 보고 정리한 글입니다. Definitions  강화학습의 목적은 $\theta$를 찾는 것이 목적이다. state는 markov property를 만족하고 observation은 만족하지 않는다. $\pi_{\theta} \mathbf (a_t|o_t)$는 partially observed라고 하고 $\pi_{\th">
 <meta name="keywords" content="Deep Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS285 Fa19 Introduction to Reinforcement Learning">
 <meta property="og:url" content="https://juhwakkim.github.io/2020/03/08/2020-02-25-cs285-4/index.html">
 <meta property="og:site_name" content="AI&amp;Robotics">
-<meta property="og:description" content="CS 285 at UC Berkeley을 보고 정리한 글입니다. Definitions  강화학습의 목적은 $\theta$를 찾는 것이 목적이다. state는 markov property를 만족하고 observation은 만족하지 않는다. $\pi_{\theta} \bf (a_t|o_t)$는 partially observed라고 하고 $\pi_{\theta}">
+<meta property="og:description" content="CS 285 at UC Berkeley을 보고 정리한 글입니다. Definitions  강화학습의 목적은 $\theta$를 찾는 것이 목적이다. state는 markov property를 만족하고 observation은 만족하지 않는다. $\pi_{\theta} \mathbf (a_t|o_t)$는 partially observed라고 하고 $\pi_{\th">
 <meta property="og:locale" content="ko">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4.jpg">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(2).jpg">
@@ -101,7 +101,7 @@
 <meta property="og:updated_time" content="2020-03-07T15:00:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS285 Fa19 Introduction to Reinforcement Learning">
-<meta name="twitter:description" content="CS 285 at UC Berkeley을 보고 정리한 글입니다. Definitions  강화학습의 목적은 $\theta$를 찾는 것이 목적이다. state는 markov property를 만족하고 observation은 만족하지 않는다. $\pi_{\theta} \bf (a_t|o_t)$는 partially observed라고 하고 $\pi_{\theta}">
+<meta name="twitter:description" content="CS 285 at UC Berkeley을 보고 정리한 글입니다. Definitions  강화학습의 목적은 $\theta$를 찾는 것이 목적이다. state는 markov property를 만족하고 observation은 만족하지 않는다. $\pi_{\theta} \mathbf (a_t|o_t)$는 partially observed라고 하고 $\pi_{\th">
 <meta name="twitter:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4.jpg">
   <link rel="canonical" href="https://juhwakkim.github.io/2020/03/08/2020-02-25-cs285-4/">
 
@@ -371,7 +371,7 @@
 <ul>
 <li>강화학습의 목적은 $\theta$를 찾는 것이 목적이다.</li>
 <li>state는 markov property를 만족하고 observation은 만족하지 않는다.</li>
-<li>$\pi_{\theta} \bf (a_t|o_t)$는 partially observed라고 하고 $\pi_{\theta} \bf (a_t|s_t)$ fully observed라 한다.</li>
+<li>$\pi_{\theta} \mathbf (a_t|o_t)$는 partially observed라고 하고 $\pi_{\theta} \mathbf (a_t|s_t)$ fully observed라 한다.</li>
 <li>POMDP(Partially observable Markov decision process)와 Fully observed MDP가 있는데 일반적으로 Fully observed MDP로 가정한다.</li>
 </ul>
 <h3 id="behavior-cloning"><a href="#behavior-cloning" class="headerlink" title="behavior cloning"></a>behavior cloning</h3><p><img src="/images/Deep-learning/cs285/cs285-4(2).jpg" alt="cs285" title="cs285 paper"></p>
@@ -381,8 +381,8 @@
 </ul>
 <h3 id="reward-function"><a href="#reward-function" class="headerlink" title="reward function"></a>reward function</h3><p><img src="/images/Deep-learning/cs285/cs285-4(3).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
-<li>$\bf r(s,a)$(reward function): 어떤 행동이 좋고, 어떤 행동이 나쁜가?에 대한 기준</li>
-<li>$\bf s,a,r(s,a),p(s^’|s,a)$(transition probability)로 이뤄진 것을 Markov decision process라 한다.</li>
+<li>$\mathbf r(s,a)$(reward function): 어떤 행동이 좋고, 어떤 행동이 나쁜가?에 대한 기준</li>
+<li>$s,{\mathbf a},r(s,a),p(s’|s,a)$ (transition probability)로 이뤄진 것을 Markov decision process라 한다.</li>
 </ul>
 <h3 id="Markov-chain"><a href="#Markov-chain" class="headerlink" title="Markov chain"></a>Markov chain</h3><p><img src="/images/Deep-learning/cs285/cs285-4(4).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
@@ -402,12 +402,12 @@
 <li>Discrete space에서 $\mathcal{T}$ linear operator처럼 쓰이기 때문</li>
 </ul>
 <ol>
-<li>let \mu_{t,i} = p(s_t = i)  \vec{\mu_t} is a vector of probabilites<ul>
+<li>let $\mu_{t,i} = p(s_t = i)  \vec{\mu_t}$ is a vector of probabilites<ul>
 <li>$\mu_{t,i}$: time step $t$에서 주어진 state $i$일 확률</li>
 </ul>
 </li>
 <li>let $\mathcal{T}<em>{i,j} = p(s</em>{t+1} = i|s_t = j)$ then $\vec{\mu_{t+1}} = \mathcal{T}\vec{\mu_t}$<ul>
-<li>$\mathcal{T}_{i,j}$ -&gt; $N\timesN$ matrix($N$:가능한 state 개수)</li>
+<li>$\mathcal{T}_{i,j}$ -&gt; $N\times N$ matrix($N$:가능한 state 개수)</li>
 <li>다음 step의 state 확률을 $\mathcal{T}$와 현재 step의 state 확률의 곱으로 구할 수 있다.</li>
 <li>$\vec{\mu_{t+1}} = \mathcal{T}\vec{\mu_t}$이 linear operator 처럼 행동</li>
 <li>stationary distribuition 때 중요</li>
@@ -478,17 +478,17 @@
 <li>항상 policy가 explicit 하지 않지만 지금은 explicit</li>
 </ul>
 </li>
-<li><p>$p_\theta(\bf s_1,a_1,\dots,s_T,a_T) = p(s_1) \prod_{t=1}^T\pi_\theta(a_t|s_t)p(s_{t+1}|s_t,a_t)$</p>
+<li><p>$p_\theta(s_1,{\mathbf a_1},\dots,s_T,{\mathbf a_T}) = p(s_1) \prod_{t=1}^T\pi_\theta({\mathbf a_t}|s_t)p(s_{t+1}|s_t,{\mathbf a_t})$</p>
 <ul>
 <li>finite horizon으로 가정</li>
-<li>$p_\theta(\bf s_1,a_1,\dots,s_T,a_T) = p_\theta(\mathcal{T})$ (joint probability distribution, $\mathcal{T}$는 trajectory)</li>
+<li>$p_\theta(s_1,{\mathbf a_1},\dots,s_T,{\mathbf a_T}) = p_\theta(\mathcal{T})$ (joint probability distribution, $\mathcal{T}$는 trajectory)</li>
 <li>$s_{t+1}는 보통 모른다.</li>
 </ul>
 </li>
-<li><p>$\theta^\star = \arg \max_{\theta}E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\sum_t r(s_t,\bf a_t)]$</p>
+<li><p>$\theta^\star = \arg \max_{\theta}E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\sum_t r(s_t,{\mathbf a_t})]$</p>
 <ul>
 <li>우리는 모든 time step마다 reward가 최대가 되길 원한다. 그래서 모든 time step에 대해 reward를 더한다.</li>
-<li>$s_t,\bf a_t$는 $\mathcal{T}\sim p_\theta(\mathcal{T})$에 대해 uncertain(randomly distributed)하기에 기댓값을 사용($\sum_{x-p(x)}[f(x)]=\int p(x)f(x)dx)$)</li>
+<li>$s_t,{\mathbf a_t}$는 $\mathcal{T}\sim p_\theta(\mathcal{T})$에 대해 uncertain(randomly distributed)하기에 기댓값을 사용($\sum_{x-p(x)}[f(x)]=\int p(x)f(x)dx)$)</li>
 <li>이 식은 policy의 목적이기에 action을 알려주지 않아서 기댓값은 가능한 모든 state와 action의 sequence를 고려해야한다.</li>
 </ul>
 </li>
@@ -496,19 +496,19 @@
 <p><img src="/images/Deep-learning/cs285/cs285-4(9).jpg" alt="cs285" title="cs285 paper"></p>
 <p><img src="/images/Deep-learning/cs285/cs285-4(10).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
-<li><p>$\theta = \arg \max_{\theta}E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\sum_t r(s_t,\bf a_t)]$</p>
+<li><p>$\theta = \arg \max_{\theta}E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\sum_t r(s_t,{\mathbf a_t})]$</p>
 <ul>
-<li>distribution이 MDP를 만족하지 않아도 $\pi_\theta(\bf a|s)$가 정해지면 $s$와 $\bf a$의 합쳐짐으로 얻어진 augmented state space에서 markov chain으로 볼수있다.</li>
+<li>distribution이 MDP를 만족하지 않아도 $\pi_\theta({\mathbf a}|s)$가 정해지면 $s$와 $\mathbf a$의 합쳐짐으로 얻어진 augmented state space에서 markov chain으로 볼수있다.</li>
 </ul>
 </li>
-<li><p>$p((s_{t+1},\bf{a_{t+1}})|(s_t,\bf{a_t}))) = p(s_{t+1}|s_t,\bf{a_t})\pi_\theta(a_{t+1}|s_{t+1})$</p>
+<li><p>$p((s_{t+1},\mathbf{a_{t+1}})|(s_t,\mathbf{a_t}))) = p(s_{t+1}|s_t,\mathbf{a_t})\pi_\theta(a_{t+1}|s_{t+1})$</p>
 </li>
 </ul>
 <h3 id="Finite-horizon-case-state-action-marginal"><a href="#Finite-horizon-case-state-action-marginal" class="headerlink" title="Finite horizon case: state-action marginal"></a>Finite horizon case: state-action marginal</h3><p><img src="/images/Deep-learning/cs285/cs285-4(11).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
-<li>$\theta^\star = \arg \max_{\theta} \sum^T_{t=1}E_(s_t,\bf{a_t})\sim p_\theta(s_t,\bf{a_t})[r(s_t,\bf{a_t})]$<ul>
+<li>$\theta^\star = \arg \max_{\theta} \sum^T_{t=1}E_(s_t,\mathbf{a_t})\sim p_\theta(s_t,\mathbf{a_t})[r(s_t,\mathbf{a_t})]$<ul>
 <li>$\mathcal{T}$를 $s$와 $a$의 pair로 변경 </li>
-<li>$p_\theta(s_t,\bf{a}_t)$(state-action marginal)<ul>
+<li>$p_\theta(s_t,\mathbf{a}_t)$(state-action marginal)<ul>
 <li>time step $t$에서의 state와 action의 marginal distribution</li>
 </ul>
 </li>
@@ -518,9 +518,9 @@
 <h3 id="Infinite-horizon-case-stationary-distribution"><a href="#Infinite-horizon-case-stationary-distribution" class="headerlink" title="Infinite horizon case: stationary distribution"></a>Infinite horizon case: stationary distribution</h3><p><img src="/images/Deep-learning/cs285/cs285-4(12).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
 <li>what if $T = \infty$? <ul>
-<li>$p(s_t,\bf{a_t})$가 stationary distribution으로 수렴 한다면(항상은 아니지만 일반적으로 수렴) $\begin{pmatrix} s_{t+1} \ a_{t+1} \end{pmatrix} = \mathcal{T}^k \begin{pmatrix} s_{t} \ a_{t} \end{pmatrix}$(state-action transition operator)을 이용해서 $\mu = \mathcal{T}\mu$로 나타낼 수 있다.<ul>
+<li>$p(s_t,\mathbf{a_t})$가 stationary distribution으로 수렴 한다면(항상은 아니지만 일반적으로 수렴) $\begin{pmatrix} s_{t+1} \ a_{t+1} \end{pmatrix} = \mathcal{T}^k \begin{pmatrix} s_{t} \ a_{t} \end{pmatrix}$(state-action transition operator)을 이용해서 $\mu = \mathcal{T}\mu$로 나타낼 수 있다.<ul>
 <li>$\mu$: vector of probabilities state action pair <ul>
-<li>$\mu = \begin{bmatrix} p(s_1) \ p(s_2) \ \vdots    \ p(s_N) \end{bmatrix}$(regular markov chain) $\mu = \begin{bmatrix} p(s_1,a_1) \ p(s_1,a_2)    \ p(s_1,a_M) \ p(s_2,a_1) \ \vdots \end{bmatrix}$(markov chain over $s$ and $a$)</li>
+<li>$\mu=\left[\begin{array}{c}<br>p\left(s_{1}\right) \<br>p\left(s_{2}\right) \<br>\vdots \<br>p\left(s_{N}\right)<br>\end{array}\right]$ (regular markov chain) $\mu=\left[\begin{array}{c}<br>p\left(s_{1}, a_{1}\right) \<br>p\left(s_{1}, a_{2}\right) \<br>p\left(s_{1}, a_{M}\right) \<br>p\left(s_{2}, a_{1}\right) \<br>\vdots<br>\end{array}\right]$ (markov chain over $s$ and $a$)</li>
 </ul>
 </li>
 <li>not change distribution $\ne$ not change state</li>
@@ -536,9 +536,9 @@
 </ul>
 <p><img src="/images/Deep-learning/cs285/cs285-4(13).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
-<li>$\theta^\star = \arg \max_{\theta} \frac{1}{T} \sum^T_{t=1}E_(s_t,\bf{a_t})\sim p_\theta(s_t,\bf{a_t})[r(s_t,\bf{a_t})] \rightarrow E_{(s,\bf{a})\sim p_\theta(s,\bf{a})}[r(s,\bf{a})]$<ul>
+<li>$\theta^\star = \arg \max_{\theta} \frac{1}{T} \sum^T_{t=1}E_(s_t,\mathbf{a_t})\sim p_\theta(s_t,\mathbf{a_t})[r(s_t,\mathbf{a_t})] \rightarrow E_{(s,\mathbf{a})\sim p_\theta(s,\mathbf{a})}[r(s,\mathbf{a})]$<ul>
 <li>$T$가 무한대으로 가면 이전 공식이 무한대로 가기 때문에 $\frac{1}{T}$을 추가함(undiscounted average return)</li>
-<li>$\sum$이 $E$에 압도되어 결국 $E_{(s,\bf{a})\sim p_\theta(s,\bf{a})}[r(s,\bf{a})]$이 된다.</li>
+<li>$\sum$이 $E$에 압도되어 결국 $E_{(s,\mathbf{a})\sim p_\theta(s,\mathbf{a})}[r(s,\mathbf{a})]$이 된다.</li>
 </ul>
 </li>
 </ul>
@@ -549,7 +549,7 @@
 <li><p>그림처럼 도로위에 있으면 reward +1 이고 그외에는 -1이라 하자</p>
 <ul>
 <li>reward function은 not smooth, not differentiable하다.</li>
-<li>하지만 expectation을 추가하면 $\theta$($pi_\theta(\bf{a}=fall)=\theta$,distribution) 안에서는 smooth 해진다.($\theta<em>(-1)+(1-\theta)</em>1$이므로)</li>
+<li>하지만 expectation을 추가하면 $\theta$($pi_\theta(\mathbf{a}=fall)=\theta$,distribution) 안에서는 smooth 해진다.($\theta<em>(-1)+(1-\theta)</em>1$이므로)</li>
 </ul>
 </li>
 </ul>
@@ -568,7 +568,7 @@
 <p><img src="/images/Deep-learning/cs285/cs285-4(18).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
 <li>Model based RL<ul>
-<li>(<span style="color:green"> $s_t$와 $\bf a_t$가 input으로 받고 output으로 $s_{t+1}$를 출력하는 $f_{\phi}$를 학습한다.(fitting neural net) </span>)</li>
+<li>(<span style="color:green"> $s_t$와 $\mathbf a_t$가 input으로 받고 output으로 $s_{t+1}$를 출력하는 $f_{\phi}$를 학습한다.(fitting neural net) </span>)</li>
 <li>(<span style="color:blue"> $\pi_\theta(s_t)$를 학습 시키기 위해 $f_{\phi}$와 $r$을 통해서 backprop한다.  </span>)</li>
 </ul>
 </li>
@@ -583,14 +583,14 @@
 </li>
 </ul>
 <h3 id="How-do-we-deal-with-all-these-expectations"><a href="#How-do-we-deal-with-all-these-expectations" class="headerlink" title="How do we deal with all these expectations?"></a>How do we deal with all these expectations?</h3><p><img src="/images/Deep-learning/cs285/cs285-4(21).jpg" alt="cs285" title="cs285 paper"></p>
-<p>$$E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\sum_t r(s_t,\bf a_t)]$$</p>
-<p>$$ E_{s_1 \sim p(s_1)} [E_{\bf{a}_1\sim \pi (\bf {a} _1|s_1)} [r(s_1,{\bf a}_1)+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |s_1]] $$</p>
+<p>$$E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\sum_t r(s_t,\mathbf a_t)]$$</p>
+<p>$$ E_{s_1 \sim p(s_1)} [E_{\mathbf{a}_1\sim \pi (\mathbf {a} _1|s_1)} [r(s_1,{\mathbf a}_1)+\ |s_1]] $$</p>
 <ul>
 <li>state $s_1$에서 action $a_1$을 한다.</li>
 </ul>
-<p>$$ E_{s_1 \sim p(s_1)} [E_{\bf{a}<em>1\sim \pi (\bf {a} _1|s_1)} [r(s_1,{\bf a}_1)+E</em>{s_2\sim p(s_2|s_1,{\bf a_1)}}[\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |s_1,{\bf a}_1]\ |s_1]] $$</p>
+<p>$$ E_{s_1 \sim p(s_1)} [E_{\mathbf{a}<em>1\sim \pi (\mathbf {a} _1|s_1)} [r(s_1,{\mathbf a}_1)+E</em>{s_2\sim p(s_2|s_1,{\mathbf a_1)}}[ |s_1,{\mathbf a}_1]\ |s_1]] $$</p>
 <ul>
-<li>transition probability distribution $p(s_2|s_1,\bf{a_1})$에 따라 state $s_2$로 가고 action $a_2$를 한다.</li>
+<li>transition probability distribution $p(s_2|s_1,\mathbf{a_1})$에 따라 state $s_2$로 가고 action $a_2$를 한다.</li>
 </ul>
 <p>$$ E_{s_{1} \sim p\left(s_{1}\right)}\left[E_{\mathbf{a}<em>{1} \sim \pi\left(\mathbf{a}</em>{1} | \mathbf{s}<em>{1}\right)}\left[r\left(\mathbf{s}</em>{1}, \mathbf{a}<em>{1}\right)+E</em>{\mathbf{s}<em>{2} \sim p\left(\mathbf{s}</em>{2} | \mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right)}\left[E_{\mathbf{a}<em>{2} \sim \pi\left(\mathbf{a}</em>{2} | \mathbf{s}<em>{2}\right)}\left[r\left(\mathbf{s}</em>{2}, \mathbf{a}<em>{2}\right)+\ldots | \mathbf{s}</em>{2}\right] | \mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right] | \mathbf{s}_{1}\right]\right] $$</p>
 <ul>
@@ -604,12 +604,12 @@
 <li>time step $T$까지 기다릴 필요 없이 바로 policy를 앞으로의 보상에 맞게 학습할 수 있을 것이다.(drastically simplify)</li>
 </ul>
 </li>
-<li><p>$Q(s_1,\bf{a_1}) = \left r\left(\mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right)+E_{\mathbf{s}<em>{2} \sim p\left(\mathbf{s}</em>{2} | \mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right)}\left[E_{\mathbf{a}<em>{2} \sim \pi\left(\mathbf{a}</em>{2} | \mathbf{s}<em>{2}\right)}\left[r\left(\mathbf{s}</em>{2}, \mathbf{a}<em>{2}\right)+\ldots | \mathbf{s}</em>{2}\right] | \mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right] | \mathbf{s}_{1}\right]\right]$</p>
+<li><p>$Q(s_1,\mathbf{a_1}) = \left r\left(\mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right)+E_{\mathbf{s}<em>{2} \sim p\left(\mathbf{s}</em>{2} | \mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right)}\left[E_{\mathbf{a}<em>{2} \sim \pi\left(\mathbf{a}</em>{2} | \mathbf{s}<em>{2}\right)}\left[r\left(\mathbf{s}</em>{2}, \mathbf{a}<em>{2}\right)+\ldots | \mathbf{s}</em>{2}\right] | \mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right] | \mathbf{s}_{1}\right]\right]$</p>
 </li>
 <li><p>$E_{\tau \sim p_{\theta}(\tau)}\left[\sum_{t=1}^{T} r\left(\mathbf{s}<em>{t}, \mathbf{a}</em>{t}\right)\right]=E_{\mathbf{s}<em>{1} \sim p\left(\mathbf{s}</em>{1}\right)}\left[E_{\mathbf{a}<em>{1} \sim \pi\left(\mathbf{a}</em>{1} | \mathbf{s}<em>{1}\right)}\left[Q\left(\mathbf{s}</em>{1}, \mathbf{a}<em>{1}\right) | \mathbf{s}</em>{1}\right]\right]$</p>
 <ul>
 <li>만약 모든 $s$, $a$에 대해서 $Q(s,a)$를 안다면 $\pi$를 쉽게 바꿀 수 있다.<ul>
-<li>ex) 만약 ${\bf a_1} = \arg \max_{\bf a_1} Q(s_1,{\bf a_1})이면  $\pi_\theta({\bf a_1}|s_1) = 1$ 이다.(나머지 확률이 0이라)</li>
+<li>ex) 만약 ${\mathbf a_1} = \arg \max_{\mathbf a_1} Q(s_1,{\mathbf a_1})이면  $\pi_\theta({\mathbf a_1}|s_1) = 1$ 이다.(나머지 확률이 0이라)</li>
 </ul>
 </li>
 <li>$Q$도 $pi$에 영향을 받지만 지금은 고려하지 않는다.(나중에 트릭으로 해결)</li>
@@ -618,35 +618,35 @@
 </ul>
 <h3 id="Q-function-and-value-function"><a href="#Q-function-and-value-function" class="headerlink" title="Q-function and value function"></a>Q-function and value function</h3><p><img src="/images/Deep-learning/cs285/cs285-4(22).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
-<li>Q-function(quality function): $s_t$에서 $\bf a_t$를 했을때 앞으로 받을 전체 reward의 합<ul>
-<li>$Q^{\pi}(s_t,{\bf a_t}) = \sum\nolimits^T_{t’=t} E_{\pi_\theta}[r(s_{t’},{\bf a}_{t’})|s_t,{\bf a_t}]$</li>
+<li>Q-function(quality function): $s_t$에서 $\mathbf a_t$를 했을때 앞으로 받을 전체 reward의 합<ul>
+<li>$Q^{\pi}(s_t,{\mathbf a_t}) = \sum\nolimits^T_{t’=t} E_{\pi_\theta}[r(s_{t’},{\mathbf a}_{t’})|s_t,{\mathbf a_t}]$</li>
 </ul>
 </li>
 <li>value function: $s_t$로부터 앞으로 받을 전체 reward의 합<ul>
-<li>$V^{\pi}(s_t) = \sum\nolimits_{t’=t}^{T} {E}<em>{\pi</em>{\theta}} [ r(s_{t’},{\bf a}_{t’}) | s_t]$</li>
+<li>$V^{\pi}(s_t) = \sum\nolimits_{t’=t}^{T} {E}<em>{\pi</em>{\theta}} [ r(s_{t’},{\mathbf a}_{t’}) | s_t]$</li>
 <li>$V^{\pi}\left(\mathbf{s}<em>{t}\right)=E</em>{\mathbf{a}<em>{t} \sim \pi\left(\mathbf{a}</em>{t} | \mathbf{s}<em>{t}\right)}\left[Q^{\pi}\left(\mathbf{s}</em>{t}, \mathbf{a}_{t}\right)\right]$  </li>
 </ul>
 </li>
 </ul>
 <p><img src="/images/Deep-learning/cs285/cs285-4(23).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
-<li><p>Idea1: $\pi$와 $Q^\pi(s,{\bf a})$를 안다면 $\pi$를 improve 할수있다.</p>
+<li><p>Idea1: $\pi$와 $Q^\pi(s,{\mathbf a})$를 안다면 $\pi$를 improve 할수있다.</p>
 <ul>
-<li>만약 ${\bf a} = \arg \max_{\bf a} Q^\pi(s,{\bf a})라면 ${\pi}’({\bf a}|s) = 1$으로 맞춘다.</li>
+<li>만약 ${\mathbf a} = \arg \max_{\mathbf a} Q^\pi(s,{\mathbf a})라면 ${\pi}’({\mathbf a}|s) = 1$으로 맞춘다.</li>
 <li>그러면 ${\pi}’$는 적어도 $\pi$보다 좋거나 같아진다.</li>
 </ul>
 </li>
-<li><p>Idea2: good action $\bf a$의 확률 증가시키기 위해  gradient 계산</p>
+<li><p>Idea2: good action $\mathbf a$의 확률 증가시키기 위해  gradient 계산</p>
 <ul>
-<li>만약 $Q^\pi(s,{\bf a}) &gt; V^{\pi}(s)$면 $\bf a$는 평균보다 더 좋다.($V^{\pi}(s_t) = \sum\nolimits_{t’=t}^{T} {E}<em>{\pi</em>{\theta}} [ r(s_{t’},{\bf a}_{t’}) | s_t]$이기 때문)</li>
-<li>$Q^\pi(s,{\bf a}) &gt; V^{\pi}(s)$인 $\bf a$의 확률을 크게하게 $\pi({\bf a}|s)})$로 바꾼다.(actor critic)</li>
+<li>만약 $Q^\pi(s,{\mathbf a}) &gt; V^{\pi}(s)$면 $\mathbf a$는 평균보다 더 좋다.($V^{\pi}(s_t) = \sum\nolimits_{t’=t}^{T} {E}<em>{\pi</em>{\theta}} [ r(s_{t’},{\mathbf a}_{t’}) | s_t]$이기 때문)</li>
+<li>$Q^\pi(s,{\mathbf a}) &gt; V^{\pi}(s)$인 $\mathbf a$의 확률을 크게하게 $\pi({\mathbf a}|s)})$로 바꾼다.(actor critic)</li>
 </ul>
 </li>
 </ul>
 <p><img src="/images/Deep-learning/cs285/cs285-4(24).jpg" alt="cs285" title="cs285 paper"></p>
 <h3 id="Types-of-RL-algorithms"><a href="#Types-of-RL-algorithms" class="headerlink" title="Types of RL algorithms"></a>Types of RL algorithms</h3><p><img src="/images/Deep-learning/cs285/cs285-4(25).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
-<li>Objective: $\theta^\star = \arg \max_{\theta}E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\underset{t}\sum r(s_t,\bf a_t)]$</li>
+<li>Objective: $\theta^\star = \arg \max_{\theta}E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\underset{t}\sum r(s_t,\mathbf a_t)]$</li>
 <li>Policy gradients: 위 objective를 집접적으로 미분</li>
 <li>Value-based: optimal policy의 Q-function or value function을 추정(no explicit policy)</li>
 <li>Actor-critic: 현재 policy의 Q-function or value function을 추정, policy를 향상시키기 위해 사용(combination Policy gradients and Value-based)</li>
