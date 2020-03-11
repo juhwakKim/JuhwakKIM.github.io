@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    save_scroll: true,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '복사',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="CS 285 at UC Berkeley을 보고 정리한 글입니다. Definitions  강화학습의 목적은 $\theta$를 찾는 것이 목적이다. state는 markov property를 만족하고 observation은 만족하지 않는다. $\pi_{\theta} \bf (a_t|o_t)$는 partially observed라고 하고 $\pi_{\theta}">
+<meta name="keywords" content="Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS285 Fa19 Introduction to Reinforcement Learning">
+<meta property="og:url" content="https://juhwakkim.github.io/2020/03/08/2020-02-25-cs285-4/index.html">
+<meta property="og:site_name" content="AI&amp;Robotics">
+<meta property="og:description" content="CS 285 at UC Berkeley을 보고 정리한 글입니다. Definitions  강화학습의 목적은 $\theta$를 찾는 것이 목적이다. state는 markov property를 만족하고 observation은 만족하지 않는다. $\pi_{\theta} \bf (a_t|o_t)$는 partially observed라고 하고 $\pi_{\theta}">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4.jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(2).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(3).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(4).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(5).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(6).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(7).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(8).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(9).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(10).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(11).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(12).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(13).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(14).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(16).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(17).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(18).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(19).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(21).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(22).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(23).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(24).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(25).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(26).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(27).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(28).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(29).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(30).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(31).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(32).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(33).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(34).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(35).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(36).jpg">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4(37).jpg">
+<meta property="og:updated_time" content="2020-03-07T15:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS285 Fa19 Introduction to Reinforcement Learning">
+<meta name="twitter:description" content="CS 285 at UC Berkeley을 보고 정리한 글입니다. Definitions  강화학습의 목적은 $\theta$를 찾는 것이 목적이다. state는 markov property를 만족하고 observation은 만족하지 않는다. $\pi_{\theta} \bf (a_t|o_t)$는 partially observed라고 하고 $\pi_{\theta}">
+<meta name="twitter:image" content="https://juhwakkim.github.io/images/Deep-learning/cs285/cs285-4.jpg">
+  <link rel="canonical" href="https://juhwakkim.github.io/2020/03/08/2020-02-25-cs285-4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>CS285 Fa19 Introduction to Reinforcement Learning | AI&Robotics</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI&Robotics</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>홈</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>태그<span class="badge">7</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>카테고리<span class="badge">9</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>아카이브<span class="badge">11</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>검색</a>
+      </li>
+    
+  </ul>
+
+    
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/juhwakKim" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://juhwakkim.github.io/2020/03/08/2020-02-25-cs285-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Juhwak Kim">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI&Robotics">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">CS285 Fa19 Introduction to Reinforcement Learning
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              
+                
+              
+
+              <time title="Post created: 2020-03-08 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-08T00:00:00+09:00">2020-03-08</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/lecture/" itemprop="url" rel="index"><span itemprop="name">lecture</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    <span class="post-meta-item-text">댓글: </span>
+  
+    <a href="/2020/03/08/2020-02-25-cs285-4/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/08/2020-02-25-cs285-4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="http://rail.eecs.berkeley.edu/deeprlcourse/" target="_blank" rel="noopener">CS 285 at UC Berkeley</a>을 보고 정리한 글입니다.</p>
+<h2 id="Definitions"><a href="#Definitions" class="headerlink" title="Definitions"></a>Definitions</h2><p><img src="/images/Deep-learning/cs285/cs285-4.jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>강화학습의 목적은 $\theta$를 찾는 것이 목적이다.</li>
+<li>state는 markov property를 만족하고 observation은 만족하지 않는다.</li>
+<li>$\pi_{\theta} \bf (a_t|o_t)$는 partially observed라고 하고 $\pi_{\theta} \bf (a_t|s_t)$ fully observed라 한다.</li>
+<li>POMDP(Partially observable Markov decision process)와 Fully observed MDP가 있는데 일반적으로 Fully observed MDP로 가정한다.</li>
+</ul>
+<h3 id="behavior-cloning"><a href="#behavior-cloning" class="headerlink" title="behavior cloning"></a>behavior cloning</h3><p><img src="/images/Deep-learning/cs285/cs285-4(2).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>전문가로부터 data(observation,action)을 수집해서 supervised learning을 사용한다.</li>
+<li>일반적으로 behavior cloning은 잘 안되지만 DAgger를 사용하면 성능이 향상된다.</li>
+</ul>
+<h3 id="reward-function"><a href="#reward-function" class="headerlink" title="reward function"></a>reward function</h3><p><img src="/images/Deep-learning/cs285/cs285-4(3).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>$\bf r(s,a)$(reward function): 어떤 행동이 좋고, 어떤 행동이 나쁜가?에 대한 기준</li>
+<li>$\bf s,a,r(s,a),p(s^’|s,a)$(transition probability)로 이뤄진 것을 Markov decision process라 한다.</li>
+</ul>
+<h3 id="Markov-chain"><a href="#Markov-chain" class="headerlink" title="Markov chain"></a>Markov chain</h3><p><img src="/images/Deep-learning/cs285/cs285-4(4).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>$\mathcal{M} = {\mathcal{S,T}}$</li>
+<li>아직 RL은 아니다.(no agency,no action)</li>
+<li>$\mathcal{S}$ - state space<ul>
+<li>states $s \in \mathcal{S}$(discrete or continuous)</li>
+<li>$\mathcal{S}$: set of valid state</li>
+<li>$s$:state </li>
+</ul>
+</li>
+<li>$\mathcal{T}$ - Transition operator<ul>
+<li>$p (s_{t+1}|s_t)$</li>
+</ul>
+</li>
+<li>why “operator”?<ul>
+<li>Discrete space에서 $\mathcal{T}$ linear operator처럼 쓰이기 때문</li>
+</ul>
+<ol>
+<li>let \mu_{t,i} = p(s_t = i)  \vec{\mu_t} is a vector of probabilites<ul>
+<li>$\mu_{t,i}$: time step $t$에서 주어진 state $i$일 확률</li>
+</ul>
+</li>
+<li>let $\mathcal{T}<em>{i,j} = p(s</em>{t+1} = i|s_t = j)$ then $\vec{\mu_{t+1}} = \mathcal{T}\vec{\mu_t}$<ul>
+<li>$\mathcal{T}_{i,j}$ -&gt; $N\timesN$ matrix($N$:가능한 state 개수)</li>
+<li>다음 step의 state 확률을 $\mathcal{T}$와 현재 step의 state 확률의 곱으로 구할 수 있다.</li>
+<li>$\vec{\mu_{t+1}} = \mathcal{T}\vec{\mu_t}$이 linear operator 처럼 행동</li>
+<li>stationary distribuition 때 중요</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="Markov-decision-process"><a href="#Markov-decision-process" class="headerlink" title="Markov decision process"></a>Markov decision process</h3><p><img src="/images/Deep-learning/cs285/cs285-4(5).jpg" alt="cs285" title="cs285 paper"><br><img src="/images/Deep-learning/cs285/cs285-4(6).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>$\mathcal{M} = {\mathcal{S,A,T,r}}$</li>
+<li>$\mathcal{S}$ - state space<ul>
+<li>states $s \in \mathcal{S}$(discrete or continuous)</li>
+</ul>
+</li>
+<li>$\mathcal{A}$ - action space<ul>
+<li>actions $a \in \mathcal{A}$(discrete or continuous)</li>
+</ul>
+</li>
+<li>$\mathcal{O}$ - observation space<ul>
+<li>observations $o \in \mathcal{O}$(discrete or continuous)</li>
+</ul>
+</li>
+<li>$\mathcal{T}$ - Transition operator(Tensor!)<ul>
+<li>action과 state를 가지고 있기에 Tensor이다.($p (s_{t+1}|s_t,a_t)$)</li>
+</ul>
+<ol>
+<li>let $\mu_{t,j} = p(s_t = j)$</li>
+<li>let $\xi_{t,k} = p(a_t = k)$</li>
+<li>let $\mathcal{T}<em>{i,j,k} = p(s</em>{t+1} = i|s_t=j,a_t=k)$</li>
+<li>$\mu_{t+1,i} = \sum_{j,k} \mathcal{T}<em>{i,j,k}\mu</em>{t,j}\xi_{t,k}$(linear operator)</li>
+</ol>
+</li>
+<li>$r$ - reward function<ul>
+<li>$r : \mathcal{S} \times \mathcal{A} \rightarrow \mathbb{R}$(scalar field)</li>
+<li>$r(s_t,a_t)$ - reward</li>
+</ul>
+</li>
+</ul>
+<h3 id="Partially-observed-Markov-decision-process"><a href="#Partially-observed-Markov-decision-process" class="headerlink" title="Partially observed Markov decision process"></a>Partially observed Markov decision process</h3><p><img src="/images/Deep-learning/cs285/cs285-4(7).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>$\mathcal{M} = {\mathcal{S,A,O,T,\varepsilon,r}}$</li>
+<li>$\mathcal{S}$ - state space<ul>
+<li>states $s \in \mathcal{S}$(discrete or continuous)</li>
+</ul>
+</li>
+<li>$\mathcal{A}$ - action space<ul>
+<li>actions $a \in \mathcal{A}$(discrete or continuous)</li>
+</ul>
+</li>
+<li>$\mathcal{O}$ - observation space<ul>
+<li>observations $o \in \mathcal{O}$(discrete or continuous)</li>
+</ul>
+</li>
+<li>$\varepsilon$ - emission probability(operator)<ul>
+<li>$p(o_t|s_t)$</li>
+</ul>
+</li>
+<li>$r$ -reward function <ul>
+<li>$r : \mathcal{S} \times \mathcal{A} \rightarrow \mathbb{R}$</li>
+</ul>
+</li>
+</ul>
+<h3 id="The-goal-of-reinforcement-learning"><a href="#The-goal-of-reinforcement-learning" class="headerlink" title="The goal of reinforcement learning"></a>The goal of reinforcement learning</h3><p><img src="/images/Deep-learning/cs285/cs285-4(8).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li><p>Goal: reward를 최대로하는 policy 찾기(learn $\theta$)</p>
+<ul>
+<li>항상 policy가 explicit 하지 않지만 지금은 explicit</li>
+</ul>
+</li>
+<li><p>$p_\theta(\bf s_1,a_1,\dots,s_T,a_T) = p(s_1) \prod_{t=1}^T\pi_\theta(a_t|s_t)p(s_{t+1}|s_t,a_t)$</p>
+<ul>
+<li>finite horizon으로 가정</li>
+<li>$p_\theta(\bf s_1,a_1,\dots,s_T,a_T) = p_\theta(\mathcal{T})$ (joint probability distribution, $\mathcal{T}$는 trajectory)</li>
+<li>$s_{t+1}는 보통 모른다.</li>
+</ul>
+</li>
+<li><p>$\theta^\star = \arg \max_{\theta}E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\sum_t r(s_t,\bf a_t)]$</p>
+<ul>
+<li>우리는 모든 time step마다 reward가 최대가 되길 원한다. 그래서 모든 time step에 대해 reward를 더한다.</li>
+<li>$s_t,\bf a_t$는 $\mathcal{T}\sim p_\theta(\mathcal{T})$에 대해 uncertain(randomly distributed)하기에 기댓값을 사용($\sum_{x-p(x)}[f(x)]=\int p(x)f(x)dx)$)</li>
+<li>이 식은 policy의 목적이기에 action을 알려주지 않아서 기댓값은 가능한 모든 state와 action의 sequence를 고려해야한다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Deep-learning/cs285/cs285-4(9).jpg" alt="cs285" title="cs285 paper"></p>
+<p><img src="/images/Deep-learning/cs285/cs285-4(10).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li><p>$\theta = \arg \max_{\theta}E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\sum_t r(s_t,\bf a_t)]$</p>
+<ul>
+<li>distribution이 MDP를 만족하지 않아도 $\pi_\theta(\bf a|s)$가 정해지면 $s$와 $\bf a$의 합쳐짐으로 얻어진 augmented state space에서 markov chain으로 볼수있다.</li>
+</ul>
+</li>
+<li><p>$p((s_{t+1},\bf{a_{t+1}})|(s_t,\bf{a_t}))) = p(s_{t+1}|s_t,\bf{a_t})\pi_\theta(a_{t+1}|s_{t+1})$</p>
+</li>
+</ul>
+<h3 id="Finite-horizon-case-state-action-marginal"><a href="#Finite-horizon-case-state-action-marginal" class="headerlink" title="Finite horizon case: state-action marginal"></a>Finite horizon case: state-action marginal</h3><p><img src="/images/Deep-learning/cs285/cs285-4(11).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>$\theta^\star = \arg \max_{\theta} \sum^T_{t=1}E_(s_t,\bf{a_t})\sim p_\theta(s_t,\bf{a_t})[r(s_t,\bf{a_t})]$<ul>
+<li>$\mathcal{T}$를 $s$와 $a$의 pair로 변경 </li>
+<li>$p_\theta(s_t,\bf{a}_t)$(state-action marginal)<ul>
+<li>time step $t$에서의 state와 action의 marginal distribution</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Infinite-horizon-case-stationary-distribution"><a href="#Infinite-horizon-case-stationary-distribution" class="headerlink" title="Infinite horizon case: stationary distribution"></a>Infinite horizon case: stationary distribution</h3><p><img src="/images/Deep-learning/cs285/cs285-4(12).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>what if $T = \infty$? <ul>
+<li>$p(s_t,\bf{a_t})$가 stationary distribution으로 수렴 한다면(항상은 아니지만 일반적으로 수렴) $\begin{pmatrix} s_{t+1} \ a_{t+1} \end{pmatrix} = \mathcal{T}^k \begin{pmatrix} s_{t} \ a_{t} \end{pmatrix}$(state-action transition operator)을 이용해서 $\mu = \mathcal{T}\mu$로 나타낼 수 있다.<ul>
+<li>$\mu$: vector of probabilities state action pair <ul>
+<li>$\mu = \begin{bmatrix} p(s_1) \ p(s_2) \ \vdots    \ p(s_N) \end{bmatrix}$(regular markov chain) $\mu = \begin{bmatrix} p(s_1,a_1) \ p(s_1,a_2)    \ p(s_1,a_M) \ p(s_2,a_1) \ \vdots \end{bmatrix}$(markov chain over $s$ and $a$)</li>
+</ul>
+</li>
+<li>not change distribution $\ne$ not change state</li>
+</ul>
+</li>
+<li>$(\mathcal{T} - I)\mu = 0$<ul>
+<li>$\mu$는 $\mathcal{T}$의 eigenvalue가 1인 eigenvector이다.</li>
+<li>특정 조건(ergodicity - 모든 state action pair가 reachable)을 만족하면 수렴한다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Deep-learning/cs285/cs285-4(13).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>$\theta^\star = \arg \max_{\theta} \frac{1}{T} \sum^T_{t=1}E_(s_t,\bf{a_t})\sim p_\theta(s_t,\bf{a_t})[r(s_t,\bf{a_t})] \rightarrow E_{(s,\bf{a})\sim p_\theta(s,\bf{a})}[r(s,\bf{a})]$<ul>
+<li>$T$가 무한대으로 가면 이전 공식이 무한대로 가기 때문에 $\frac{1}{T}$을 추가함(undiscounted average return)</li>
+<li>$\sum$이 $E$에 압도되어 결국 $E_{(s,\bf{a})\sim p_\theta(s,\bf{a})}[r(s,\bf{a})]$이 된다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Deep-learning/cs285/cs285-4(14).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li><p>RL에서 목적은 주로 expectation만을 고려한다.</p>
+</li>
+<li><p>그림처럼 도로위에 있으면 reward +1 이고 그외에는 -1이라 하자</p>
+<ul>
+<li>reward function은 not smooth, not differentiable하다.</li>
+<li>하지만 expectation을 추가하면 $\theta$($pi_\theta(\bf{a}=fall)=\theta$,distribution) 안에서는 smooth 해진다.($\theta<em>(-1)+(1-\theta)</em>1$이므로)</li>
+</ul>
+</li>
+</ul>
+<h2 id="Algorithms"><a href="#Algorithms" class="headerlink" title="Algorithms"></a>Algorithms</h2><h3 id="The-anatomy-of-RL-algorithm"><a href="#The-anatomy-of-RL-algorithm" class="headerlink" title="The anatomy of RL algorithm"></a>The anatomy of RL algorithm</h3><p><img src="/images/Deep-learning/cs285/cs285-4(16).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>(<span style="color:orange"> sample 생성(즉 policy대로 agent 행동, collect data) </span>)</li>
+<li>(<span style="color:green"> Fit a model/ estimate the return(evaluation step, policy를 바꾸지 않고 평가한다.) </span>)</li>
+<li>(<span style="color:blue"> improve the policy(policy를 업데이트한다.) </span>)</li>
+</ul>
+<p><img src="/images/Deep-learning/cs285/cs285-4(17).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>(<span style="color:orange"> 위 그림에서 trajectories </span>)</li>
+<li>(<span style="color:green"> evaluate reward function(나쁜결과는 probability 낮춘다)</span>)</li>
+<li>(<span style="color:blue"> $\theta \leftarrow \theta + \alpha \nabla_{\theta}J(\theta)$(gradient descent) </span>)</li>
+</ul>
+<p><img src="/images/Deep-learning/cs285/cs285-4(18).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>Model based RL<ul>
+<li>(<span style="color:green"> $s_t$와 $\bf a_t$가 input으로 받고 output으로 $s_{t+1}$를 출력하는 $f_{\phi}$를 학습한다.(fitting neural net) </span>)</li>
+<li>(<span style="color:blue"> $\pi_\theta(s_t)$를 학습 시키기 위해 $f_{\phi}$와 $r$을 통해서 backprop한다.  </span>)</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Deep-learning/cs285/cs285-4(19).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>Which parts are expensive?<ul>
+<li>(<span style="color:orange"> 실제 로봇이나 차등은 현실 시간과 동일하므로 오래 걸리지만 MuJoCo같은 시뮬레이션은 빠르다.  </span>)</li>
+<li>(<span style="color:green"> reward를 계산하는 것은 빠르지만 neural net을 사용하면 느리다.(알고리즘에 따라 다르다.) </span>)</li>
+<li>(<span style="color:blue"> gradient step같은경우 빠르지만 backprop은 느리다.(알고리즘에 따라 다르다.) </span>)</li>
+</ul>
+</li>
+</ul>
+<h3 id="How-do-we-deal-with-all-these-expectations"><a href="#How-do-we-deal-with-all-these-expectations" class="headerlink" title="How do we deal with all these expectations?"></a>How do we deal with all these expectations?</h3><p><img src="/images/Deep-learning/cs285/cs285-4(21).jpg" alt="cs285" title="cs285 paper"></p>
+<p>$$E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\sum_t r(s_t,\bf a_t)]$$</p>
+<p>$$ E_{s_1 \sim p(s_1)} [E_{\bf{a}_1\sim \pi (\bf {a} _1|s_1)} [r(s_1,{\bf a}_1)+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |s_1]] $$</p>
+<ul>
+<li>state $s_1$에서 action $a_1$을 한다.</li>
+</ul>
+<p>$$ E_{s_1 \sim p(s_1)} [E_{\bf{a}<em>1\sim \pi (\bf {a} _1|s_1)} [r(s_1,{\bf a}_1)+E</em>{s_2\sim p(s_2|s_1,{\bf a_1)}}[\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |s_1,{\bf a}_1]\ |s_1]] $$</p>
+<ul>
+<li>transition probability distribution $p(s_2|s_1,\bf{a_1})$에 따라 state $s_2$로 가고 action $a_2$를 한다.</li>
+</ul>
+<p>$$ E_{s_{1} \sim p\left(s_{1}\right)}\left[E_{\mathbf{a}<em>{1} \sim \pi\left(\mathbf{a}</em>{1} | \mathbf{s}<em>{1}\right)}\left[r\left(\mathbf{s}</em>{1}, \mathbf{a}<em>{1}\right)+E</em>{\mathbf{s}<em>{2} \sim p\left(\mathbf{s}</em>{2} | \mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right)}\left[E_{\mathbf{a}<em>{2} \sim \pi\left(\mathbf{a}</em>{2} | \mathbf{s}<em>{2}\right)}\left[r\left(\mathbf{s}</em>{2}, \mathbf{a}<em>{2}\right)+\ldots | \mathbf{s}</em>{2}\right] | \mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right] | \mathbf{s}_{1}\right]\right] $$</p>
+<ul>
+<li><p>expectation이 많지만 markov property때문에 각각 1,2개의 condition만을 가진다.(convenient 해진다.)</p>
+<ul>
+<li>ex) $E_{\mathbf{a}<em>{2} \sim \pi\left(\mathbf{a}</em>{2} | \mathbf{s}_{2}\right)}$는 $s_2$만을 condition으로 받음</li>
+</ul>
+</li>
+<li><p>$\left r\left(\mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right)+E_{\mathbf{s}<em>{2} \sim p\left(\mathbf{s}</em>{2} | \mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right)}\left[E_{\mathbf{a}<em>{2} \sim \pi\left(\mathbf{a}</em>{2} | \mathbf{s}<em>{2}\right)}\left[r\left(\mathbf{s}</em>{2}, \mathbf{a}<em>{2}\right)+\ldots | \mathbf{s}</em>{2}\right] | \mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right] | \mathbf{s}_{1}\right]\right]$를 안다면?</p>
+<ul>
+<li>time step $T$까지 기다릴 필요 없이 바로 policy를 앞으로의 보상에 맞게 학습할 수 있을 것이다.(drastically simplify)</li>
+</ul>
+</li>
+<li><p>$Q(s_1,\bf{a_1}) = \left r\left(\mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right)+E_{\mathbf{s}<em>{2} \sim p\left(\mathbf{s}</em>{2} | \mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right)}\left[E_{\mathbf{a}<em>{2} \sim \pi\left(\mathbf{a}</em>{2} | \mathbf{s}<em>{2}\right)}\left[r\left(\mathbf{s}</em>{2}, \mathbf{a}<em>{2}\right)+\ldots | \mathbf{s}</em>{2}\right] | \mathbf{s}<em>{1}, \mathbf{a}</em>{1}\right] | \mathbf{s}_{1}\right]\right]$</p>
+</li>
+<li><p>$E_{\tau \sim p_{\theta}(\tau)}\left[\sum_{t=1}^{T} r\left(\mathbf{s}<em>{t}, \mathbf{a}</em>{t}\right)\right]=E_{\mathbf{s}<em>{1} \sim p\left(\mathbf{s}</em>{1}\right)}\left[E_{\mathbf{a}<em>{1} \sim \pi\left(\mathbf{a}</em>{1} | \mathbf{s}<em>{1}\right)}\left[Q\left(\mathbf{s}</em>{1}, \mathbf{a}<em>{1}\right) | \mathbf{s}</em>{1}\right]\right]$</p>
+<ul>
+<li>만약 모든 $s$, $a$에 대해서 $Q(s,a)$를 안다면 $\pi$를 쉽게 바꿀 수 있다.<ul>
+<li>ex) 만약 ${\bf a_1} = \arg \max_{\bf a_1} Q(s_1,{\bf a_1})이면  $\pi_\theta({\bf a_1}|s_1) = 1$ 이다.(나머지 확률이 0이라)</li>
+</ul>
+</li>
+<li>$Q$도 $pi$에 영향을 받지만 지금은 고려하지 않는다.(나중에 트릭으로 해결)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Q-function-and-value-function"><a href="#Q-function-and-value-function" class="headerlink" title="Q-function and value function"></a>Q-function and value function</h3><p><img src="/images/Deep-learning/cs285/cs285-4(22).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>Q-function(quality function): $s_t$에서 $\bf a_t$를 했을때 앞으로 받을 전체 reward의 합<ul>
+<li>$Q^{\pi}(s_t,{\bf a_t}) = \sum\nolimits^T_{t’=t} E_{\pi_\theta}[r(s_{t’},{\bf a}_{t’})|s_t,{\bf a_t}]$</li>
+</ul>
+</li>
+<li>value function: $s_t$로부터 앞으로 받을 전체 reward의 합<ul>
+<li>$V^{\pi}(s_t) = \sum\nolimits_{t’=t}^{T} {E}<em>{\pi</em>{\theta}} [ r(s_{t’},{\bf a}_{t’}) | s_t]$</li>
+<li>$V^{\pi}\left(\mathbf{s}<em>{t}\right)=E</em>{\mathbf{a}<em>{t} \sim \pi\left(\mathbf{a}</em>{t} | \mathbf{s}<em>{t}\right)}\left[Q^{\pi}\left(\mathbf{s}</em>{t}, \mathbf{a}_{t}\right)\right]$  </li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Deep-learning/cs285/cs285-4(23).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li><p>Idea1: $\pi$와 $Q^\pi(s,{\bf a})$를 안다면 $\pi$를 improve 할수있다.</p>
+<ul>
+<li>만약 ${\bf a} = \arg \max_{\bf a} Q^\pi(s,{\bf a})라면 ${\pi}’({\bf a}|s) = 1$으로 맞춘다.</li>
+<li>그러면 ${\pi}’$는 적어도 $\pi$보다 좋거나 같아진다.</li>
+</ul>
+</li>
+<li><p>Idea2: good action $\bf a$의 확률 증가시키기 위해  gradient 계산</p>
+<ul>
+<li>만약 $Q^\pi(s,{\bf a}) &gt; V^{\pi}(s)$면 $\bf a$는 평균보다 더 좋다.($V^{\pi}(s_t) = \sum\nolimits_{t’=t}^{T} {E}<em>{\pi</em>{\theta}} [ r(s_{t’},{\bf a}_{t’}) | s_t]$이기 때문)</li>
+<li>$Q^\pi(s,{\bf a}) &gt; V^{\pi}(s)$인 $\bf a$의 확률을 크게하게 $\pi({\bf a}|s)})$로 바꾼다.(actor critic)</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Deep-learning/cs285/cs285-4(24).jpg" alt="cs285" title="cs285 paper"></p>
+<h3 id="Types-of-RL-algorithms"><a href="#Types-of-RL-algorithms" class="headerlink" title="Types of RL algorithms"></a>Types of RL algorithms</h3><p><img src="/images/Deep-learning/cs285/cs285-4(25).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>Objective: $\theta^\star = \arg \max_{\theta}E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\underset{t}\sum r(s_t,\bf a_t)]$</li>
+<li>Policy gradients: 위 objective를 집접적으로 미분</li>
+<li>Value-based: optimal policy의 Q-function or value function을 추정(no explicit policy)</li>
+<li>Actor-critic: 현재 policy의 Q-function or value function을 추정, policy를 향상시키기 위해 사용(combination Policy gradients and Value-based)</li>
+<li>Model-based RL: transition model 추정, 그리고<ul>
+<li>planning을 위해 모델사용(no explicit policy)</li>
+<li>policy 향상을 위해 사용</li>
+<li>Something else</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Deep-learning/cs285/cs285-4(26).jpg" alt="cs285" title="cs285 paper"></p>
+<p><img src="/images/Deep-learning/cs285/cs285-4(27).jpg" alt="cs285" title="cs285 paper"></p>
+<ol>
+<li><p>plan하기 위해 모델 사용(no explicit policy)</p>
+<ul>
+<li>trajectory 최적화/ 최적 제어(우선적으로 continuous space) - 필수적으로 action을 최적화하기 위해 backpropagation</li>
+<li>discrete action space에서 discrete planning - e.g., Monte Carlo tree search</li>
+</ul>
+</li>
+<li><p>Backpropagate gradient into the policy</p>
+<ul>
+<li>동작하기 위해 몇가지 트릭 필요</li>
+</ul>
+</li>
+<li><p>Value function을 배우기 위해 모델 사용</p>
+<ul>
+<li>Dynamic programming</li>
+<li>Generate simulated experience for model-free learner(Dyna)</li>
+</ul>
+</li>
+</ol>
+<p><img src="/images/Deep-learning/cs285/cs285-4(28).jpg" alt="cs285" title="cs285 paper"></p>
+<p><img src="/images/Deep-learning/cs285/cs285-4(29).jpg" alt="cs285" title="cs285 paper"></p>
+<p><img src="/images/Deep-learning/cs285/cs285-4(30).jpg" alt="cs285" title="cs285 paper"></p>
+<h2 id="Tradeoffs"><a href="#Tradeoffs" class="headerlink" title="Tradeoffs"></a>Tradeoffs</h2><h3 id="Why-so-many-RL-algorithms"><a href="#Why-so-many-RL-algorithms" class="headerlink" title="Why so many RL algorithms"></a>Why so many RL algorithms</h3><p><img src="/images/Deep-learning/cs285/cs285-4(31).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>Different tradeoffs<ul>
+<li>Sample efficiency(sample collection time)</li>
+<li>stability &amp; ease of use(reliable)</li>
+</ul>
+</li>
+<li>Different assumptions<ul>
+<li>Stochastic or deterministic?</li>
+<li>Continuous or discrete?</li>
+<li>Episodic or infinite horizon?</li>
+</ul>
+</li>
+<li>Different things are easy or hard in different settings<ul>
+<li>Easier to represent the policy?(enviornment의 물리법칙이 복잡하지만 optimal behavior의 패턴은 단순)</li>
+<li>Easier to represent the model?(ex. chess)</li>
+</ul>
+</li>
+</ul>
+<h3 id="sample-efficiency"><a href="#sample-efficiency" class="headerlink" title="sample efficiency"></a>sample efficiency</h3><p><img src="/images/Deep-learning/cs285/cs285-4(32).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>Sample efficiency = 좋은 정책을 얻기 위해서 얼마나 많은 샘플이 필요한가?</li>
+<li>가장 중요한 질문: Off policy 알고리즘 인가?<ul>
+<li>Off policy: policy에서부터 새로운 샘플 생성없이 policy를 향상할 수 있다.</li>
+<li>On policy: policy가 조금이라도 변할 때마다 새로운 sample을 생성해야 한다.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Deep-learning/cs285/cs285-4(33).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>왜 덜 efficient한 알고리즘을 사용하는가?<ul>
+<li>simulation power가 적게 들면, less efficient하더라도 더 나은 성능을 위해 많은 sample을 얻어서 학습하는 것이 효율적일 수 있다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="stability-and-ease-of-use"><a href="#stability-and-ease-of-use" class="headerlink" title="stability and ease of use"></a>stability and ease of use</h3><p><img src="/images/Deep-learning/cs285/cs285-4(34).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li>수렴하는지, 어디에 수렴하는지, 항상 수렴하는지에 대한 이슈다. </li>
+<li>supervised learning에서는 gradient descent를 사용하기 때문에 대개 수렴하지만, RL에서는 대체로 gradient descent를 사용하지 않는다.<ul>
+<li>Q-learning: fixed point iteration. converge가 보장되지 않는다.</li>
+<li>Model-based RL: model이 reward에 대해 최적화되는 것이 아니다.</li>
+<li>Policy gradient: gradient descent 보통 least efficient .(but stability)</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Deep-learning/cs285/cs285-4(35).jpg" alt="cs285" title="cs285 paper"></p>
+<ul>
+<li><p>Value function fitting</p>
+<ul>
+<li>가장 좋을때, error of fit을 최소화한다.(Bellman error)<ul>
+<li>expected reward와 같지 않다.(better fit for value function $\ne$ better policy)</li>
+</ul>
+</li>
+<li>최악의 경우, 최적화 되지않는다.<ul>
+<li>많은 유명한 deep RL value fitting 알고리즘은 비선형의 경우 converge한다고 장담할 수 없다.</li>
+</ul>
+</li>
+<li>직접적으로 expected reward를 최적화 하지않는다.</li>
+</ul>
+</li>
+<li><p>Model-based RL</p>
+<ul>
+<li>model이 error of fit를 최소화한다.<ul>
+<li>수렴한다.</li>
+</ul>
+</li>
+<li>better mode = better policy라 보장할 수 없다.</li>
+</ul>
+</li>
+<li><p>Policy gradient</p>
+<ul>
+<li>유일하게 실제로 true objective를 gradient descent(ascent)를 사용한다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="assumptions"><a href="#assumptions" class="headerlink" title="assumptions"></a>assumptions</h3><p><img src="/images/Deep-learning/cs285/cs285-4(36).jpg" alt="cs285" title="cs285 paper"></p>
+<ol>
+<li>full observability<ul>
+<li>일방적으로 value function fitting에서 가정된다.</li>
+<li>recurrence를 추가하여 완화할 수 있다.</li>
+</ul>
+</li>
+<li>episodic learning<ul>
+<li>주로 pure policy gradient에서 가정된다.</li>
+<li>몇가지 model-based RL에서 가정된다.</li>
+</ul>
+</li>
+<li>continuity or smoothness<ul>
+<li>몇가지 continuous value function learning 방법에서 가정된다.</li>
+<li>몇가지 model-based RL에서 가정된다.</li>
+</ul>
+</li>
+</ol>
+<p><img src="/images/Deep-learning/cs285/cs285-4(37).jpg" alt="cs285" title="cs285 paper"></p>
+
+    </div>
+      
+
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/02/25/2020-02-25-cs285-1/" rel="next" title="CS285 Fa19 Deep Reinforcement Learning, Decision Making, and Control">
+                <i class="fa fa-chevron-left"></i> CS285 Fa19 Deep Reinforcement Learning, Decision Making, and Control
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            목차
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            흝어보기
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Juhwak Kim</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">카테고리</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">태그</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/juhwakKim" title="GitHub &rarr; https://github.com/juhwakKim" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:juhk1017@naver.com" title="E-Mail &rarr; mailto:juhk1017@naver.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Definitions"><span class="nav-number">1.</span> <span class="nav-text">Definitions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#behavior-cloning"><span class="nav-number">1.1.</span> <span class="nav-text">behavior cloning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reward-function"><span class="nav-number">1.2.</span> <span class="nav-text">reward function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Markov-chain"><span class="nav-number">1.3.</span> <span class="nav-text">Markov chain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Markov-decision-process"><span class="nav-number">1.4.</span> <span class="nav-text">Markov decision process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Partially-observed-Markov-decision-process"><span class="nav-number">1.5.</span> <span class="nav-text">Partially observed Markov decision process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-goal-of-reinforcement-learning"><span class="nav-number">1.6.</span> <span class="nav-text">The goal of reinforcement learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Finite-horizon-case-state-action-marginal"><span class="nav-number">1.7.</span> <span class="nav-text">Finite horizon case: state-action marginal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Infinite-horizon-case-stationary-distribution"><span class="nav-number">1.8.</span> <span class="nav-text">Infinite horizon case: stationary distribution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithms"><span class="nav-number">2.</span> <span class="nav-text">Algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-anatomy-of-RL-algorithm"><span class="nav-number">2.1.</span> <span class="nav-text">The anatomy of RL algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-do-we-deal-with-all-these-expectations"><span class="nav-number">2.2.</span> <span class="nav-text">How do we deal with all these expectations?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-function-and-value-function"><span class="nav-number">2.3.</span> <span class="nav-text">Q-function and value function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Types-of-RL-algorithms"><span class="nav-number">2.4.</span> <span class="nav-text">Types of RL algorithms</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tradeoffs"><span class="nav-number">3.</span> <span class="nav-text">Tradeoffs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-so-many-RL-algorithms"><span class="nav-number">3.1.</span> <span class="nav-text">Why so many RL algorithms</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sample-efficiency"><span class="nav-number">3.2.</span> <span class="nav-text">sample efficiency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stability-and-ease-of-use"><span class="nav-number">3.3.</span> <span class="nav-text">stability and ease of use</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assumptions"><span class="nav-number">3.4.</span> <span class="nav-text">assumptions</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Juhwak Kim</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', function() {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://juhk1017.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://juhwakkim.github.io/2020/03/08/2020-02-25-cs285-4/";
+    this.page.identifier = "2020/03/08/2020-02-25-cs285-4/";
+    this.page.title = 'CS285 Fa19 Introduction to Reinforcement Learning';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://juhk1017.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
+</html>
