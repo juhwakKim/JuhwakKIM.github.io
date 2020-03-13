@@ -406,7 +406,7 @@
 <li>$\mu_{t,i}$: time step $t$에서 주어진 state $i$일 확률</li>
 </ul>
 </li>
-<li>let $\mathcal{T}<em>{i,j} = p(s</em>{t+1} = i|s_t = j)\ \ \text{then} \ \ \vec{\mu_{t+1}} = \mathcal{T}\vec{\mu_t}$<ul>
+<li>let $\mathcal{T}_ {i,j} = p(s_{t+1} = i|s_t = j)$ then $\vec{\mu_{t+1}} = \mathcal{T}\vec{\mu_t}$<ul>
 <li>$\mathcal{T}_{i,j}$ -&gt; $N\times N$ matrix($N$:가능한 state 개수)</li>
 <li>다음 step의 state 확률을 $\mathcal{T}$와 현재 step의 state 확률의 곱으로 구할 수 있다.</li>
 <li>$\vec{\mu_{t+1}} = \mathcal{T}\vec{\mu_t}$이 linear operator 처럼 행동</li>
@@ -482,7 +482,7 @@
 <ul>
 <li>finite horizon으로 가정</li>
 <li>$p_\theta(s_1,{\mathbf a_1},\dots,s_T,{\mathbf a_T}) = p_\theta(\mathcal{T})$ (joint probability distribution, $\mathcal{T}$는 trajectory)</li>
-<li>$s_{t+1}는 보통 모른다.</li>
+<li>$s_{t+1}$는 보통 모른다.</li>
 </ul>
 </li>
 <li><p>$\theta^\star = \arg \max_{\theta}E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\sum_t r(s_t,{\mathbf a_t})]$</p>
@@ -501,12 +501,12 @@
 <li>distribution이 MDP를 만족하지 않아도 $\pi_\theta({\mathbf a}|s)$가 정해지면 $s$와 $\mathbf a$의 합쳐짐으로 얻어진 augmented state space에서 markov chain으로 볼수있다.</li>
 </ul>
 </li>
-<li><p>$p((s_{t+1},\mathbf{a_{t+1}})|(s_t,\mathbf{a_t}))) = p(s_{t+1}|s_t,\mathbf{a_t})\pi_\theta(a_{t+1}|s_{t+1})$</p>
+<li><p>$p((s_{t+1},\mathbf{a_{t+1}})|(s_t,\mathbf{a_t}))) = p(s_{t+1}|s_t,\mathbf{a_t})\pi_\theta(\mathbf{a_{t+1}}|s_{t+1})$</p>
 </li>
 </ul>
 <h3 id="Finite-horizon-case-state-action-marginal"><a href="#Finite-horizon-case-state-action-marginal" class="headerlink" title="Finite horizon case: state-action marginal"></a>Finite horizon case: state-action marginal</h3><p><img src="/images/Deep-learning/cs285/cs285-4(11).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
-<li>$\theta^\star = \arg \max_{\theta} \sum^T_{t=1}E_(s_t,\mathbf{a_t})\sim p_\theta(s_t,\mathbf{a_t})[r(s_t,\mathbf{a_t})]$<ul>
+<li>$\theta^\star = \arg \max <em>{\theta} \sum</em>{t=1}^{T} E_{\left(\boldsymbol{s}<em>{t}, \mathbf{a}</em>{t}\right) \sim p_{\theta}\left(\boldsymbol{s}<em>{t}, \mathbf{a}</em>{t}\right)}\left[r\left(\mathbf{s}<em>{t}, \mathbf{a}</em>{t}\right)\right]$<ul>
 <li>$\mathcal{T}$를 $s$와 $a$의 pair로 변경 </li>
 <li>$p_\theta(s_t,\mathbf{a}_t)$(state-action marginal)<ul>
 <li>time step $t$에서의 state와 action의 marginal distribution</li>
@@ -519,10 +519,7 @@
 <ul>
 <li>what if $T = \infty$? <ul>
 <li>$p(s_t,\mathbf{a_t})$가 stationary distribution으로 수렴 한다면(항상은 아니지만 일반적으로 수렴) $\begin{pmatrix} s_{t+1} \ a_{t+1} \end{pmatrix} = \mathcal{T}^k \begin{pmatrix} s_{t} \ a_{t} \end{pmatrix}$(state-action transition operator)을 이용해서 $\mu = \mathcal{T}\mu$로 나타낼 수 있다.<ul>
-<li>$\mu$: vector of probabilities state action pair <ul>
-<li>$\mu=\left[\begin{array}{c}<br>p\left(s_{1}\right) \<br>p\left(s_{2}\right) \<br>\vdots \<br>p\left(s_{N}\right)<br>\end{array}\right]$ (regular markov chain) $\mu=\left[\begin{array}{c}<br>p\left(s_{1}, a_{1}\right) \<br>p\left(s_{1}, a_{2}\right) \<br>p\left(s_{1}, a_{M}\right) \<br>p\left(s_{2}, a_{1}\right) \<br>\vdots<br>\end{array}\right]$ (markov chain over $s$ and $a$)</li>
-</ul>
-</li>
+<li>$\mu$: vector of probabilities state action pair<br>$$\mu=\left[\begin{array}{c}<br>  p\left(s_{1}\right) \<br>  p\left(s_{2}\right) \<br>  \vdots \<br>  p\left(s_{N}\right)<br>  \end{array}\right] \ \ \text{(regular markov chain) }$$<br>$$\mu=\left[\begin{array}{c}<br>p\left(s_{1}, a_{1}\right) \<br>p\left(s_{1}, a_{2}\right) \<br>p\left(s_{1}, a_{M}\right) \<br>p\left(s_{2}, a_{1}\right) \<br>\vdots<br>\end{array}\right] \ \  ( \text{markov chain over} s \text{and} a)$$ </li>
 <li>not change distribution $\ne$ not change state</li>
 </ul>
 </li>
