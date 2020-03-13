@@ -406,7 +406,7 @@
 <li>$\mu_{t,i}$: time step $t$에서 주어진 state $i$일 확률</li>
 </ul>
 </li>
-<li>let $\mathcal{T}<em>{i,j} = p(s</em>{t+1} = i|s_t = j)$ then $\vec{\mu_{t+1}} = \mathcal{T}\vec{\mu_t}$<ul>
+<li>let $\mathcal{T}<em>{i,j} = p(s</em>{t+1} = i|s_t = j)\ \ \text{then} \ \ \vec{\mu_{t+1}} = \mathcal{T}\vec{\mu_t}$<ul>
 <li>$\mathcal{T}_{i,j}$ -&gt; $N\times N$ matrix($N$:가능한 state 개수)</li>
 <li>다음 step의 state 확률을 $\mathcal{T}$와 현재 step의 state 확률의 곱으로 구할 수 있다.</li>
 <li>$\vec{\mu_{t+1}} = \mathcal{T}\vec{\mu_t}$이 linear operator 처럼 행동</li>
@@ -437,8 +437,8 @@
 <ol>
 <li>let $\mu_{t,j} = p(s_t = j)$</li>
 <li>let $\xi_{t,k} = p(a_t = k)$</li>
-<li>let $\mathcal{T}<em>{i,j,k} = p(s</em>{t+1} = i|s_t=j,a_t=k)$</li>
-<li>$\mu_{t+1,i} = \sum_{j,k} \mathcal{T}<em>{i,j,k}\mu</em>{t,j}\xi_{t,k}$(linear operator)</li>
+<li>let $\mathcal{T}_ {i,j,k} = p(s_{t+1} = i|s_t=j,a_t=k)$</li>
+<li>$\mu_{t+1,i} = \sum_{j,k} \mathcal{T}_ {i,j,k}\mu_{t,j}\xi_{t,k}$(linear operator)</li>
 </ol>
 </li>
 <li>$r$ - reward function<ul>
