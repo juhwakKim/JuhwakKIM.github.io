@@ -519,19 +519,22 @@
 <ul>
 <li><p>what if $T = \infty$? </p>
 <ul>
-<li>$p(s_t,\mathbf{a_t})$가 stationary distribution으로 수렴 한다면(항상은 아니지만 일반적으로 수렴) $\begin{pmatrix} s_{t+1} \ a_{t+1} \end{pmatrix} = \mathcal{T}^k \begin{pmatrix} s_{t} \ a_{t} \end{pmatrix}$(state-action transition operator)을 이용해서 $\mu = \mathcal{T}\mu$로 나타낼 수 있다.<ul>
+<li><p>$p(s_t,\mathbf{a_t})$가 stationary distribution으로 수렴 한다면(항상은 아니지만 일반적으로 수렴) $\begin{pmatrix} s_{t+1} \ a_{t+1} \end{pmatrix} = \mathcal{T}^k \begin{pmatrix} s_{t} \ a_{t} \end{pmatrix}$(state-action transition operator)을 이용해서 $\mu = \mathcal{T}\mu$로 나타낼 수 있다.</p>
+<ul>
 <li>$\mu$: vector of probabilities state action pair</li>
 </ul>
 </li>
+<li><p>$\mu = \begin{bmatrix} p(s_1) \cr p(s_2) \cr \vdots    \cr p(s_N) \end{bmatrix}  \ \ \text{(regular markov chain) } \mu = \begin{bmatrix} p(s_1,a_1) \cr p(s_1,a_2)    \cr p(s_1,a_M) \cr p(s_2,a_1) \cr \vdots \end{bmatrix} \ \  ( \text{markov chain over} s \text{and} a)$</p>
+<ul>
+<li>not change distribution $\ne$ not change state</li>
 </ul>
-<p>$$\mu = \begin{bmatrix} p(s_1) \cr p(s_2) \cr \vdots    \cr p(s_N) \end{bmatrix}  \ \ \text{(regular markov chain) }$$</p>
 </li>
-</ul>
-<p>  $$\mu = \begin{bmatrix} p(s_1,a_1) \cr p(s_1,a_2)    \cr p(s_1,a_M) \cr p(s_2,a_1) \cr \vdots \end{bmatrix} \ \  ( \text{markov chain over} s \text{and} a)$$</p>
-<pre><code>* not change distribution $\ne$ not change state</code></pre><ul>
-<li>$(\mathcal{T} - I)\mu = 0$<ul>
+<li><p>$(\mathcal{T} - I)\mu = 0$</p>
+<ul>
 <li>$\mu$는 $\mathcal{T}$의 eigenvalue가 1인 eigenvector이다.</li>
 <li>특정 조건(ergodicity - 모든 state action pair가 reachable)을 만족하면 수렴한다.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
