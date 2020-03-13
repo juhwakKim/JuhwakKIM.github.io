@@ -506,7 +506,7 @@
 </ul>
 <h3 id="Finite-horizon-case-state-action-marginal"><a href="#Finite-horizon-case-state-action-marginal" class="headerlink" title="Finite horizon case: state-action marginal"></a>Finite horizon case: state-action marginal</h3><p><img src="/images/Deep-learning/cs285/cs285-4(11).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
-<li>$\theta^\star = \arg \max <em>{\theta} \sum</em>{t=1}^{T} E_{\left(\boldsymbol{s}_ {t}, \mathbf{a}<em>{t}\right) \sim p</em>{\theta}\left(\boldsymbol{s}_ {t}, \mathbf{a}_ {t}\right)}\left[r\left(\mathbf{s}_ {t}, \mathbf{a}_{t}\right)\right]$<ul>
+<li>$\theta^\star = \arg \max_{\theta}E_{\mathcal{T}\sim p_\theta(\mathcal{T})}[\sum_t r(s_t,{\mathbf a_t})]$<ul>
 <li>$\mathcal{T}$를 $s$와 $a$의 pair로 변경 </li>
 <li>$p_\theta(s_t,\mathbf{a}_t)$(state-action marginal)<ul>
 <li>time step $t$에서의 state와 action의 marginal distribution</li>
@@ -517,16 +517,18 @@
 </ul>
 <h3 id="Infinite-horizon-case-stationary-distribution"><a href="#Infinite-horizon-case-stationary-distribution" class="headerlink" title="Infinite horizon case: stationary distribution"></a>Infinite horizon case: stationary distribution</h3><p><img src="/images/Deep-learning/cs285/cs285-4(12).jpg" alt="cs285" title="cs285 paper"></p>
 <ul>
-<li>what if $T = \infty$? <ul>
-<li>$p(s_t,\mathbf{a_t})$가 stationary distribution으로 수렴 한다면(항상은 아니지만 일반적으로 수렴) $\begin{pmatrix} s_{t+1} \ a_{t+1} \end{pmatrix} = \mathcal{T}^k \begin{pmatrix} s_{t} \ a_{t} \end{pmatrix}$(state-action transition operator)을 이용해서 $\mu = \mathcal{T}\mu$로 나타낼 수 있다.<ul>
-<li>$\mu$: vector of probabilities state action pair<br>$$\mu=\left[\begin{array}{c}<br>p\left(s_{1}\right) \<br>p\left(s_{2}\right) \<br>\vdots \<br>p\left(s_{N}\right)<br>\end{array}\right] \ \ \text{(regular markov chain) }$$</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>$$\mu=\left[\begin{array}{c}<br>p\left(s_{1}, a_{1}\right) \<br>p\left(s_{1}, a_{2}\right) \<br>p\left(s_{1}, a_{M}\right) \<br>p\left(s_{2}, a_{1}\right) \<br>\vdots<br>\end{array}\right] ( \text{markov chain over} s \text{and} a)$$<br>    * not change distribution $\ne$ not change state</p>
+<li><p>what if $T = \infty$? </p>
 <ul>
+<li>$p(s_t,\mathbf{a_t})$가 stationary distribution으로 수렴 한다면(항상은 아니지만 일반적으로 수렴) $\begin{pmatrix} s_{t+1} \ a_{t+1} \end{pmatrix} = \mathcal{T}^k \begin{pmatrix} s_{t} \ a_{t} \end{pmatrix}$(state-action transition operator)을 이용해서 $\mu = \mathcal{T}\mu$로 나타낼 수 있다.<ul>
+<li>$\mu$: vector of probabilities state action pair</li>
+</ul>
+</li>
+</ul>
+<p>$$\mu = \begin{bmatrix} p(s_1) \ p(s_2) \ \vdots    \ p(s_N) \end{bmatrix}  \ \ \text{(regular markov chain) }$$</p>
+</li>
+</ul>
+<p>  $$\mu = \begin{bmatrix} p(s_1,a_1) \ p(s_1,a_2)    \ p(s_1,a_M) \ p(s_2,a_1) \ \vdots \end{bmatrix} \ \  ( \text{markov chain over} s \text{and} a)$$</p>
+<pre><code>* not change distribution $\ne$ not change state</code></pre><ul>
 <li>$(\mathcal{T} - I)\mu = 0$<ul>
 <li>$\mu$는 $\mathcal{T}$의 eigenvalue가 1인 eigenvector이다.</li>
 <li>특정 조건(ergodicity - 모든 state action pair가 reachable)을 만족하면 수렴한다.</li>
