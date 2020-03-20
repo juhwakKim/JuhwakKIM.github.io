@@ -55,29 +55,30 @@
   };
 </script>
 
-  <meta name="description" content="Openpose installrequirement NVIDIA CUDA_(그래픽카드 메모리가 1.6GB이상이여한다.)NVIDIA cuDNN   Clone OpenPose$ git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose openpose/3rdparty 폴더에 가보면  이렇게 되어있을텐데">
-<meta name="keywords" content="deep learning">
+  <meta name="description" content="Double DQN기존의 Q-Learning Algorithm은 특정 조건에서 Q-value를 Overestimate(과평가)되어 좋은 성능을 보이지 못했다.   보상받을 값에 따라서 다음 행동이 결정되는데, 잘못된 행동에 대한 Q-value가 과평가되면 잘못된 방향으로 학습이 진행될 수 있다.   Q-Learning은 estimated된 Q-value에">
+<meta name="keywords" content="Deep Learning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Openpose 설치 tutorial">
-<meta property="og:url" content="https://juhwakkim.github.io/2019/04/08/2019-04-08-Openpose-tutorial/index.html">
+<meta property="og:title" content="Double DQN  ">
+<meta property="og:url" content="https://juhwakkim.github.io/2020/03/08/2020-02-25-DQN/index.html">
 <meta property="og:site_name" content="AI&amp;Robotics">
-<meta property="og:description" content="Openpose installrequirement NVIDIA CUDA_(그래픽카드 메모리가 1.6GB이상이여한다.)NVIDIA cuDNN   Clone OpenPose$ git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose openpose/3rdparty 폴더에 가보면  이렇게 되어있을텐데">
+<meta property="og:description" content="Double DQN기존의 Q-Learning Algorithm은 특정 조건에서 Q-value를 Overestimate(과평가)되어 좋은 성능을 보이지 못했다.   보상받을 값에 따라서 다음 행동이 결정되는데, 잘못된 행동에 대한 Q-value가 과평가되면 잘못된 방향으로 학습이 진행될 수 있다.   Q-Learning은 estimated된 Q-value에">
 <meta property="og:locale" content="ko">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_tutorial.png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_tutorial_(2).png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_tutorial_(3).png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_tutorial_(4).png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_tutorial_(5).png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_tutorial_(6).png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_tutorial_(7).png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_tutorial_(8).png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_tutorial_(9).png">
-<meta property="og:updated_time" content="2019-08-06T15:00:00.000Z">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/double_dqn(2).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/double_dqn(3).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(4).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(5).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(6).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(7).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn.png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(2).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(4).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(3).png">
+<meta property="og:updated_time" content="2020-03-20T15:00:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Openpose 설치 tutorial">
-<meta name="twitter:description" content="Openpose installrequirement NVIDIA CUDA_(그래픽카드 메모리가 1.6GB이상이여한다.)NVIDIA cuDNN   Clone OpenPose$ git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose openpose/3rdparty 폴더에 가보면  이렇게 되어있을텐데">
-<meta name="twitter:image" content="https://juhwakkim.github.io/images/Deep-learning/Openpose/Openpose_tutorial.png">
-  <link rel="canonical" href="https://juhwakkim.github.io/2019/04/08/2019-04-08-Openpose-tutorial/">
+<meta name="twitter:title" content="Double DQN  ">
+<meta name="twitter:description" content="Double DQN기존의 Q-Learning Algorithm은 특정 조건에서 Q-value를 Overestimate(과평가)되어 좋은 성능을 보이지 못했다.   보상받을 값에 따라서 다음 행동이 결정되는데, 잘못된 행동에 대한 Q-value가 과평가되면 잘못된 방향으로 학습이 진행될 수 있다.   Q-Learning은 estimated된 Q-value에">
+<meta name="twitter:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/double_dqn(2).png">
+  <link rel="canonical" href="https://juhwakkim.github.io/2020/03/08/2020-02-25-DQN/">
 
 
 <script id="page-configurations">
@@ -91,7 +92,7 @@
   };
 </script>
 
-  <title>Openpose 설치 tutorial | AI&Robotics</title>
+  <title>Double DQN   | AI&Robotics</title>
   
 
 
@@ -265,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://juhwakkim.github.io/2019/04/08/2019-04-08-Openpose-tutorial/">
+    <link itemprop="mainEntityOfPage" href="https://juhwakkim.github.io/2020/03/08/2020-02-25-DQN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Juhwak Kim">
@@ -279,7 +280,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Openpose 설치 tutorial
+          <h1 class="post-title" itemprop="name headline">Double DQN  
 
             
           </h1>
@@ -296,7 +297,7 @@
                 
               
 
-              <time title="Post created: 2019-04-08 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-08T00:00:00+09:00">2019-04-08</time>
+              <time title="Post created: 2020-03-08 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-08T00:00:00+09:00">2020-03-08</time>
             </span>
           
             
@@ -307,7 +308,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Updated at: 2019-08-07 00:00:00" itemprop="dateModified" datetime="2019-08-07T00:00:00+09:00">2019-08-07</time>
+                <time title="Updated at: 2020-03-21 00:00:00" itemprop="dateModified" datetime="2020-03-21T00:00:00+09:00">2020-03-21</time>
               </span>
             
           
@@ -317,7 +318,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/code/" itemprop="url" rel="index"><span itemprop="name">code</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/theory/" itemprop="url" rel="index"><span itemprop="name">theory</span></a></span>
 
                 
                 
@@ -335,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">댓글: </span>
   
-    <a href="/2019/04/08/2019-04-08-Openpose-tutorial/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/08/2019-04-08-Openpose-tutorial/" itemprop="commentCount"></span>
+    <a href="/2020/03/08/2020-02-25-DQN/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/08/2020-02-25-DQN/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -352,39 +353,122 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Openpose-install"><a href="#Openpose-install" class="headerlink" title="Openpose install"></a>Openpose install</h2><h3 id="requirement"><a href="#requirement" class="headerlink" title="requirement"></a>requirement</h3><blockquote>
-<p>NVIDIA CUDA_(그래픽카드 메모리가 1.6GB이상이여한다.)<br>NVIDIA cuDNN </p>
+        <h2 id="Double-DQN"><a href="#Double-DQN" class="headerlink" title="Double DQN"></a>Double DQN</h2><p>기존의 Q-Learning Algorithm은 특정 조건에서 Q-value를 Overestimate(과평가)되어 좋은 성능을 보이지 못했다. </p>
+<blockquote>
+<p>보상받을 값에 따라서 다음 행동이 결정되는데, 잘못된 행동에 대한 Q-value가 과평가되면 잘못된 방향으로 학습이 진행될 수 있다. </p>
 </blockquote>
-<h3 id="Clone-OpenPose"><a href="#Clone-OpenPose" class="headerlink" title="Clone OpenPose"></a>Clone OpenPose</h3><p><code>$ git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose</code></p>
-<p>openpose/3rdparty 폴더에 가보면</p>
-<p><img src="/images/Deep-learning/Openpose/Openpose_tutorial.png" alt="alt"></p>
-<p>이렇게 되어있을텐데 openpose github페이지에 가서 3rdparty에 들어간다.</p>
-<p><img src="/images/Deep-learning/Openpose/Openpose_tutorial_(2).png" alt="alt"></p>
-<p>여기서 caffe,pybind11에 들어가 깔아둔 openpose/3rdparty에 복사한다.</p>
-<p><img src="/images/Deep-learning/Openpose/Openpose_tutorial_(3).png" alt="alt"></p>
-<p><img src="/images/Deep-learning/Openpose/Openpose_tutorial_(4).png" alt="alt"></p>
-<p><img src="/images/Deep-learning/Openpose/Openpose_tutorial_(5).png" alt="alt"></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># openpose/3rdparty에서 터미널 실행하고</span></span><br><span class="line"></span><br><span class="line">$ git clone https://github.com/CMU-Perceptual-Computing-Lab/caffe.git</span><br><span class="line"></span><br><span class="line">$ git clone https://github.com/pybind/pybind11.git</span><br></pre></td></tr></table></figure>
-
-<h3 id="install-library"><a href="#install-library" class="headerlink" title="install library"></a>install library</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install wget vim cmake cmake-qt-gui</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install python-dev python-pip python-numpy</span><br><span class="line"></span><br><span class="line">$ pip install --upgrade pip</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install libhdf5-serial-dev protobuf-compiler</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install libboost-all-dev libgoogle-glog-dev</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install liblmdb-dev libopenblas-dev libatlas-base-dev</span><br></pre></td></tr></table></figure>
-
-<h3 id="cmake"><a href="#cmake" class="headerlink" title="cmake"></a>cmake</h3><p>터미널 창에 <code>cmake-gui</code> 입력</p>
-<p><img src="/images/Deep-learning/Openpose/Openpose_tutorial_(6).png" alt="alt"></p>
-<p>다음과같이 </p>
-<p>where is the source code: Openpose 주소</p>
-<p>where to build the binaries: openpose/build 로 바꿔준다.</p>
-<p>그리고 configure를 눌러준다.</p>
-<p><img src="/images/Deep-learning/Openpose/Openpose_tutorial_(7).png" alt="alt"></p>
-<p><img src="/images/Deep-learning/Openpose/Openpose_tutorial_(8).png" alt="alt"></p>
-<p>이런창이 나오면 generate 버튼을 클릭하고 완료되면 build 폴더로 간다.</p>
-<p><code>cd openpose/build/</code></p>
-<p>그리고 make 해준다</p>
-<p><code>make -j 8</code></p>
-<h2 id="Demo-실행"><a href="#Demo-실행" class="headerlink" title="Demo 실행"></a>Demo 실행</h2><p>make가 완료되면 </p>
-<p><code>./build/examples/openpose/openpose.bin --video examples/media/video.avi</code></p>
-<p>을 시키고 잘작동하는지 확인한다</p>
-<p><img src="/images/Deep-learning/Openpose/Openpose_tutorial_(9).png" alt="alt"></p>
-<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><p>tf버전 Openpsoe 추가</p>
+<p>Q-Learning은 estimated된 Q-value에 대한 maximization step이 존재하여 비현실적인 Q-value를 통해 학습하게 된다. </p>
+<blockquote>
+<p>기존의 Q-Learning은 어떤 상태($s’$)에서 취할 수 있는 행동들 중에서 maximum Q-value를 구하는 것을 목표로 학습을 진행한다. </p>
+</blockquote>
+<p>물론 학습을 하다보면 부정확한 value로 estimate되는 것은 당연하다. 만약 모든 값들이 균등하게 over-estimate된다면 이것은 문제가 되지 않으며, 심지어 원하는 값에 대해 overestimate되는 것은 때로 좋은 결과를 불러일으킨다. 그러나 overestimate가 일정하게 되지 않고, 우리가 학습하기를 원하는 값에서 발생되지 않는다면 Policy에 안좋은 영향을 미치게 된다.</p>
+<h3 id="Double-Q-learning"><a href="#Double-Q-learning" class="headerlink" title="Double Q-learning"></a>Double Q-learning</h3><ul>
+<li>Q-Learning은 Action Select와 Action Evaluate을 위해 같은 $\theta$를 사용 -&gt; Overestimation 발생<br>$$ Y_t^Q = R_{t+1} + \gamma max_{a} Q (s_{t+1}, a; \theta_{t}) $$</li>
+<li>위의 식을 select와 evaluation을 명확히 하기 위해 아래와 같이 변형할 수 있다.<br>$$ Y_t^Q = R_{t+1} + \gamma Q(S_{t+1}, argmax_{a} Q (s_{t+1}, a; \theta_{t}); \theta_t) $$</li>
+<li>그리고 Double Q-Learning에서는 아래와 같이 <span style="color:red"> selection  </span>과 <span style="color:blue"> evaluation  </span>을 분리하여 표현한다.<br>$$ Y_t^Q = R_{t+1} + \color{red}\gamma \color{red}{Q(S_{t+1}, }\color{blue}{argmax_{a} Q (s_{t+1}, a; \theta_{t})}\color{red}{; \theta’_t)} $$<ul>
+<li>$\theta_t$는 argmax에서 action을 선택하고,$\theta’_t$는 policy를 evaluate하는데 2개의 weights는 서로 switching하며 update된다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Double-DQN-1"><a href="#Double-DQN-1" class="headerlink" title="Double DQN"></a>Double DQN</h3><p><img src="/images/Deep-learning/etc/double_dqn(2).png" alt="DQN" title="DQN"></p>
+<ul>
+<li>DQN에서도 Overestimation이 존재하기에 식을 위와같이 변경</li>
+</ul>
+<h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><p><img src="/images/Deep-learning/etc/double_dqn(3).png" alt="DQN" title="DQN"></p>
+<blockquote>
+<p>$Q_*$: true value(보라선), $Q_t$: single action에 대한 approximation(초록선), sampled states(초록 점들)</p>
+</blockquote>
+<ul>
+<li><p>첫번째와 두번째 그래프는 sampled states도 맞추지 못했는데 이는 estimation function의 차수가 낮아 충분히 flexible 하지 않기 때문이다.</p>
+</li>
+<li><p>세번쨰 그래프는 충분히 flexible 하지만 unsampled states에서의 정확성은 떨어진다.</p>
+<ul>
+<li>특히 왼쪽에 sampled states 거리가 다른 states보다 멀어서 더 큰 estimation error를 만들었다.</li>
+</ul>
+</li>
+<li><p>이렇게 특정 순간에 우리가 제한적인 데이터만을 지니는 것이 실제 학습할 때의 환경과 같고 Estimation Error는 실제 학습을 진행할 때 자주 발생하게 된다.</p>
+</li>
+</ul>
+<p><img src="/images/Deep-learning/etc/dueling_dqn(4).png" alt="DQN" title="DQN"></p>
+<blockquote>
+<p>초록색 그래프: 모든 행동에 대한 estimated action-value, 검은색 그래프: 초록색 그래프중 maximum값</p>
+</blockquote>
+<ul>
+<li>max를 취했을 때 Overestimation이 발생한는 것을 볼 수 있다.</li>
+</ul>
+<p><img src="/images/Deep-learning/etc/dueling_dqn(5).png" alt="DQN" title="DQN"></p>
+<blockquote>
+<p>주황색 그래프: Maximum Estimation Function – True Function<br>파란색 그래프: Double Q Estimation Function – True Function</p>
+</blockquote>
+<ul>
+<li>주황색 그래프의 경우 upward bias을 지니고 있어 항상 양수이다.</li>
+<li>파란색 그래프의 경우 평균적으로 거의 0에 근접하다.</li>
+</ul>
+<p><img src="/images/Deep-learning/etc/dueling_dqn(6).png" alt="DQN" title="DQN"></p>
+<ul>
+<li><p>첫번째 열과 두번째 열은 True Value Function만을 다르게 한 것 -&gt; Overestimation이 특정 구조에 종속된 것이 아니라는 것</p>
+</li>
+<li><p>두번째 열과 세번째 열은 Function approximation의 flexibility가 다름</p>
+<ul>
+<li>row2는 flexibility가 낮아서 True Value에서도 정확한 값을 갖지 않음</li>
+<li>row3는 flexibility가 높지만 주어진 True Value거리가 먼 경우에서 정확한 값을 갖지 않음</li>
+</ul>
+</li>
+<li><p>이렇게 시작되는 Overestimation은 계속해서 propagate되고, 상황은 계속해서 악화됨</p>
+</li>
+</ul>
+<p><img src="/images/Deep-learning/etc/dueling_dqn(7).png" alt="DQN" title="DQN"></p>
+<ul>
+<li>DQN의 경우 Overestimation이 발생하면서 Score가 하락함</li>
+</ul>
+<h2 id="Dueling-DQN"><a href="#Dueling-DQN" class="headerlink" title="Dueling DQN"></a>Dueling DQN</h2><p><img src="/images/Deep-learning/etc/dueling_dqn.png" alt="DQN" title="DQN"></p>
+<ul>
+<li>위 stream은 State-value function으로서 scalar 값을 받게 됩니다. 즉, State s가 얼마나 좋냐를 측정하게 되는데 이는 Environment내에서 상대적인 값으로 봐야한다.<ul>
+<li>ex) 7.8이니까 좋다, 라고 말할 수 없고, 이전 상태에서는 5이고 지금 상태는 7이니 이전 상태보다 state value가 높다 라고 해석해야 한다.</li>
+</ul>
+</li>
+<li>아래 stream은 advantage function로 특정 action이 평균 action의 value보다 얼마나 좋은지, 나쁜지를 판단할 수 있는 함수이며 state에 dependent하다.</li>
+</ul>
+<p><img src="/images/Deep-learning/etc/dueling_dqn(2).png" alt="DQN" title="DQN"></p>
+<ul>
+<li><p>마지막 부분은 $V(s) + A(s, a)$로 계산이 됩니다. $V(s)$는 Scalar이고 $A(s, a)$의 action에 대한 vector인데, $V(s) + A(s, a)$를 계산할때에 $V(s)$ 를 action수 만큼 동일하게 복사하여 더해준다. </p>
+</li>
+<li><p>하지만 이렇게 하면 identifiability 문제가 발생한다.($Q(s,a)$가 주어질떄 $V(s)$와 $A(s,a)$를 찾지 못함, back propagation하는데 문제 발생)</p>
+</li>
+</ul>
+<p><img src="/images/Deep-learning/etc/dueling_dqn(4).png" alt="DQN" title="DQN"></p>
+<ul>
+<li>이 문제의 해결방법은 $A$를 0으로 만들면 되서 위와 같이 식을 바꾸면 된다.</li>
+</ul>
+<p><img src="/images/Deep-learning/etc/dueling_dqn(3).png" alt="DQN" title="DQN"></p>
+<blockquote>
+<p>agent가 앞으로의 reward를 얻기 위해 어디에 관심을 두는지를 표시한 그림</p>
+</blockquote>
+<ul>
+<li><p>위 그림을 보면 지평선 끝에 차 한대가 작게 있는 것을 볼 수 있다. 먼저, value stream 관점에서는 앞으로의 reward를 최대화 하기 위해서 agent는 score와 멀리 있는 차(장애물) 그리고 차를 피하기위해 가야할 길에 집중한다.</p>
+<ul>
+<li>advantage stream 관점에서는 집중하지 않는다. 왜냐하면 당장에 action을 취하지 않아도 어차피 차는 나아가고 score는 쌓이고 있기 때문이다.</li>
+</ul>
+</li>
+<li><p>아래 그림을 보면 차와 다른 차들이 매우 가깝다. 그렇기 때문에 value stream 입장에서는 우리가 계속 score를 쌓기 위해 장애물들을 피해 나아가야할 곳에 집중한다.</p>
+<ul>
+<li>advantage stream을 보면 당장에 action을 취하지 않으면 reward를 얻는데 영향을 주기 때문에 이때는 앞에 있는 차에 신경을 써서 action을 취해야한다.</li>
+</ul>
+</li>
+<li><p>normal DQN에서는 agent가 state에서 각 action에 대한 Q-value를 계산해야 하지만 value function이 좋지 않을 때, 즉, state가 dangerous하거나 reward를 얻기에 좋지 않은 state에서도 Q-value를 계산해봐야하고, state에서 할 수 있는 모든 action들이 나쁜결과를 초래하더라도 계산해봐야한다.</p>
+<ul>
+<li>이렇게 Q-learning을 두 가지 stream으로 dualing하면, agent가 state마다 action을 해보면서 그 결과를 학습하지 않아도 어떤 state가 valuable한지 알 수 있다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="참고-자료"><a href="#참고-자료" class="headerlink" title="참고 자료"></a>참고 자료</h2><ul>
+<li><a href="https://mangkyu.tistory.com/66" target="_blank" rel="noopener">https://mangkyu.tistory.com/66</a></li>
+<li><a href="https://jsideas.net/dqn/" target="_blank" rel="noopener">https://jsideas.net/dqn/</a></li>
+<li><a href="https://whereisend.tistory.com/137?category=783755" target="_blank" rel="noopener">https://whereisend.tistory.com/137?category=783755</a></li>
+<li><a href="https://sumniya.tistory.com/19" target="_blank" rel="noopener">https://sumniya.tistory.com/19</a></li>
+<li><a href="https://www.freecodecamp.org/news/improvements-in-deep-q-learning-dueling-double-dqn-prioritized-experience-replay-and-fixed-58b130cc5682/" target="_blank" rel="noopener">https://www.freecodecamp.org/news/improvements-in-deep-q-learning-dueling-double-dqn-prioritized-experience-replay-and-fixed-58b130cc5682/</a></li>
+<li><a href="https://towardsdatascience.com/dueling-deep-q-networks-81ffab672751" target="_blank" rel="noopener">https://towardsdatascience.com/dueling-deep-q-networks-81ffab672751</a></li>
+</ul>
 
     </div>
       
@@ -398,13 +482,13 @@
           
         
         <div class="post-tags">
-            <a href="/tags/deep-learning/" rel="tag"><i class="fa fa-tag"></i> deep learning</a>
+            <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
           
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/04/03/2019-04-04-Deep-learning-site/" rel="next" title="Deep learning 유용한 사이트">
-                <i class="fa fa-chevron-left"></i> Deep learning 유용한 사이트
+              <a href="/2020/02/25/2020-02-25-cs285-1/" rel="next" title="CS285 Fa19 Deep Reinforcement Learning, Decision Making, and Control">
+                <i class="fa fa-chevron-left"></i> CS285 Fa19 Deep Reinforcement Learning, Decision Making, and Control
               </a>
             
           </div>
@@ -412,8 +496,8 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/08/02/2019-08-02-Openpose-paper-review/" rel="prev" title="[CVPR 2017] Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields 리뷰">
-                [CVPR 2017] Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields 리뷰 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/03/08/2020-02-25-cs285-4/" rel="prev" title="CS285 Fa19 Introduction to Reinforcement Learning">
+                CS285 Fa19 Introduction to Reinforcement Learning <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -579,7 +663,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Openpose-install"><span class="nav-number">1.</span> <span class="nav-text">Openpose install</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#requirement"><span class="nav-number">1.1.</span> <span class="nav-text">requirement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clone-OpenPose"><span class="nav-number">1.2.</span> <span class="nav-text">Clone OpenPose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#install-library"><span class="nav-number">1.3.</span> <span class="nav-text">install library</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cmake"><span class="nav-number">1.4.</span> <span class="nav-text">cmake</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo-실행"><span class="nav-number">2.</span> <span class="nav-text">Demo 실행</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TODO"><span class="nav-number">3.</span> <span class="nav-text">TODO</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Double-DQN"><span class="nav-number">1.</span> <span class="nav-text">Double DQN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Double-Q-learning"><span class="nav-number">1.1.</span> <span class="nav-text">Double Q-learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Double-DQN-1"><span class="nav-number">1.2.</span> <span class="nav-text">Double DQN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Result"><span class="nav-number">1.3.</span> <span class="nav-text">Result</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dueling-DQN"><span class="nav-number">2.</span> <span class="nav-text">Dueling DQN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#참고-자료"><span class="nav-number">3.</span> <span class="nav-text">참고 자료</span></a></li></ol></div>
             
 
           </div>
@@ -755,9 +839,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://juhwakkim.github.io/2019/04/08/2019-04-08-Openpose-tutorial/";
-    this.page.identifier = "2019/04/08/2019-04-08-Openpose-tutorial/";
-    this.page.title = 'Openpose 설치 tutorial';};
+    this.page.url = "https://juhwakkim.github.io/2020/03/08/2020-02-25-DQN/";
+    this.page.identifier = "2020/03/08/2020-02-25-DQN/";
+    this.page.title = 'Double DQN  ';};
   function loadComments() {
     if (window.DISQUS) {
       DISQUS.reset({
