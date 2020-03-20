@@ -65,10 +65,10 @@
 <meta property="og:locale" content="ko">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/double_dqn(2).png">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/double_dqn(3).png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(4).png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(5).png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(6).png">
-<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(7).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/double_dqn(4).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/double_dqn(5).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/double_dqn(6).png">
+<meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/double_dqn(7).png">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn.png">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(2).png">
 <meta property="og:image" content="https://juhwakkim.github.io/images/Deep-learning/etc/dueling_dqn(4).png">
@@ -389,14 +389,14 @@
 <li><p>이렇게 특정 순간에 우리가 제한적인 데이터만을 지니는 것이 실제 학습할 때의 환경과 같고 Estimation Error는 실제 학습을 진행할 때 자주 발생하게 된다.</p>
 </li>
 </ul>
-<p><img src="/images/Deep-learning/etc/dueling_dqn(4).png" alt="DQN" title="DQN"></p>
+<p><img src="/images/Deep-learning/etc/double_dqn(4).png" alt="DQN" title="DQN"></p>
 <blockquote>
 <p>초록색 그래프: 모든 행동에 대한 estimated action-value, 검은색 그래프: 초록색 그래프중 maximum값</p>
 </blockquote>
 <ul>
 <li>max를 취했을 때 Overestimation이 발생한는 것을 볼 수 있다.</li>
 </ul>
-<p><img src="/images/Deep-learning/etc/dueling_dqn(5).png" alt="DQN" title="DQN"></p>
+<p><img src="/images/Deep-learning/etc/double_dqn(5).png" alt="DQN" title="DQN"></p>
 <blockquote>
 <p>주황색 그래프: Maximum Estimation Function – True Function<br>파란색 그래프: Double Q Estimation Function – True Function</p>
 </blockquote>
@@ -404,7 +404,7 @@
 <li>주황색 그래프의 경우 upward bias을 지니고 있어 항상 양수이다.</li>
 <li>파란색 그래프의 경우 평균적으로 거의 0에 근접하다.</li>
 </ul>
-<p><img src="/images/Deep-learning/etc/dueling_dqn(6).png" alt="DQN" title="DQN"></p>
+<p><img src="/images/Deep-learning/etc/double_dqn(6).png" alt="DQN" title="DQN"></p>
 <ul>
 <li><p>첫번째 열과 두번째 열은 True Value Function만을 다르게 한 것 -&gt; Overestimation이 특정 구조에 종속된 것이 아니라는 것</p>
 </li>
@@ -417,7 +417,7 @@
 <li><p>이렇게 시작되는 Overestimation은 계속해서 propagate되고, 상황은 계속해서 악화됨</p>
 </li>
 </ul>
-<p><img src="/images/Deep-learning/etc/dueling_dqn(7).png" alt="DQN" title="DQN"></p>
+<p><img src="/images/Deep-learning/etc/double_dqn(7).png" alt="DQN" title="DQN"></p>
 <ul>
 <li>DQN의 경우 Overestimation이 발생하면서 Score가 하락함</li>
 </ul>
@@ -487,8 +487,8 @@
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2020/02/25/2020-02-25-cs285-1/" rel="next" title="CS285 Fa19 Deep Reinforcement Learning, Decision Making, and Control">
-                <i class="fa fa-chevron-left"></i> CS285 Fa19 Deep Reinforcement Learning, Decision Making, and Control
+              <a href="/2020/03/08/2020-02-25-cs285-4/" rel="next" title="CS285 Fa19 Introduction to Reinforcement Learning">
+                <i class="fa fa-chevron-left"></i> CS285 Fa19 Introduction to Reinforcement Learning
               </a>
             
           </div>
@@ -496,10 +496,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2020/03/08/2020-02-25-cs285-4/" rel="prev" title="CS285 Fa19 Introduction to Reinforcement Learning">
-                CS285 Fa19 Introduction to Reinforcement Learning <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
