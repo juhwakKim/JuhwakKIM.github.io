@@ -365,7 +365,7 @@
 <h3 id="Double-Q-learning"><a href="#Double-Q-learning" class="headerlink" title="Double Q-learning"></a>Double Q-learning</h3><ul>
 <li>Q-Learning은 Action Select와 Action Evaluate을 위해 같은 $\theta$를 사용 -&gt; Overestimation 발생<br>$$ Y_t^Q = R_{t+1} + \gamma max_{a} Q (s_{t+1}, a; \theta_{t}) $$</li>
 <li>위의 식을 select와 evaluation을 명확히 하기 위해 아래와 같이 변형할 수 있다.<br>$$ Y_t^Q = R_{t+1} + \gamma Q(S_{t+1}, argmax_{a} Q (s_{t+1}, a; \theta_{t}); \theta_t) $$</li>
-<li>그리고 Double Q-Learning에서는 아래와 같이 <span style="color:red"> selection  </span>과 <span style="color:blue"> evaluation  </span>을 분리하여 표현한다.<br>$$ Y_t^Q = R_{t+1} + \color{red}\gamma \color{red}{Q(S_{t+1}, }\color{blue}{argmax_{a} Q (s_{t+1}, a; \theta_{t})}\color{red}{; \theta’_t)} $$<ul>
+<li>그리고 Double Q-Learning에서는 아래와 같이 selection과  evaluation을 분리하여 표현한다.<br>$$ Y_t^Q = R_{t+1} + \gamma Q(S_{t+1}, argmax_{a} Q (s_{t+1}, a; \theta_{t}); \theta’_t) $$<ul>
 <li>$\theta_t$는 argmax에서 action을 선택하고,$\theta’_t$는 policy를 evaluate하는데 2개의 weights는 서로 switching하며 update된다.</li>
 </ul>
 </li>
@@ -487,8 +487,8 @@
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2020/03/08/2020-02-25-cs285-4/" rel="next" title="CS285 Fa19 Introduction to Reinforcement Learning">
-                <i class="fa fa-chevron-left"></i> CS285 Fa19 Introduction to Reinforcement Learning
+              <a href="/2020/02/25/2020-02-25-cs285-1/" rel="next" title="CS285 Fa19 Deep Reinforcement Learning, Decision Making, and Control">
+                <i class="fa fa-chevron-left"></i> CS285 Fa19 Deep Reinforcement Learning, Decision Making, and Control
               </a>
             
           </div>
@@ -496,6 +496,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2020/03/08/2020-02-25-cs285-4/" rel="prev" title="CS285 Fa19 Introduction to Reinforcement Learning">
+                CS285 Fa19 Introduction to Reinforcement Learning <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
