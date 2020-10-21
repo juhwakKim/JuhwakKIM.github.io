@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    save_scroll: true,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '복사',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="RMaURA K-MOOC 강좌 정리">
+<meta name="keywords" content="K-MOOC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Robot Manipulator and Underwater Robot Application 2주차 2-2 행렬과 벡터의 연산(1)">
+<meta property="og:url" content="https://juhwakkim.github.io/2020/10/22/2019-03-28-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-2/index.html">
+<meta property="og:site_name" content="AI&amp;Robotics">
+<meta property="og:description" content="RMaURA K-MOOC 강좌 정리">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2019-08-05T18:19:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Robot Manipulator and Underwater Robot Application 2주차 2-2 행렬과 벡터의 연산(1)">
+<meta name="twitter:description" content="RMaURA K-MOOC 강좌 정리">
+  <link rel="canonical" href="https://juhwakkim.github.io/2020/10/22/2019-03-28-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Robot Manipulator and Underwater Robot Application 2주차 2-2 행렬과 벡터의 연산(1) | AI&Robotics</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI&Robotics</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>홈</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>태그<span class="badge">7</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>카테고리<span class="badge">9</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>아카이브<span class="badge">30</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>검색</a>
+      </li>
+    
+  </ul>
+
+    
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/juhwakKim" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://juhwakkim.github.io/2020/10/22/2019-03-28-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Juhwak Kim">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI&Robotics">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Robot Manipulator and Underwater Robot Application 2주차 2-2 행렬과 벡터의 연산(1)
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              
+                
+              
+
+              <time title="Post created: 2020-10-22 02:09:15" itemprop="dateCreated datePublished" datetime="2020-10-22T02:09:15+09:00">2020-10-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2019-08-06 03:19:32" itemprop="dateModified" datetime="2019-08-06T03:19:32+09:00">2019-08-06</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Robotics/" itemprop="url" rel="index"><span itemprop="name">Robotics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    <span class="post-meta-item-text">댓글: </span>
+  
+    <a href="/2020/10/22/2019-03-28-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-2/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/22/2019-03-28-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+            <div class="post-description">RMaURA K-MOOC 강좌 정리</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>서울과학기술대학교 김진현교수님의 K-MOOC강좌 Robot Manipulator and Underwater Robot Application을 공부하고 내용을 정리한 것 입니다.</p>
+<p>K-MOOC 강좌 주소: </p>
+<p><a href="http://www.kmooc.kr/courses/course-v1:SEOULTECHk+SMOOC03k+2019_T3/about" target="_blank" rel="noopener">http://www.kmooc.kr/courses/course-v1:SEOULTECHk+SMOOC03k+2019_T3/about</a></p>
+<h2 id="행렬과-벡터의-연산"><a href="#행렬과-벡터의-연산" class="headerlink" title="행렬과 벡터의 연산"></a>행렬과 벡터의 연산</h2><h3 id="행렬의-덧셈과-곱셈"><a href="#행렬의-덧셈과-곱셈" class="headerlink" title="행렬의 덧셈과 곱셈"></a>행렬의 덧셈과 곱셈</h3><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (2).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (3).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (4).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (5).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (6).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (7).jpg)|</p>
+<h3 id="대각합-trace"><a href="#대각합-trace" class="headerlink" title="대각합(trace)"></a>대각합(trace)</h3><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2.jpg)|<br>|<em>정방행렬의 주대각선 성분들의 합이다.</em>|</p>
+<h3 id="행렬식-Determinant"><a href="#행렬식-Determinant" class="headerlink" title="행렬식(Determinant)"></a>행렬식(Determinant)</h3><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (8).jpg)|<br>|<em>${detA_i}_j$는 minor 행렬 (소행렬식)이다.</em>|</p>
+<p>|![alt](https://wikimedia.org/api/rest_v1/media/math/render/svg/2ae0f49460a5958265eb20c49c2939acc69ebdf8)|</p>
+<p>|![alt](https://wikimedia.org/api/rest_v1/media/math/render/svg/5b613b8f479a2740097e90d2d872e738516f3df5)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (9).jpg)|</p>
+<h3 id="선형-독립-Span-basis"><a href="#선형-독립-Span-basis" class="headerlink" title="선형 독립, Span, basis"></a>선형 독립, Span, basis</h3><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (10).jpg)|</p>
+<p>만약에 k개의 벡터가 존재한다고 했을 때, k개의 벡터들을 각각, 앞에 상수를 전부 다 곱해서, 0으로 만들 수 있는 그런 조합이 존재 한다면 선형종속이라고 한다.</p>
+<p>만약 $c_1$~$c_k$까지 전부, 0을 제외하고는 어떤 수를 가지고도 이 전체를 0벡터를 만들 수 없다, 이런 경우를 </p>
+<p>‘선형독립’이라고 말합니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (11).jpg)|<br>|<em>선형독립이 되는 벡터들이 있다면, 어떤 벡터 공간을 만들 수 있게 됩니다.</em>|</p>
+<p>즉, $v_1$~$v_k$까지라고 하는 k개의 어떤 선형독립된 벡터들이 있다면, 그 벡터들을 통해서, 새로운 벡터를 만들어낼 수 있게 됩니다.<br>이 경우, 이렇게 만드는 과정을 공간을 ‘스팬’한다고 말하게 된다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (12).jpg)|<br>|<em>이렇게 3개의 (1, 0, 0), (0, 1, 0), (0, 0, 1)이라고하는 선형독립 벡터를 통해서 공간을 만들어냈을 때, 그 공간을 스팬한다고 말할 수 있다.</em>|</p>
+<p>3차원 벡터를 온전히 스팬하기 위해서, 필요한 최소한의 선형독립 벡터의 수가 3개임을 쉽게 알 수 있습니다.</p>
+<p>이 3이라는 숫자가, 바로 차원, 즉 3차원이라고 부르는 차원, 디멘션이라고 말할 수 있습니다.</p>
+<p>그리고, 어떤 공간을 만들기 위해서, 필요한 최소한의 수의 벡터를, ‘basis’라고 합니다.</p>
+<p>이 basis를 통해서, 전체 벡터 공간을 스팬할 수 있다고 말할 수 있고,    </p>
+<p>반대로 그 스팬을 하기 위해 필요한 벡터의 수를 basis, 다른 말로 기저라고 할 수 있습니다.</p>
+<p>basis는 </p>
+<blockquote>
+<p>기저벡터들은 독립(Independent)이다.</p>
+</blockquote>
+<blockquote>
+<p>기적벡터들은 공간(space)을 “span” 한다.</p>
+</blockquote>
+<p>span자체에서는 column vector가 독립인지 종속인지 상관없다.</p>
+<h3 id="행렬의-계수-Rank-of-a-Matrix"><a href="#행렬의-계수-Rank-of-a-Matrix" class="headerlink" title="행렬의 계수(Rank of a Matrix)"></a>행렬의 계수(Rank of a Matrix)</h3><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (13).jpg)|<br>|<em>이러한 선형독립에 대한 이야기를 한 이유는, 바로 행렬의 계수, 즉 랭크라고 부르는 행렬의 계수에 대한 설명을 하기 위해서다.</em>|</p>
+<p>만약에 m by n 매트릭스인 $A$가 있다고 할 때, 굳이 정방행렬일 필요는 없습니다.</p>
+<p>이 행렬의 계수는 방금 설명했던 것처럼, 선형 독립적인 칼럼의 수, 선형독립인 로우의 수, 즉 (선형 독립적인) 행과 열의 수가 </p>
+<p>바로 랭크가 됩니다</p>
+<p>Range space of $A$, 즉 columns으로 만들 수 있는 공간을 뜻하는 $R(A)$의 차원과 같은 개념이 됩니다.</p>
+<p>마찬가지로 어떤 매트릭스의 Row Space의 디멘션하고도 같게 됩니다.</p>
+<p>만약에 어떤 매트릭스 $A$의 랭크를 구했을 때, 만일 $A$가 옆으로 긴 행렬이면, m by n에서 m이 n보다 작게 됩니다.</p>
+<p>이 경우 최대한으로 가질 수 있는 랭크의 수는 이 행의 개수만큼을 초과할 수가 없게 됩니다.</p>
+<h3 id="역행렬-Inverse-Matrix"><a href="#역행렬-Inverse-Matrix" class="headerlink" title="역행렬(Inverse Matrix)"></a>역행렬(Inverse Matrix)</h3><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (14).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (15).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (16).jpg)|<br>|<em>$A$가 nonsingular, 즉 정칙행렬일 경우, 행렬식은 0이 아니고, $A$의 역행렬, $A$의 inverse는 존재합니다.</em>|</p>
+<p>$A$의 inverse 존재할 때, 만약에 $det(A^{-1})$, 즉 역행렬에 대한 Determinant는 $1 \above 1pt detA$의 형태로 구할 수 있습니다.</p>
+<p>반대로, Determinant 0이면, 즉 어떠한 매트릭스 $A$의 Determinant이 0일 경우에는 singular 이라고 하고 역행렬의 Determinant은 정의 할 수 없습니다.</p>
+<p>역행렬은 어떠한 방법으로 구했건, 한번 구했다면 그 역행렬은 유일합니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (17).jpg)|</p>
+<h3 id="여인수-Cofactor"><a href="#여인수-Cofactor" class="headerlink" title="여인수(Cofactor)"></a>여인수(Cofactor)</h3><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (19).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-2 (21).jpg)|<br>|<em>역행렬을 범용적으로 구하기위한 수식이다.</em>|</p>
+
+    </div>
+      
+
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/K-MOOC/" rel="tag"><i class="fa fa-tag"></i> K-MOOC</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/10/22/2019-03-27-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-1/" rel="next" title="Robot Manipulator and Underwater Robot Application 2주차 2-1 행렬과 벡터">
+                <i class="fa fa-chevron-left"></i> Robot Manipulator and Underwater Robot Application 2주차 2-1 행렬과 벡터
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2020/10/22/2019-03-29-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-3/" rel="prev" title="Robot Manipulator and Underwater Robot Application 2주차 2-3 행렬과 벡터의 연산(2)">
+                Robot Manipulator and Underwater Robot Application 2주차 2-3 행렬과 벡터의 연산(2) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            목차
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            흝어보기
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Juhwak Kim</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">카테고리</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">태그</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/juhwakKim" title="GitHub &rarr; https://github.com/juhwakKim" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:juhk1017@naver.com" title="E-Mail &rarr; mailto:juhk1017@naver.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#행렬과-벡터의-연산"><span class="nav-number">1.</span> <span class="nav-text">행렬과 벡터의 연산</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬의-덧셈과-곱셈"><span class="nav-number">1.1.</span> <span class="nav-text">행렬의 덧셈과 곱셈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#대각합-trace"><span class="nav-number">1.2.</span> <span class="nav-text">대각합(trace)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬식-Determinant"><span class="nav-number">1.3.</span> <span class="nav-text">행렬식(Determinant)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#선형-독립-Span-basis"><span class="nav-number">1.4.</span> <span class="nav-text">선형 독립, Span, basis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#행렬의-계수-Rank-of-a-Matrix"><span class="nav-number">1.5.</span> <span class="nav-text">행렬의 계수(Rank of a Matrix)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#역행렬-Inverse-Matrix"><span class="nav-number">1.6.</span> <span class="nav-text">역행렬(Inverse Matrix)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#여인수-Cofactor"><span class="nav-number">1.7.</span> <span class="nav-text">여인수(Cofactor)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Juhwak Kim</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', function() {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://juhk1017.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://juhwakkim.github.io/2020/10/22/2019-03-28-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-2/";
+    this.page.identifier = "2020/10/22/2019-03-28-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-2/";
+    this.page.title = 'Robot Manipulator and Underwater Robot Application 2주차 2-2 행렬과 벡터의 연산(1)';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://juhk1017.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
+</html>

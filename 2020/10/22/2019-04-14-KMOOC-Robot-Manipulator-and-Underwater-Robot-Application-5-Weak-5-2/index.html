@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    save_scroll: true,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '복사',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="RMaURA K-MOOC 강좌 정리">
+<meta name="keywords" content="K-MOOC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Robot Manipulator and Underwater Robot Application 5주차 5-2 Geometric approach">
+<meta property="og:url" content="https://juhwakkim.github.io/2020/10/22/2019-04-14-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-5-Weak-5-2/index.html">
+<meta property="og:site_name" content="AI&amp;Robotics">
+<meta property="og:description" content="RMaURA K-MOOC 강좌 정리">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2019-08-05T18:19:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Robot Manipulator and Underwater Robot Application 5주차 5-2 Geometric approach">
+<meta name="twitter:description" content="RMaURA K-MOOC 강좌 정리">
+  <link rel="canonical" href="https://juhwakkim.github.io/2020/10/22/2019-04-14-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-5-Weak-5-2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Robot Manipulator and Underwater Robot Application 5주차 5-2 Geometric approach | AI&Robotics</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI&Robotics</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>홈</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>태그<span class="badge">7</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>카테고리<span class="badge">9</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>아카이브<span class="badge">30</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>검색</a>
+      </li>
+    
+  </ul>
+
+    
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/juhwakKim" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://juhwakkim.github.io/2020/10/22/2019-04-14-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-5-Weak-5-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Juhwak Kim">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI&Robotics">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Robot Manipulator and Underwater Robot Application 5주차 5-2 Geometric approach
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              
+                
+              
+
+              <time title="Post created: 2020-10-22 02:09:15" itemprop="dateCreated datePublished" datetime="2020-10-22T02:09:15+09:00">2020-10-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2019-08-06 03:19:32" itemprop="dateModified" datetime="2019-08-06T03:19:32+09:00">2019-08-06</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Robotics/" itemprop="url" rel="index"><span itemprop="name">Robotics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    <span class="post-meta-item-text">댓글: </span>
+  
+    <a href="/2020/10/22/2019-04-14-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-5-Weak-5-2/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/22/2019-04-14-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-5-Weak-5-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+            <div class="post-description">RMaURA K-MOOC 강좌 정리</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Geometric-approach"><a href="#Geometric-approach" class="headerlink" title="Geometric approach"></a>Geometric approach</h2><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA5-2.jpg)|</p>
+<p>여기에서 주어진 2자유도 Manipulator의 X, Y점이 주어졌을 경우에 각각 구해야 되는 것은 이 $\theta_1$의 각도와 $\theta_2$의 각도입니다<br>이 Two Link Manipulator의 경우에는 $\theta_2$부터 어떻게 해석할지 먼저 접근을 시작하지만 경우에 따라서는 여러 가지 주어지는 상황에 따라서 여러분들이 어떤걸 먼저 결정해야 되는지 그때그때 바뀌어야 합니다. 그래서 여기에서 주어진 Two Link Manipulator의 방법을 그대로 적용하는 것은 아니고 그때그때마다 주어지는 Manipulator의 상황에 맞게 바뀌어야 된다는 점을 먼저 염두에 두시기 바랍니다.<br>기하학적인 방법으로 하기 위해서 우리는 먼저 $cos$법칙을 활용해서 $\theta_2$를 결정해볼 텐데요. $cos$ 제2법칙을 이용하면 $c^2 = a^2 + b^2 – 2ab cosC$ 입니다.<br>$a,b,c$ 라고 하는 세 변의 길이가 주어지고 각각 마주보는 각도를 $ C, B, A$ 라고 했을 때 이 각 변의 길이와 끼인각들의 관계의 식을 설명하는 것이 바로 $cos$ 제2법칙이 되겠는데요.<br>그래서 $c^2$이 가장 긴 변의 제곱이고 이 값은 $a^2 + b^2$, 즉 나머지 두 변의 제곱을 더하고, 그리고  $-2ab$에 $cos$ 끼인각 $C$의 값을 이용해서 성립하는 법칙입니다.<br>이것을 2 Link Manipulator에 적용을 하게 된다면 $\sqrt {x^2+y^2}$을 하는 것은 결국 이 길이를 의미하고 이게 C의 역할을 합니다.<br>그리고 각각 $l_1$ 과 $l_2$의 길이는 주어져있기 때문에 $l_1^2$  $l_2^2$을 집어 넣고  $2l_1l_2$을 끼인각은 결국에는 이 $\theta_2$, $\theta_2$에서 180도에서 $\theta_2$를 뺀 각 만큼 즉, $cos( 180 - \theta_2)$ 만큼의 값을 갖게 됩니다. 여기에서 우리는 $cos$의 성질에 의해서 $cos(180 - \theta_2$는 결국 $-cos(\theta_2)$가 된다는 것을 아실 수 있을 겁니다.<br>이 성질을 이용해서 결과적으로 $cos(\theta_2)$는 $x^2 + y^2 -l_1^2-l_2^2 \above 1pt 2l_1l_2$이 되겠습니다. 여기에서 좌변의 경우에는 $cos(\theta_2)$ 우변의 경우에는 $l_1 l_2 x y$ 들만의 함수로써 주어져 있습니다.<br>따라서 모두다 아는 값들이죠. 그래서 이 값을 통해서 $cos(\theta_2)$의 값을 구하고 결과적으로는 $arccos$이라는 것을 이용해서 $\theta_2$를 결정할 수 있게 되는 것입니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA5-2 (2).jpg)|</p>
+<p>그러면 이어서, $arccos$을 통해서 $\theta_2$의 값을 얻게 되는데요, 여러분들이 코싸인의 그래프를 생각해보시면, 코싸인 그래프는 이렇게 주어지죠.<br>그러면 주어지는 어떠한 값들은 그때에 복수의 솔루션을 갖게 되는 것이죠. 그렇기 때문에 세타2의 값은 각각의 코싸인의 값에 따라서 두개의 복수의 값이 주어지게 되겠습니다<br>이 두 개 값에 의해서 $\theta_2$가 결과적으로는 이렇게 작은각과 큰각으로 주어질 수 있는데 그렇게 주어졌을 때 이렇게 upper arm과 lower arm의 형태로써 $\theta_2$가 결정되게 되는 것 입니다.<br>그래서 이렇게 $cos$제2법칙을 이용해서 $\theta_2$는 $arccos$ 이라는 식을 이용해서 결과적으로 다 주어진 $X,Y,l_1,l_2$를 이용해서 구할 수가 있습니다.<br>이 때 주의해야할 점이 아까 살펴본 바로는 이렇게 Manipulator의 형태가 upper arm과 lower arm의 형태로 배치가 될 수가 있고 두 가지 솔루션을 구할 수가 있다라고 말씀을 드렸는데요. 이렇게 주어지는 이유가 $cos$의 그래프를 그려보면 $cos$의 그래프는 이와 같이 그려지는 것을 여러분들이 확인하실수가 있죠.<br>그래서 같은 값이더라도 이러한 값과 이러한 값으로 두 가지 솔루션을 얻게 되는 것이죠. 그렇기 때문에 또는 이 값은 마이너스값이라고 볼 수도 있는 것이고요.<br>그래서 이렇게 $cos$제2법칙을 이용해서 $\theta_2$는 $arccos$ 이라는 식을 이용해서 결과적으로 다 주어진 $x,y,l_1,l_2$를 이용해서 구할 수가 있습니다.<br>이럴 때 주의해야할 점이 아까 살펴본 바로는 이렇게 Manipulator의 형태가 upper arm과 lower arm의 형태로 배치가 될 수가 있고 이렇게 $\theta_2$를 먼저 결정하고 나면 그 다음으로는 $\theta_1$을 찾아야 합니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA5-2 (3).jpg)|</p>
+<p>$\theta_1$의 값을 구할 때 우리는 $sin$법칙을 활용합니다.<br>$sin$법칙은 삼각형이 이렇게 주어졌을 경우에 마주보는 각과 그리고 그 마주보는 길이, 마주보는 변의 길이를 싸인을 통해서 서로 같은 비율을 가진다는 것을 이용하는 것 입니다.<br>즉, 이 끼인각이 B고 이 길이가 b 였을 경우에, 이렇게 주어졌을 때 이것들간의 관계는 여기에 주어진 것 처럼 $sin$법칙으로, 변의 길이 분의 그 변을 마주보는 각도에 대한 $sin$값은 서로 모든 세 각과 세 변에 대해서 성립한다는 것을 활용합니다. 조금전에 $\theta_2$를 구했으면 이 삼각형 내에서 이 각도를 구한것과 같은 개념이죠. 그래서 이 각도는 $sin(180 - \theta_2)$라는 값으로 사용할 수가 있습니다.<br>이 각의 마주보는 이 변의 길이를  $\sqrt {x^2+y^2}$ 즉, 이 변의 길이를 이렇게 정의할 수가 있게 됩니다.<br>이렇게 된 상태에서 필요로 하는 $\theta_1$을 얻고 싶은건데, $\theta_1$값은 이 $\alpha$, 즉 $x$하고 $y$라는 값이 주어지면 $arctan$에 의해서 구할 수 있는 이 $\alpha$값과 그리고 이 사이에 끼인각을 $\theta_1$에 바라고 했을 경우에 이 두개의 더하기로 이 $\theta_1$을 결정할 수 있게 됩니다.<br>그러면 이 $\theta_1$을 조금전에 말씀드렸던 이 각의 비율을 활용해서 구한다면 이 마주보는, 이 $\theta_1$에 대한 마주보는 이 길이를 $c$ 또는 $l_2$라고 했을 경우에 이 $sin(\theta_1) \above 1pt l_2$의 값을 이용해서 이러한 방법을 이용해서 이 $\theta_1$에 대한 값을 $\bar \theta_1$에 대한 값을 구할 수 있게 되는 것이죠. 이렇게 $\bar \theta_1$와 $\alpha$에 대한 수식을 정리를 했습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA5-2 (4).jpg)|</p>
+<p>그렇게 얻어진 것을 바탕으로 $\theta_1$은 $arcsin$, 이 수식 그리고 $arctan2$라는 값을 이용을 해서 역시 이 안에서도 보시면 $x,y,l_2$ 전부다 알고 있는 값들 이었고 $\theta_2$라는 값은 바로 이전에 $cos$제2법칙을 이용해서 구한 값이 되겠죠. 그래서 $\theta_2$의 값에 따라서 역시 마찬가지로 $\theta_1$의 값도 두 개가 나올 수 있는 것이죠.<br>아까 전에 그림을 통해서 설명드렸던 것처럼, $\theta_2$의 값이 이렇게 주어지게 되고 $\theta_2$의 값이 이렇게 두 가지의 솔루션이 나온것과 마찬가지로 만약에 $\theta_2$의 값이 이렇게 +의 값으로 주어지게 되면 이게 $\theta_1$의 값이 되겠고요. 만약에 $\theta_2$의 값이 이와같이 -값으로 주어지게 되면 $\theta_1$의 값은 이렇게 주어지게 되겠죠. 즉 $\theta_2$에 따라서 마찬가지로 $\theta_1$도 두 개의 솔루션을 얻게되는 결과를 볼 수 있습니다.</p>
+
+    </div>
+      
+
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/K-MOOC/" rel="tag"><i class="fa fa-tag"></i> K-MOOC</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/10/22/2019-04-11-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-4-Weak-4-3/" rel="next" title="Robot Manipulator and Underwater Robot Application 4주차 4-3 D-H notation">
+                <i class="fa fa-chevron-left"></i> Robot Manipulator and Underwater Robot Application 4주차 4-3 D-H notation
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2020/10/22/2019-04-15-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-5-Weak-5-3/" rel="prev" title="Robot Manipulator and Underwater Robot Application 5주차 5-3 Algebraic approach">
+                Robot Manipulator and Underwater Robot Application 5주차 5-3 Algebraic approach <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            목차
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            흝어보기
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Juhwak Kim</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">카테고리</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">태그</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/juhwakKim" title="GitHub &rarr; https://github.com/juhwakKim" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:juhk1017@naver.com" title="E-Mail &rarr; mailto:juhk1017@naver.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Geometric-approach"><span class="nav-number">1.</span> <span class="nav-text">Geometric approach</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Juhwak Kim</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', function() {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://juhk1017.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://juhwakkim.github.io/2020/10/22/2019-04-14-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-5-Weak-5-2/";
+    this.page.identifier = "2020/10/22/2019-04-14-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-5-Weak-5-2/";
+    this.page.title = 'Robot Manipulator and Underwater Robot Application 5주차 5-2 Geometric approach';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://juhk1017.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
+</html>

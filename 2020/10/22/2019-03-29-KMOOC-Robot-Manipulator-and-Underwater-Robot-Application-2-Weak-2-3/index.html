@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    save_scroll: true,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '복사',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="RMaURA K-MOOC 강좌 정리">
+<meta name="keywords" content="K-MOOC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Robot Manipulator and Underwater Robot Application 2주차 2-3 행렬과 벡터의 연산(2)">
+<meta property="og:url" content="https://juhwakkim.github.io/2020/10/22/2019-03-29-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-3/index.html">
+<meta property="og:site_name" content="AI&amp;Robotics">
+<meta property="og:description" content="RMaURA K-MOOC 강좌 정리">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2019-08-05T18:19:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Robot Manipulator and Underwater Robot Application 2주차 2-3 행렬과 벡터의 연산(2)">
+<meta name="twitter:description" content="RMaURA K-MOOC 강좌 정리">
+  <link rel="canonical" href="https://juhwakkim.github.io/2020/10/22/2019-03-29-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Robot Manipulator and Underwater Robot Application 2주차 2-3 행렬과 벡터의 연산(2) | AI&Robotics</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI&Robotics</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>홈</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>태그<span class="badge">7</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>카테고리<span class="badge">9</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>아카이브<span class="badge">30</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>검색</a>
+      </li>
+    
+  </ul>
+
+    
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/juhwakKim" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://juhwakkim.github.io/2020/10/22/2019-03-29-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Juhwak Kim">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI&Robotics">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Robot Manipulator and Underwater Robot Application 2주차 2-3 행렬과 벡터의 연산(2)
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              
+                
+              
+
+              <time title="Post created: 2020-10-22 02:09:15" itemprop="dateCreated datePublished" datetime="2020-10-22T02:09:15+09:00">2020-10-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2019-08-06 03:19:32" itemprop="dateModified" datetime="2019-08-06T03:19:32+09:00">2019-08-06</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Robotics/" itemprop="url" rel="index"><span itemprop="name">Robotics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    <span class="post-meta-item-text">댓글: </span>
+  
+    <a href="/2020/10/22/2019-03-29-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-3/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/22/2019-03-29-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+            <div class="post-description">RMaURA K-MOOC 강좌 정리</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>서울과학기술대학교 김진현교수님의 K-MOOC강좌 Robot Manipulator and Underwater Robot Application을 공부하고 내용을 정리한 것 입니다.</p>
+<p>K-MOOC 강좌 주소: </p>
+<p><a href="http://www.kmooc.kr/courses/course-v1:SEOULTECHk+SMOOC03k+2019_T3/about" target="_blank" rel="noopener">http://www.kmooc.kr/courses/course-v1:SEOULTECHk+SMOOC03k+2019_T3/about</a></p>
+<h2 id="행렬과-벡터의-연산-2"><a href="#행렬과-벡터의-연산-2" class="headerlink" title="행렬과 벡터의 연산 - 2"></a>행렬과 벡터의 연산 - 2</h2><h3 id="Vector-Norms"><a href="#Vector-Norms" class="headerlink" title="Vector Norms"></a>Vector Norms</h3><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3.jpg)|<br>|<em>벡터의 크기나 측정 비교을 가능하게 해주는 요소이다.</em>|</p>
+<h4 id="Norm의-조건"><a href="#Norm의-조건" class="headerlink" title="Norm의 조건"></a>Norm의 조건</h4><blockquote>
+<ol>
+<li>놈의 크기는 항상 0보다 크다, 0보다 크거나 같다. ($\text {x} = 0$인 경우만 등호가 성립한다.)</li>
+<li>$\text {x}+y$의 크기는 절대 $\text {x}$와 $y$를 각각 구한 후, 그 둘을 더한 것보다 작거나 같아야 한다. (삼각부등식)</li>
+<li>상수 $α$을 곱했을 때, 상수만큼 늘어난다.</li>
+</ol>
+</blockquote>
+<p>위 3 가지 성질을 만족하는 것을 놈으로 정의할 수 있습니다.</p>
+<h4 id="P-norm"><a href="#P-norm" class="headerlink" title="P-norm"></a>P-norm</h4><p>|![alt](https://wikimedia.org/api/rest_v1/media/math/render/svg/9f2d83bfa397bdf021046004b9a365079cab6a22)|</p>
+<p>p는 1보다 크거나 같고 딱히 자연수일 필요는 없습니다.</p>
+<p>p-norm의 특수한 예로써, 1-norm(맨해튼 놈), 2-norm(유클리드 놈)이 있다.</p>
+<p>그리고 전체 원소 중에서 가장 큰 값을 골라내는 것을 인피니티 놈이라고 합니다.</p>
+<h3 id="스칼라곱-Scalar-Multiplication"><a href="#스칼라곱-Scalar-Multiplication" class="headerlink" title="스칼라곱(Scalar Multiplication)"></a>스칼라곱(Scalar Multiplication)</h3><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (2).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (3).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (4).jpg)|</p>
+<h3 id="벡터곱-Vector-Product"><a href="#벡터곱-Vector-Product" class="headerlink" title="벡터곱(Vector Product)"></a>벡터곱(Vector Product)</h3><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (5).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (6).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (7).jpg)|</p>
+<p>벡터곱 같은 경우에는 어떤 평면상에 있는 $A$라는 벡터와 $B$라는 벡터로 2개의 벡터곱을 취했을 경우에는, 2개의 벡터들의 공통된 수직방향, 즉 전체 면에 대한 수직방향으로 결과가 얻어지게 됩니다.</p>
+<p>|![alt](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Cross_product_vector.svg/220px-Cross_product_vector.svg.png)|</p>
+<p>이 수직방향의 결과 때문에, 앞서 말씀드렸던 것처럼 내적을 취하게 되면 어떠한 벡터와 수직되는 벡터를 곱했을 때는, 0이 된다는 성질 때문에, 한마디로 $a\cdot(a$x$b)=0$은 $a$와 $b$ 모두에 수직되는 방향으로 결과가 도출된다는 것을 확인할 수 있습니다.</p>
+<h3 id="쌍선형-형식-bilinear-form"><a href="#쌍선형-형식-bilinear-form" class="headerlink" title="쌍선형 형식(bilinear form)"></a>쌍선형 형식(bilinear form)</h3><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (8).jpg)|<br>|<em>어떤 매트릭스를 기준으로 앞에 벡터를 곱하고, 다시 뒤에도 벡터를 곱하는 이러한 연산을 쌍선형 형식이라고 합니다.</em>|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (9).jpg)|</p>
+<p>이런 쌍선형 형식 중에서, 특수한 형태가 존재하는데, 만약에 $A$라는 매트릭스가 정방행렬이고, 앞에 $\text {x}^T$를 곱하고, 뒤에 $x$를 곱하는, 즉 앞에서 $x$하고 $y$가 같은 형태를, 쌍선형 형식의 특수한 형태라 해서, quadratic form(이차형식)이라고 합니다.</p>
+<blockquote>
+<p>만약에 이 이차형식에서, 주어진 매트릭스 $A$가 존재하고, $A\text{x}$ = 0일때 모든 x에 대해서, 어떤 걸 넣더라도 0이 된다.</p>
+</blockquote>
+<blockquote>
+<p>만약에 주어진 매트릭스 $S$가 반대칭행렬이라면, $x^TSx = 0$이 되는 성질을 갖고 있습니다.</p>
+</blockquote>
+<blockquote>
+<p>만약에 어떤 반대칭행렬 $C$가 존재할 때, 그 $C$가 이차형식의 형태로 $x^TCx$라고 했을 때, 그게 0이 된다고 하면, $x$가 0이거나, $C$가 0인 경우인 상황을 제외하고는 존재하지 않습니다.</p>
+</blockquote>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (10).jpg)|</p>
+<p>만약에 $A$라는 대칭행렬이 존재할 때, 이 $A$라는 대칭행렬이의 경우에는 이 이차형식은 $x$가 0이 아닌 경우를 제외하고는, 항상 0보다 큽니다. (이것을 positive definite라고 한다.)</p>
+<p>그리고, 0까지 포함해서 모든 $x$의 경우에, 0보다 항상 크거나 같다면, positive semi-definite 이라고 합니다.</p>
+<p>이 둘의 차이는 positive definite은 $x$가 0일 경우에만 결과가 0이 되고, positive semi-definite은 $x$가 0이 아니더라도 0은 될 수 있다는 차이가 있습니다.</p>
+<p>0보다 작아서는 안되지만, 0은 될 수 있다는 라는 것을 positive semi-definite이라고 정의할 수 있습니다.</p>
+<p>그 외의 동일하게, 0이 아닌 모든 $x$에 대해서, 항상 0보다 작은 결과가 나올 경우가 바로 negative definite입니다.</p>
+<p>그리고, negative semi-definite은, 앞서 말씀 드렸던 positive semi-definite과 동일하게, 모든 $x$에 대해서, 0보다 작거나 같은 이러한 성질들을 가질 때, negative semi-definite이라고 얘기합니다.</p>
+<p>경우에 따라서는, 0보다 크고, 0보다 작은 경우가 존재할 수 있는데, 이 경우에는 결정할 수 없다, 라고 해서 indefinite이라고 합니다.</p>
+<p>어떤 이차형식을 미분했을 때, 앞뒤로 대칭되는 성질을 갖고 있기 때문에, $2x^TAx+x^TAx$라는 형태로, 이차형식이 주어지게 됩니다.</p>
+<h3 id="벡터와-행렬의-미분-Derivative-of-Vectors-and-Matrices"><a href="#벡터와-행렬의-미분-Derivative-of-Vectors-and-Matrices" class="headerlink" title="벡터와 행렬의 미분(Derivative of Vectors and Matrices)"></a>벡터와 행렬의 미분(Derivative of Vectors and Matrices)</h3><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (11).jpg)|<br>|<em>벡터, 행렬에 미분이 필요한 이유는, 앞으로 연산을 진행할 때, 기구학을 구하고, 동력학을 구할 때, 속도, 가속도 등이 필요할 때, 표현하는 방법 중 하나가 주어진 매트릭스와 벡터를 미분하는 것이기 때문입니다</em>|</p>
+<p>만약에 어떤 매트릭스의 함수, 즉 매트릭스로 이루어진 함수인 $u$,$v$가 존재하고, 모든 원소들이 전부 실수인 상수를 갖는 매트릭스 $A$가 존재할 때, 이 매트릭스 $A$를 미분한다고 할 때, 실수 상수를 가지고 있기 때문에, 항상 미분하면 0이 됩니다.</p>
+<p>그리고, $u$,$v$라는 벡터의 경우, 흔히 알고 있는 미분의 성질을 그대로 따르게 됩니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (12).jpg)|</p>
+<p>주어진 매트릭스와 벡터를 각각 스칼라값, 즉 일정한 상수 값으로 미분을 했을 때는, 그 주어진 디멘션을 그대로 가지면서, 각각의 원소들을 스칼라 값인 t로 미분하는, 이러한 성질을 갖습니다.</p>
+<p>역시 마찬가지로 벡터에 대해서 미분을 하는 경우에도, 벡터의 한 원소인 $x_1$으로 미분했을 때, 원래의 벡터의 디멘션을 그대로 유지하면서 각각의 스칼라값으로 미분하는 특성을 갖습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (13).jpg)|</p>
+<p>이제부터 중요하고, 주의해야 하는 법칙들이 나타나게 되는데, 만약에 옆으로 긴, 즉 트랜스포즈가 되어있는 벡터로서, 스칼라값을 미분한다면 어떨까요?</p>
+<p>스칼라값을 벡터로 미분한다고 하면, 벡터가 옆으로 긴 것의 경우에는, 각각의 원소들을 이용해서 각각의 스칼라값을 미분하는 것으로 정의할 수 있게 됩니다.</p>
+<p>마찬가지로, 아래로 긴 벡터의 형태를 이용해서, 어떤 스칼라값 $a$를 미분하게 되었을 때, 이를 흔히 벡터에서 ‘그레디언트’라고 표현하기도 합니다.</p>
+<p>마찬가지로 각각의 원소로 $x_1$~$x_n$행까지, 벡터의 성분으로 미분하게 되는 효과를 갖게 됩니다.</p>
+<p>매트릭스로 확장하게 되면, 마찬가지로 스칼라 값을 매트릭스의 원소로 미분하게 되면, 각각의 값을 갖고 미분을 한다고 이해하면, 큰 문제는 없을 겁니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (14).jpg)|</p>
+<p>어떠한 벡터를 벡터로 미분하는 경우</p>
+<p>$\partial v$, $\partial x$라는, 어떤 둘 다 $v$라는 벡터와 $x$라는 벡터가 존재하게 되고, $x$라는 벡터로 $v$라는 벡터를 미분한다고 한다면, $v$도 아래로 길고, $x$도 아래로 길다면, 이 두 벡터를 이용해서 미분을 할 때, 이에 대한 정의를 위한 새로운 디멘션이 필요할 것입니다.</p>
+<p>그래서, 보편적으로, 벡터를 벡터로 미분할 경우에는 항상 미분당하는 벡터는 아래로 길게, 미분하는 벡터는 옆으로 길게 배치를 해서 이 규칙을 통해서 벡터를 미분하는 것이 일반적인 방법입니다.</p>
+<p>규칙을 깨지 않고, 일반적인 성질들을 그대로 유지할 수 있는 방법이 이와 같은 정의를 사용하는 것입니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (15).jpg)|</p>
+<p>좀 더 확장하게 되면, 만약에 $u^Tv$라고 하는, 이런 벡터 2개를 내적을 취하게 되면, 이것은 스칼라 값이 될 것입니다.</p>
+<p>어떤 스칼라 값인, $α$가 될 테니까, 앞서서 정의한 것처럼, 옆으로 긴 벡터 $\partial x_1$~$\partial α$까지, 라운드 xn의 라운드 알파 형태로 결과값을 얻게 됩니다.</p>
+<p>2개의 서로 다른 벡터가 있을 때, 앞의 것을 미분하고, 뒤의 것을 미분하는 방식을 그대로 사용하게 되면,</p>
+<p>결국에는 결과값은 스칼라값, 이 형식을 유지해야 하기 때문에, 그럴 수 있도록 $v^Tu$에 대한 미분,</p>
+<p>즉 원래 아까 정의한 것처럼, 어떤 벡터를 미분할 때에는 옆으로 긴 벡터에서 세로로 긴 벡터를 미분해야 하기 때문에, </p>
+<p>이러한 노테이션을 활용해서 $v^Tu$를 곱하게 되면, 아래와 같은 디멘션을 얻게 됩니다.</p>
+<p>마찬가지로 뒤의 것을 미분할 경우에는, 이번에는 다행히도 $v$가 아래로 긴 벡터이기 때문에, 옆으로 긴 벡터에 아래로 긴 벡터를 미분하여 얻은 결과에 트랜스포즈를 하고, 동일한 결과값을 얻어, 두 결과를 더하는 방식으로, 이러한 규칙성을 따질 필요가 생깁니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA2-3 (16).jpg)|</p>
+<p>더 나아가서, 만약에 이차형식이나, 쌍선형 형식이 주어지게 되면, 이 결과값은 결과적으로 $α$, 즉 상수값이 됩니다.<br>그렇기 때문에 옆으로 긴 벡터로 미분할 수 있게 됩니다.</p>
+<p>각각의 요소들을 살펴보면, $u$에 대한 미분, $v$에 대한 미분은 큰 어려움 없이 수행할 수 있게 되고,</p>
+<p>대신에, 가운데, $Q$에 대한 미분이 필요하게 되는데, 이 매트릭스에 대한 미분은 $x^T$로 미분하는 것까지는 좋은데, Q라는 것은 매트릭스입니다. 그렇기 때문에 미분을 하게 되면 3차원의 형태로 확장해야 합니다.</p>
+<p>이런 어려움이 있기 때문에, 이런 부분들을, $v$하고 같이 연결지어서 이와 같이 $x^T$와 $Q$를 미분한 것에 $v$를 곱한 것을, 각기 $x_1$~$x_n$에 대한 것을, 벡터와 연결지어서 스칼라값과 하는 방법으로,</p>
+<p>전체적인 연산방법을 깨지 않으면서, 쌍선형 형식까지 어떻게 미분할 수 있는지를 살펴보았습니다.</p>
+
+    </div>
+      
+
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/K-MOOC/" rel="tag"><i class="fa fa-tag"></i> K-MOOC</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/10/22/2019-03-28-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-2/" rel="next" title="Robot Manipulator and Underwater Robot Application 2주차 2-2 행렬과 벡터의 연산(1)">
+                <i class="fa fa-chevron-left"></i> Robot Manipulator and Underwater Robot Application 2주차 2-2 행렬과 벡터의 연산(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            목차
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            흝어보기
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Juhwak Kim</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">카테고리</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">태그</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/juhwakKim" title="GitHub &rarr; https://github.com/juhwakKim" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:juhk1017@naver.com" title="E-Mail &rarr; mailto:juhk1017@naver.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#행렬과-벡터의-연산-2"><span class="nav-number">1.</span> <span class="nav-text">행렬과 벡터의 연산 - 2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vector-Norms"><span class="nav-number">1.1.</span> <span class="nav-text">Vector Norms</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Norm의-조건"><span class="nav-number">1.1.1.</span> <span class="nav-text">Norm의 조건</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#P-norm"><span class="nav-number">1.1.2.</span> <span class="nav-text">P-norm</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#스칼라곱-Scalar-Multiplication"><span class="nav-number">1.2.</span> <span class="nav-text">스칼라곱(Scalar Multiplication)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#벡터곱-Vector-Product"><span class="nav-number">1.3.</span> <span class="nav-text">벡터곱(Vector Product)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#쌍선형-형식-bilinear-form"><span class="nav-number">1.4.</span> <span class="nav-text">쌍선형 형식(bilinear form)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#벡터와-행렬의-미분-Derivative-of-Vectors-and-Matrices"><span class="nav-number">1.5.</span> <span class="nav-text">벡터와 행렬의 미분(Derivative of Vectors and Matrices)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Juhwak Kim</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', function() {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://juhk1017.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://juhwakkim.github.io/2020/10/22/2019-03-29-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-3/";
+    this.page.identifier = "2020/10/22/2019-03-29-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-2-Weak-2-3/";
+    this.page.title = 'Robot Manipulator and Underwater Robot Application 2주차 2-3 행렬과 벡터의 연산(2)';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://juhk1017.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
+</html>

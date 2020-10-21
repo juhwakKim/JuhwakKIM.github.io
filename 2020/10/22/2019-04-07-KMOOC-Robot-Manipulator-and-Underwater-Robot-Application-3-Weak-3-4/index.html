@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    save_scroll: true,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '복사',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="RMaURA K-MOOC 강좌 정리">
+<meta name="keywords" content="K-MOOC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Robot Manipulator and Underwater Robot Application 3주차 3-4 Euler Angles(2)">
+<meta property="og:url" content="https://juhwakkim.github.io/2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-4/index.html">
+<meta property="og:site_name" content="AI&amp;Robotics">
+<meta property="og:description" content="RMaURA K-MOOC 강좌 정리">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2019-08-05T18:19:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Robot Manipulator and Underwater Robot Application 3주차 3-4 Euler Angles(2)">
+<meta name="twitter:description" content="RMaURA K-MOOC 강좌 정리">
+  <link rel="canonical" href="https://juhwakkim.github.io/2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Robot Manipulator and Underwater Robot Application 3주차 3-4 Euler Angles(2) | AI&Robotics</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI&Robotics</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>홈</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>태그<span class="badge">7</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>카테고리<span class="badge">9</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>아카이브<span class="badge">30</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>검색</a>
+      </li>
+    
+  </ul>
+
+    
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/juhwakKim" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://juhwakkim.github.io/2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Juhwak Kim">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI&Robotics">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Robot Manipulator and Underwater Robot Application 3주차 3-4 Euler Angles(2)
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              
+                
+              
+
+              <time title="Post created: 2020-10-22 02:09:15" itemprop="dateCreated datePublished" datetime="2020-10-22T02:09:15+09:00">2020-10-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2019-08-06 03:19:32" itemprop="dateModified" datetime="2019-08-06T03:19:32+09:00">2019-08-06</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Robotics/" itemprop="url" rel="index"><span itemprop="name">Robotics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    <span class="post-meta-item-text">댓글: </span>
+  
+    <a href="/2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-4/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+            <div class="post-description">RMaURA K-MOOC 강좌 정리</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Euler’s-Theorem"><a href="#Euler’s-Theorem" class="headerlink" title="Euler’s Theorem"></a>Euler’s Theorem</h2><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4.jpg)|</p>
+<p>$\lambda$라는 축을 찾았다고 가정해보자, 이 축에 대해 완벽하게 한번만 회전한다면 회전을 이룰 수 있다 라고 했을 때, 이 $\lambda$를 우리가 가지고 있는 $z$축과 일치시키면 그 $z$축에 대해서 마지막에서 회전을 하고 다시 일치시킨 것을 거꾸로 되돌아온다면 그 $\lambda$라는 축에 대해서 $\delta$만큼의 회전을 충분히 쉽게 표현할 수 있을 겁니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (2).jpg)|</p>
+<p>이 방식을 오일러가 제안한 방법대로 위에 있는 그림에서 1번으로 먼저 $x$축에 대해서 $\alpha$만큼 회전하고 다시 2번째로 $y$축에 대해서는 $-\beta$, 즉 돌리는 방향이 반대입니다.<br>그렇기 때문에, $y$축에 대해서 $-\beta$로 가지고 오게 되면 $\lambda$가 $z$축과 일치하도록 위치시킬 수 있게 됩니다. 이 상태에서 이 $z$축에 대해서 $\delta$만큼 회전을 하는 것은 $\lambda$에 대해서 $\lambda$만큼 회전하는 것과 같은 표현법이 되겠습니다. 이렇게 표현해서 바꿔서 회전한 다음에 다시 원래대로 거꾸로 돌아갑니다. $y$축에 대해서, 아까는 $-\beta$만큼 회전했기 때문에, 이번에는 $+\beta$만큼 회전하고 다시 $x$축에 대해서 $-\alpha$만큼 회전하게 된다면 람다에 대해서 $\delta$만큼 회전하는 것을 이렇게 5번의 로테이션으로 5개의 로테이션으로 나누어서 2 방법의 일치성을 찾아볼 수 있게 됩니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (3).jpg)|</p>
+<p>이렇게 5개의 회전을 위에 보이는 수식처럼 차례대로 기술해보았습니다. $x$축에 대한 $\alpha$만큼의 회전 다시 $y$축의 $-\beta$만큼 회전 $z$축에 대해서 $\delta$만큼 회전, $y$축에 대해서 $\beta$만큼 회전 다시 $x$축에 대해서 $–\alpha$만큼 회전 이런 식으로 5가지 로테이션 매트릭스로 오일러 정리라고 불리는, $\lambda$에 대해서 $\delta$만큼의 회전을 이렇게 표현해보았습니다. 조금 수식이 복잡하기 때문에 약간씩 약어를 써서 $v\delta$라고 하는 것은, $1-cos\delta$라는 것으로 표현했고 이런 식으로 5가지 매트릭스를 1개의 식으로 썼을 때 이렇게 매트릭스로 으;에 보이는 매트릭스대로 나오는 것을 확인할 수 있습니다. </p>
+<h2 id="Rodrigues’formula"><a href="#Rodrigues’formula" class="headerlink" title="Rodrigues’formula"></a>Rodrigues’formula</h2><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (4).jpg)|</p>
+<p>이 복잡해 보이는 것을 Identity Matrix와 그리고 skew-symmetric matrix, 그리고 $\delta$, $sin\delta$, $cos\delta$의 값을 이용해서 위와 같은 값으로 나타낼 수 있게 됩니다.</p>
+<p>이렇게 식으로 나타내는 것을, 바로 Rodrigues’formula라고 말합니다.</p>
+<p>이렇게 오일러 정리를 나타내는 매트릭스의 조합을 이와 같은 수식으로 표현할 수 있습니다.<br>이렇게 Rodrigues’formula가 주어지고 여기에서 $\lambda$가, 아까 말했던 Euler axis가 되겠고,<br>그리고 $\lambda$의 옆의 곱하기 표현된 것이 매트릭스에서 살펴본 skew-symmetric matrix를 만든 것과 같은 식입니다.<br>그렇게 $\lambda$ 옆에 곱하기 표시가 있는 것은 $\lambda$를 이용한 skew-symmetric matrix, cross product를 만들기 위한 skew-symmetric matrix를 표현한 것과 같고<br>$[\lambda X]^2$은, 계산해 보면, $\lambda\lambda^T-I_{3X3}$ 라고 하는 것으로 얻어진다는 것을 확인할 수 있게 됩니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (5).jpg)|</p>
+<p>그래서, 최종적으로, Rodrigues’formula를 이렇게 얻어지는 것을, 앞서서의 식으로서 충분히 설명이 가능하다, 단순한 식으로 이렇게 간단하게 표현할 수 있다는 것을 살펴봤습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (6).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (7).jpg)|</p>
+<p>일단은 우리는 매트릭스가 주어지게 되면 그 매트릭스로부터 알고 싶은 것은 얼마만큼의 회전이 이루어졌는지에 대한 그 회전량, 즉 $\delta$가 되겠고 그 다음에 어느 축에 대해서 회전이 이루어졌는지 그 축에 대한 $\lambda$ 라고 하는 그 축을 얻고 싶을 겁니다. 이랬을 때 이 Rodrigues’formula를 통해서, 3 by 3 매트릭스를 가지고 있었을 때 그 매트릭스의 각 인자들을 각각 $r_{32}$, $r_{23}$, $r_{11}$, 이런 식으로 명명했을 때 그 값들을 이용해서 옆에 보이는 식처럼 $tan\delta$는 이와 같은 식으로 $tan\delta$를 정의할 수 있고 이렇게 얻어진 것을 $arctan\delta$를 취해서 $\delta$를 얻게 됩니다. 역시 이렇게 얻어진 $\delta$를 활용해서 옆에 보이는 $\lambda$를 구하는 식<br>즉 $1 \above 1pt 2sin\delta$을 곱한 다음 $r_{32}$에서 $r_{23}$을 빼고, $r_{13}$에서 $r_{31}$을 빼고, 이런 식으로 각각의 파라미터 값을 가져와서 빼게 되면 $\delta$와 $\lambda$를 얻을 수 있게 됩니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (8).jpg)|</p>
+<p>이러한 Rodrigues’formula에서 대표적으로 $z$축에 대한 회전도 역시 Euler’s Theorem 에서 어떤 2가지의 두 프레임은 무조건 어떠한 이 회전하는 축과 그 회전하는 축에 대한 일정한 각도, 이 2가지로 표현이 가능하다라고 했는데 이 2가지 표현을 $z$축에 대한 로테이션, 이 역시 마찬가지로 성립해야 하기 때문에 이와 같이, $z$축에 대한 $\theta$만큼의 회전 매트릭스, 즉 $cos\theta$, $-sin\theta$, 0,  $sin\theta$, $cos\theta$, 0, 0,0,1 로 되어 있는 이러한 $z$축에 대한 $\theta$만큼의 회전 매트릭스에서 먼저 $tan\delta$를 뽑아내게 되면 앞서서의 formula를 그대로 사용하게 되면 $2sin\theta \above 1pt 2cos\theta$, 즉 $tan\theta$가 얻어지게 되고 이 $\delta$와 $\theta$가 같다, 즉 $\delta$가 $\theta$가 된다는 것을 확인할 수 있습니다. $\lambda$는 $ 1 above 1pt 2sin\theta$인데 앞서서의 수식을 그대로 적용하게 되면 0,0,$2sin\theta$라는 것을 얻을 수 있게 됩니다. 그래서, 결과적으로는 0,0,1, $z$축에 대해서, $z$축은 0,0,1로 표현됩니다 $z$축에 대한 $\theta$만큼의 회전으로서 Rodrigues’formula가 그대로 성립한다는 것을 예제를 통해 살펴볼 수 있었습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (9).jpg)|</p>
+<p>앞서서, 어떤 로테이션 같은 경우에는 ‘commute하지 않다’, 즉 로테이션은 순서에 따라서 어떤 식을 먼저 돌리느냐에 따라서 결과값이 달라진다고 했습니다.</p>
+<p>그렇지만, 로테이션 매트릭스가 굉장히 작은 로테이션만큼 이루어졌을 경우에는 그 로테이션끼리는 서로 commute하게 됩니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (10).jpg)|</p>
+<p>무슨 말인고 하니 만약에  $R_1$로테이션을 $x$에 대해서 $\delta_1, $\delta_1은 굉장히 작은 값이라는 의미입니다.<br>이 $\delta_1$만큼의 회전이 이루어졌을 때 옆에서 보는 것처럼 $x$에 대한 회전에서 $cos $sin이 $\delta$ 값이 굉장히 작을 경우에는 $cos$은 1로 수렴하게 되고, $sin$은 $\delta$로 수렴하게 됩니다.<br>3그래서, 위에 보이는 것처럼, [1,0,0], [0,1,$-\delta_1$], [0,$\delta_1$,1] 이런 형식의 매트릭스를 얻게 됩니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (11).jpg)|</p>
+<p>마찬가지로, $z$축에 대해서 $\delta_2$ 만큼의 회전을, 역시 $\delta_2$가 굉장히 작다고 했을 경우<br>결과적으로, [1,$-\delta_2$, 0], [$\delta_2$, 1, 0], [0,0,1]이라 하는 이러한 매트릭스를 얻게 됩니다.<br>이랬을 경우에는, $R_1$ 과 $R_2$를 곱했을 때 이 결과값이 $\delta_2$와 $\delta_1$을 곱했을 때, 즉 어떤 식으로 먼저 로테이션을 수행하는지 $x$축으로 먼저 돌리고 나중에 $y$축을 돌리고, $y$축을 먼저 돌리고, $x$축을 나중에 돌리고 이런 굉장히 작은 로테이션일 경우에는 로테이션도 마치 $x$방향, $y$방향, $y$방향, $x$방향, 이런 식으로 Translation, 즉 이동하는 것과 마찬가지로 commute하다는 것을 확인할 수 있습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (12).jpg)|</p>
+<p>Rodrigues’formula를 통해서, 이것들이 어떻게 증명이 되는지 한변 살펴보도록 하겠습니다.<br>Rodrigues’formula에서 이 formula를 이용해서 나온 $\delta$값이 굉장히 작다고 했을 때 위에 보이는 식처럼, $I+\delta[\lambda X]$로 이렇게, 마지막에 있는 항이, $1-cos\delta$였기 때문에 $cos\delta$가 1이었습니다. 그래서 $cos\delta$를 1로 치환하게 되면 사라지고 이와 같은 $sin\delta$가, $\delta$가 되는 이런 식으로 주어지게 되고</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (13).jpg)|</p>
+<p>이런 식으로 주어진 것들을 바탕으로 해서 $\delta_1$만큼 $\delta_2$만큼,어떤 식으로 이루어지더라도, 결과적으로는 이와 같이, 위에 보이는 식처럼, $I+\delta_1,\delta_2$의 조합으로 표현이 된다는 것을 확인할 수 있습니다. 그래서, 굉장히 작게 돌아갔을 경우에는 작은 각도로 회전할 경우에는 로테이션끼리 서로 commute한다는 것을 확인할 수 있게 됩니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (14).jpg)|</p>
+<p>한번 정리를 하고 넘어가자면, 우리는 로테이션을 표현하는 여러 방법이 있다고 이야기했고,<br>그 로테이션을 표현하는 방법은, 로테이션 매트릭스라고 얘기하기도 하고, direction cosine matrix라고 하기도 합니다.</p>
+<p>다른 한편으로는, 어떠한 프레임에 대해서, 다른 프레임의 기준좌표, XYZ를 어떻게 표현하는지에 대한, 그 표현법이라고 말하기도 하고,</p>
+<p>그 다른 프레임 원래의 프레임에서의 한 벡터를 이 기준좌표계의 XYZ로 투영시키기 위해서, projection시키기 위해서, projection시키는 개념으로, 로테이션 매트릭스를 살펴보기도 했습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (15).jpg)|</p>
+<p>또는, Euler angle로서 2개의 좌표계를 바꾸는 방법 12개의 각기 다른 센서를 통해서 표현하는 방법도 살펴보았고</p>
+<p>그리고, Euler axis와 Euler angle을 통해서 하나의 축과 회전 각도를 통해서 2개의 좌표계를 완벽하게 일치시킬 수 있다는 것도 살펴보았습니다.</p>
+<p>이 2가지, 금방 말했던 축과 각도를 가지고 표현하는 4가지의 파라미터로 표현하는, quaternion 방법을 통해서, 각도를 표현하는 것도 가능하고 이런 것들은 Euler angle이 가지는 단점들을 어느 정도는 제거할 수 있다고 말씀드렸습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-4 (16).jpg)|</p>
+<p>여기까지 배운, 이러한 내용을 바탕으로, 어떤 좌표에서 어떻게, 이러한 개념에서 저러한 개념으로, 그 표현하는 방법과 개념들 사이의 상관관계와, 모든 것들을 왔다갔다할 수 있는 그러한 방법들에 대해서 익숙해질 필요가 있을 것입니다.</p>
+
+    </div>
+      
+
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/K-MOOC/" rel="tag"><i class="fa fa-tag"></i> K-MOOC</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/10/22/2019-04-04-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-3/" rel="next" title="Robot Manipulator and Underwater Robot Application 3주차 3-3 Euler Angles(1)">
+                <i class="fa fa-chevron-left"></i> Robot Manipulator and Underwater Robot Application 3주차 3-3 Euler Angles(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-5/" rel="prev" title="Robot Manipulator and Underwater Robot Application 3주차 3-5 Homogeneous Transformation">
+                Robot Manipulator and Underwater Robot Application 3주차 3-5 Homogeneous Transformation <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            목차
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            흝어보기
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Juhwak Kim</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">카테고리</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">태그</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/juhwakKim" title="GitHub &rarr; https://github.com/juhwakKim" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:juhk1017@naver.com" title="E-Mail &rarr; mailto:juhk1017@naver.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Euler’s-Theorem"><span class="nav-number">1.</span> <span class="nav-text">Euler’s Theorem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rodrigues’formula"><span class="nav-number">2.</span> <span class="nav-text">Rodrigues’formula</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Juhwak Kim</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', function() {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://juhk1017.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://juhwakkim.github.io/2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-4/";
+    this.page.identifier = "2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-4/";
+    this.page.title = 'Robot Manipulator and Underwater Robot Application 3주차 3-4 Euler Angles(2)';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://juhk1017.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
+</html>

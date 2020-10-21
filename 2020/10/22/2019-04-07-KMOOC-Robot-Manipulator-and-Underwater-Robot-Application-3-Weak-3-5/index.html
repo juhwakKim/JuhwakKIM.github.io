@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    save_scroll: true,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '복사',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="RMaURA K-MOOC 강좌 정리">
+<meta name="keywords" content="K-MOOC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Robot Manipulator and Underwater Robot Application 3주차 3-5 Homogeneous Transformation">
+<meta property="og:url" content="https://juhwakkim.github.io/2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-5/index.html">
+<meta property="og:site_name" content="AI&amp;Robotics">
+<meta property="og:description" content="RMaURA K-MOOC 강좌 정리">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2019-08-05T18:19:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Robot Manipulator and Underwater Robot Application 3주차 3-5 Homogeneous Transformation">
+<meta name="twitter:description" content="RMaURA K-MOOC 강좌 정리">
+  <link rel="canonical" href="https://juhwakkim.github.io/2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Robot Manipulator and Underwater Robot Application 3주차 3-5 Homogeneous Transformation | AI&Robotics</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AI&Robotics</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>홈</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>태그<span class="badge">7</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>카테고리<span class="badge">9</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>아카이브<span class="badge">30</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>검색</a>
+      </li>
+    
+  </ul>
+
+    
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/juhwakKim" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://juhwakkim.github.io/2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Juhwak Kim">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AI&Robotics">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Robot Manipulator and Underwater Robot Application 3주차 3-5 Homogeneous Transformation
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              
+                
+              
+
+              <time title="Post created: 2020-10-22 02:09:15" itemprop="dateCreated datePublished" datetime="2020-10-22T02:09:15+09:00">2020-10-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2019-08-06 03:19:32" itemprop="dateModified" datetime="2019-08-06T03:19:32+09:00">2019-08-06</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Robotics/" itemprop="url" rel="index"><span itemprop="name">Robotics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    <span class="post-meta-item-text">댓글: </span>
+  
+    <a href="/2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-5/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+            <div class="post-description">RMaURA K-MOOC 강좌 정리</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Homogeneous-Transformation"><a href="#Homogeneous-Transformation" class="headerlink" title="Homogeneous Transformation"></a>Homogeneous Transformation</h2><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5.jpg)|</p>
+<p>Homogeneous Transformation이라고 하는 것은 어떠한 2개의 좌표계 사이의 2번째 좌표계에 있는 한 점, $P$라는 그 점을 1번째 좌표계에 있는 점으로서 1번째 좌표계에서 표현하는 방법을 나타낼 수 있습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (2).jpg)|</p>
+<p>위의 그림에서 보이는 것처럼, B라는 프레임에서의 한 점 P가 존재하는 데 이 B라는 프레임에서 점 P라는 부분을 A라는 프레임에서 살펴보고 싶다는 것이죠.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (3).jpg)|</p>
+<p>예를 들면 여러분들은 지구에 있고 지구에서 달에 있는 한 점의 위치를 알고 싶을 때, 그 점에 대해 정확히 알기 위해서는 여러분들은 지금 여기 서 있는 지점에서 달의 중심까지의 거리(좌표)와 그 달에서 점까지 위치, 그 2개의 벡터를 가지고 설명한다면 조금 더 쉽게 그 점을 표현할 수 있을 겁니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (4).jpg)|</p>
+<p>마찬가지로, 어떠한 B라는 프레임 위의 점을 설명하기 위해서 B라는 프레임에서의 점을 A라는 프레임에서 어떻게 설명되는지 프레임을 돌리는 로테이션시켜서 A라는 프레임에 대해서 설명하는 방법, 그 B라는 프레임에서의 P점을 A로 가지고 오는 로테이션 매트릭스<br>즉 로테이션 매트릭스 B from A 라고 하는 $ARB$라는 것을 통해서 이 B라는 프레임에서의 P점의 위치를 설명할 수 있습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (5).jpg)|</p>
+<p>그 위치를 설명한 내용에다 추가를 해서 B라는 프레임에서의 기준점 그 원점을 A라는 프레임에서 설명하는, 즉 B의 origin을 A에 대해서 설명한 위치 이 2가지로 설명할 수 있습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (6).jpg)|</p>
+<p>이렇게 설명하는 것이 바로 위의 식처럼 A라는 프레임에서의 P점은 B라는 프레임에서의 P점을 가지고 옮겨오는 이러한 수식으로서 표현이 가능합니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (7).jpg)|</p>
+<p>이렇게 설명되어있는 것을 4차원으로 확장해보도록 하겠습니다.</p>
+<p>먼저, 이 Position vector에다가는 1이라고 하는 이 숫자를 더함으로서 원래 Position vector는 3X1벡터가 되는데 이를 4X1의 벡터의 형태로 바꾸게 됩니다.<br>그 다음에, Transposition Matrix라는 부분을 4 by 4 매트릭스로 확장하게 되는데, 이 4 by 4 매트릭스 같은 경우에는 앞의 3 by 3 부분은 Rotation Matrix를 배치하고 그 옆의 3 by 1벡터는 B의 origin에서부터 A까지, 즉 A프레임에 대한 B origin의 좌표를 배치하고 아랫쪽에는 [0,0,0,1]이라는 4가지 숫자를 배치함으로서, 4 by 4 매트릭스로 확장하게 됩니다.</p>
+<p>여러분이 이 식을 매트릭스의 연산을 배웠기 때문에 이 매트릭스의 연산을 계산해보면, 즉 $A^p$, A프레임에 대한 P점은 Rotation Matrix<em>P, B프레임에 대한 P와, P점인데, 이 P점은 A프레임에 대한 origin</em>1을 하기 때문에 결과적으로, 위에 표현되는 식은 앞서서 설명했던 이 위에 있는 식, 즉 P가 A에서 어떻게 기술되는지를, 즉 B의 origin과 Rotation Matrix를 통해서 설명한 이 식과 정확하게 일치하는 것을 확인할 수 있습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (8).jpg)|</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (9).jpg)|</p>
+<p>위에 있는 식은 분명히 Rotation Matrix에 $p$라는 포지션 벡터를 곱하고 그에 다시 origin이라는 position vector를 더해주어 얻어지는 즉 곱하기와 더하기로 이루어진 연산이었는데<br>밑의 식은 이러한 4 by 4 매트릭스로 확장하는 하나의 매트릭스에 벡터 하나를 곱하기 한번의 연산으로 바꿔주기 때문에 내부적으로 똑같지만 우리의 생각은 단순해질 수 있죠.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (10).jpg)|</p>
+<p>수식적으로는 똑같지만 생각에 있어서는 곱하고 더하는 과정을 단순하게 하나의 곱하기로 바꾸어서 대체해서 생각할 수 있다는 장점을 가질 수 있기 때문에<br>이렇게 Homogeneous Transformation이라고 부르는 것을 4 by 4 매트릭스를 도입하게 된 것입니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (11).jpg)|</p>
+<p>더 나아가서, 이러한 Homogeneous Transformation의 의미를 좀 더 살펴볼 필요가 있는데 이 Homogeneous Transformation을 T라고 표현할 때 위의 3 by 3, 일반적으로 Rotation Matrix, 두 좌표계 상의 로테이션을 각도를 맞춰주는 로테이션을 의미하고<br>그 옆에 있는 Translation Vector 같은 경우에는 두 좌표계 사이의 원점 사이의 거리 Vector를 의미하게 됩니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (12).jpg)|</p>
+<p>추가적으로, 밑에는 아까 [0,0,0,1]이라고 말씀드렸는데, 로보틱스나 일반적인 트랜스포메이션 매트릭스에서는 항상 밑에는 [0,0,0,1]이라는 개념을 활용해서 쓸 텐데<br>이것들이 꼭 [0,0,0,1]로만 고정되는 것은 아닙니다.</p>
+<p>컴퓨터 그래픽스나 캐드 툴 등에서 사용할 때, 한쪽으로 확장시킨다거나 Zoom out/In을 할 때에는<br>바로 이러한 밑의 Perspective Translation과 scaling vector 등을 활용해서, zooming이나 한쪽으로만 비대칭적으로 더 확장할 때,<br>이러한 개념으로서의 확장을 할 수 있는 여지도 밑의 4개의 항들로 구현이 가능하기 때문에 Homogeneous Transformation의 매트릭스, T는 굉장히 다양한 분야에서 널리 쓰일 수 있습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (13).jpg)|</p>
+<p>그렇지만, 이 로보틱스 분야와 기구학 분야에서는 Perspective Translation에서는 [0,0,0]로, Scaling Factor는 1로 고정하는 그런 매트릭스로 활용할 예정입니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (14).jpg)|</p>
+<p>추가적으로, Homogeneous Transformation을 앞서서 살펴본 것처럼 이렇게 3 by 1 벡터는 3 by 3 매트릭스*3 by 1 벡터를 하고 3 by 1 벡터를 더해주는 과정을, 4 by 1 백터는 4 by 4 매트릭스에 4 by 1 벡터를 곱해주는<br>이러한 Homogeneous Transformation으로 바꿀 수 있는 방법에 대해서 말씀드렸습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (15).jpg)|</p>
+<p>이렇게 A라는 프레임과 B라는 프레임이 있고 B라는 프레임의 한 점 [0,1,1]이라는 점이 있고 이 B라는 프레임은 A와 비교해서 로테이션이 이루어져 있습니다. 그리고 B라는 프레임에서의 원점은 A라는 프레임에 대해서 [0,3,1]만큼 떨어져 있습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (16).jpg)|</p>
+<p>그렇다면, B라는 프레임에 있는 [0,1,1]이라는 점을, Homogeneous Transformation에서 Rotation Matrix를 먼저 정의할 필요가 있는데 여기서는 여러분들이 B라는 프레임에서의 XYZ, 즉 $X_B$, $Y_B$, $Z_B$를 A라는 프레임에서, 표현하게 되면, [1,0,0], [0,0,1], [0,-1,0]이렇게 3 by 3 로테이션 매트릭스로 표현 가능하고 떨어진 거리는 [0,3,1]의 거리만큼 떨어져 있음을 알 수 있기 때문에<br>이와 같이, Homogeneous Transformation Matrix로 정의할 수 있고 두개를 곱했을 때, 바로 [0,2,2]로 앞서서 말씀드렸던 것처럼 뭔가 2개의 조합이 한가지로 이루어졌는데, 바로 이렇게 곱해버리니까, [0,2,2] 물론 밑에 1이라는 더미 텀이 있지만 이 더미 텀을 빼버리면<br>손쉽게, [0,1,1]이라는 B프레임에서의 점을 [0,2,2]라는 A프레임의 점으로 A프레임으로 충분히 쉽게 Homogeneous Transformation을 통해서 표현할 수 있습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (17).jpg)|</p>
+<p>그렇다면, Homogeneous Transformation을 앞에서 살펴본 것처럼, 이렇게 2가지의 곱하기와 더하기로 이루어진 연산을 하나의 곱하기로 바꿔서 표현할 수 있다는 장점이 있다고 말씀드렸는데<br>그러한 장점만이 있는 게 아니라 좀 더 살펴보게 되면, 즉 한번의 Transformation 한번의 변환만을 할 경우에는 그다지 큰 장점이 없을 수도 있습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (18).jpg)|</p>
+<p>그렇지만 위의 식처럼 C에서부터 B로 오고 B에서부터 A로가는 즉, C프레임에 있는 한 점을, B프레임으로 옮기고, 다시 A프레임으로 옮겨오는,이러한 2가지의 수식을 가지고 설명하는 것을 한번 진행해보도록 하겠습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (19).jpg)|</p>
+<p>이 2개의 연산을 연속적으로 진행하게 되면, 즉 어떤 P라는 점을 A라는 프레임에서 설명하기 위해서 우리는 바로 이 A라는 프레임, B라는 프레임, C라는 프레임을 하나하나 거쳐서 이와 같은 조금은 복잡해보이는 수식으로 표현을 해야 합니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (20).jpg)|</p>
+<p>그렇지만 이 수식을 Homogeneous Transformation으로 표현한다면 C라는 프레임의 P는 바로 Homogeneous Transformation C에서부터 B까지 온 것을 곱해주고 그 곱한 것을 다시 B에서 A까지 가져오는 Homogeneous Transformation의 곱으로 곱해주면 바로 A라는 프레임으로 넘어오게 되죠.<br>앞서서 본 위의 이 수식 즉, 그냥 어떤 Rotation Matrix와 Origin의 어떤 거리 관계식 이런 것들로 설명한 식보다 훨씬 간단해진다는 것을 알 수 있습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (21).jpg)|</p>
+<p>수식적으로는 동일한 효과를 얻으면서 생각은 훨씬 더 쉽게할 수 있습니다. 바로 이 Homogeneous Transformation 하나만으로 얼마든지 한번이건 두번이건 세번이건, 연속적으로 진행될때마다 각각을 곱해주기만 하면 바로 이 복잡한 연산이 단순하게 바뀔 수 있다는 장점도 가지고 있습니다.</p>
+<h2 id="Inverse-Transformation"><a href="#Inverse-Transformation" class="headerlink" title="Inverse Transformation"></a>Inverse Transformation</h2><p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (22).jpg)|</p>
+<p>일반적으로 Rotation Matrix같은 경우에는 앞서서, SO(3)에 포함되어 있기 때문에 자기 자신의 역행렬은 Transpose하고 일치한다,라고 설명한 바 있습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (23).jpg)|</p>
+<p>그렇지만 Homogeneous Transformation같은 경우에는 확장을 했기 때문에 Homogeneous Transformation의 Inverse는 Homogeneous Transformation를 Transpose한 것과 완전히 같지는 않습니다.<br>특별히 그런 부분을 주의하기 위해서, Homogeneous Transformation의 Inverse를 다음과 같이 정의합니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (24).jpg)|</p>
+<p>즉, 앞서서 로테이션 매트릭스 자체는, 트랜스포즈 자체가 역행렬을 의미하기 때문에, 로테이션의 자리에는 바로 로테이션 매트릭스의 트랜스포즈 형태로 배치할 수 있고 원래 이 위치에는 B에서부터 A 즉, A에 대해서 B의 origin이 어떻게 표현되는지를 설명해야 하는데 역행렬이니까, 반대로 B라는 프레임에 대해서 A Origin의 위치를 써 넣어줘야 하는 것입니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (24).jpg)|</p>
+<p>그럼 어떻게 해야 하느냐, 바로 Inverse Transformation을 하게 된다면 즉 Rotation을 즉, B라는 프레임에 대해서 A라는 프레임으로 가져가게 된다면 Transpose한다면 역행렬이 된다고 했습니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (25).jpg)|</p>
+<p>그 역행렬에다가 B라는 origin을 A로 바꾸는 것을 곱해줌으로서 -를 곱해줌으로서 A origin을 B프레임에 대해서 설명할 수 있는 이러한 식이 완성되게 됩니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (26).jpg)|</p>
+<p>그래서, 이 두 식을 여러분들이 Homogeneous Transformation Matrix, 즉 B에서부터 A까지 오는 Homogeneous Transformation의 Inverse는 이와 같이 정의되고 이 정의된 것을 A에서 B까지 오는 Homogeneous Transformation이라 말할 수도 있습니다. 그리고 그 2개를 같이 곱했을 때, 당연히 역행렬이기 때문에, Identity Matrix를 만족해야합니다.<br>수식으로 계산해보면 쉽게 Identity Matrix가 된다는 것을 확인할 수 있게 됩니다.</p>
+<p>|![alt](/assets/images/K-MOOC/RMaURA/K-MOOC_RMaURA3-5 (27).jpg)|</p>
+<p>여기까지 살펴봄으로서, 여러분들은 Homogeneous Transformation이 어떻게 구성되고 어떤 장점을 갖고 있는지 이 Homogeneous Transformation의 Inverse는 어떻게 계산하는지를 살펴보았습니다</p>
+
+    </div>
+      
+
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/K-MOOC/" rel="tag"><i class="fa fa-tag"></i> K-MOOC</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-4/" rel="next" title="Robot Manipulator and Underwater Robot Application 3주차 3-4 Euler Angles(2)">
+                <i class="fa fa-chevron-left"></i> Robot Manipulator and Underwater Robot Application 3주차 3-4 Euler Angles(2)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2020/10/22/2019-04-08-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-4-Weak-4-1/" rel="prev" title="Robot Manipulator and Underwater Robot Application 4주차 4-1 Introduction">
+                Robot Manipulator and Underwater Robot Application 4주차 4-1 Introduction <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            목차
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            흝어보기
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Juhwak Kim</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">카테고리</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">태그</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/juhwakKim" title="GitHub &rarr; https://github.com/juhwakKim" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:juhk1017@naver.com" title="E-Mail &rarr; mailto:juhk1017@naver.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Homogeneous-Transformation"><span class="nav-number">1.</span> <span class="nav-text">Homogeneous Transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inverse-Transformation"><span class="nav-number">2.</span> <span class="nav-text">Inverse Transformation</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Juhwak Kim</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', function() {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://juhk1017.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://juhwakkim.github.io/2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-5/";
+    this.page.identifier = "2020/10/22/2019-04-07-KMOOC-Robot-Manipulator-and-Underwater-Robot-Application-3-Weak-3-5/";
+    this.page.title = 'Robot Manipulator and Underwater Robot Application 3주차 3-5 Homogeneous Transformation';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://juhk1017.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
+</html>
